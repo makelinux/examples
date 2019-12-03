@@ -20,6 +20,11 @@ static void lambda_basics(void)
 {
 	int i = 1;
 
+	auto annotated_named_lambda_declaraion =  // optional name
+		[ ] // capture
+		( ) // optional list of arguments
+		{ }; // body
+
 	// Primitive named lambdas are just like closure functions:
 	// https://en.wikipedia.org/wiki/Closure_(computer_programming)
 
@@ -41,6 +46,20 @@ static void lambda_basics(void)
 	auto inc_get = [&] () -> int { return ++i; };
 	assert(inc_get() == 2);
 	assert(inc_get() == 3);
+
+	// annotated expanded empty inline lambda call:
+	[ ] // capture
+	( ) // optional list of arguments
+	-> void // optional return value
+	{ } // body
+	( ); // call with arguments
+
+	// annotated expanded sample inline lambda call:
+	[i] // capture
+	(int a) // optional list of arguments
+	-> int // optional return value
+	{ return i + a; } // body
+	(1); // call with argument
 
 	// inline lambda which is called in place
 	// https://en.wikipedia.org/wiki/Anonymous_function
