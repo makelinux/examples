@@ -9,7 +9,13 @@ using namespace std;
  @file
  @brief C++11
  @defgroup CPP11 C++11 examples
+
+ https://en.wikipedia.org/wiki/C++11
+
+ https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP11.md
+
  @{
+
  @defgroup lang11 Language
  @{
 	https://en.cppreference.com/w/cpp/language/move_constructor

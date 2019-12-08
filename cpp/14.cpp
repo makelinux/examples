@@ -8,6 +8,13 @@ using namespace std;
  @file
  @brief C++14
  @defgroup CPP14 C++14 examples
+
+ https://en.wikipedia.org/wiki/C++14
+
+ https://isocpp.org/wiki/faq/cpp14-language
+
+ https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP14.md
+
  @{
  @defgroup ded14 Deduction
  @{

@@ -22,6 +22,13 @@ using namespace std;
  @file
  @brief C++17
  @defgroup CPP17 C++17 examples
+
+ https://en.wikipedia.org/wiki/C++17
+
+ https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP17.md
+
+ https://en.cppreference.com/w/cpp/language/history/17
+
  @{
  @defgroup templ17 Template
  https://en.cppreference.com/w/cpp/language/templates
