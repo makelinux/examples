@@ -252,7 +252,8 @@ void structured_bindings()
 
 void conditional_with_init()
 {
-	if (auto a = true);
+	if (auto a = true)
+		;
 
 	switch (int a = 10) {
 	}
@@ -277,7 +278,7 @@ void test_attr()
 	switch (a) {
 	// Indicates that falling through on case 1 is intentional
 	case 1:
-		[[fallthrough]]
+		[[fallthrough]];
 	case 2:
 		// Indicates that b might be unused, such as on production builds
 		[[maybe_unused]] int b = foo();
