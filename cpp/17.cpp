@@ -198,13 +198,15 @@ S x2 = S{123};
 
 /**
  @}
- @defgroup nn Nested namespaces
+ @defgroup nn Qualified nested namespace
+ https://en.cppreference.com/w/cpp/language/namespace
+ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4026.html
  @{
  */
 
-namespace A::B::C
-{
-int i;
+// namespace A { namespace B { namespace before_qualified_nested_namespace
+namespace A::B::qualified_nested_namespace {
+	int in_qualified_nested_namespace;
 }
 
 /**
