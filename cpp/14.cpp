@@ -16,6 +16,19 @@ using namespace std;
  https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP14.md
 
  @{
+ @defgroup lambda14 Lambda
+ https://en.cppreference.com/w/cpp/language/lambda
+ @{
+ */
+
+// Generic lambdas
+// auto before_generic_lambda = [](int x) { return x; };
+auto generic_lambda = [](auto x) { return x; };
+
+auto universal_size = [](const auto& m) { return m.size(); };
+
+/**
+ @}
  @defgroup ded14 Deduction
  @{
  */
