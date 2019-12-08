@@ -26,6 +26,10 @@ using namespace std;
  @defgroup templ17 Template
  https://en.cppreference.com/w/cpp/language/templates
  @{
+*/
+#if __cpp_deduction_guides
+
+/**
  @defgroup class_template_argument_deduction Class template argument deduction
  https://en.cppreference.com/w/cpp/language/class_template_argument_deduction
  @{
@@ -47,14 +51,18 @@ struct arg_deduction {
 	arg_deduction(T val) : val(val) {}
 };
 
-/// @brief arg_deduction<int>
+/// @brief before_arg_deduction<int>
 arg_deduction c1 {1};
 
-/// @brief arg_deduction<float>
+/// @brief begore_arg_deduction<float>
 arg_deduction c2;
 
+/// @}
+#else
+#pragma message("undefined __cpp_deduction_guides")
+#endif
+
 /**
- @}
  @{
  @defgroup template_parameters Template parameters
  https://en.cppreference.com/w/cpp/language/template_parameters
