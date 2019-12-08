@@ -8,9 +8,64 @@ using namespace std;
 /**
  @file
  @brief C++11
- @defgroup CPP11 C++11 features
+ @defgroup CPP11 C++11 examples
  @{
- @defgroup templ Lambda
+ @defgroup lang11 Language
+ @{
+	https://en.cppreference.com/w/cpp/language/move_constructor
+
+	https://en.cppreference.com/w/cpp/language/move_assignment
+
+	https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
+
+	https://en.cppreference.com/w/cpp/language/override
+
+	https://en.cppreference.com/w/cpp/language/final
+
+	https://en.cppreference.com/w/cpp/language/reference &&
+
+	https://en.cppreference.com/w/cpp/language/attributes
+
+	https://en.cppreference.com/w/cpp/language/nullptr
+
+	https://en.cppreference.com/w/cpp/language/string_literal
+
+	https://en.cppreference.com/w/cpp/language/character_literal
+
+	https://en.cppreference.com/w/cpp/language/user_literal
+
+	https://en.cppreference.com/w/cpp/language/aggregate_initialization
+
+	https://en.cppreference.com/w/cpp/language/range-for
+
+	https://en.cppreference.com/w/cpp/language/decltype
+
+	https://en.cppreference.com/w/cpp/language/auto
+
+	https://en.cppreference.com/w/cpp/language/constexpr
+
+	https://en.cppreference.com/w/cpp/language/parameter_pack
+
+ */
+
+/**
+ Trailing return type
+
+ https://en.cppreference.com/w/cpp/language/function
+
+ https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzarg/trailing_return.htm
+
+*/
+
+// int before(int a) { return a; }
+auto trailing_return_type(int a) -> int
+{
+	return a;
+}
+
+/**
+ @}
+ @defgroup lambda11 Lambda
  https://en.cppreference.com/w/cpp/language/lambda
  https://www.geeksforgeeks.org/lambda-expression-in-c/
  @{
@@ -138,14 +193,15 @@ static void lambda_complex(void)
 	assert(use_lambda(1, [](int a) {return a + 1;}) == 2);
 }
 
+/// @}
+
 int main(void)
 {
+	cout << __cplusplus << endl;
+	auto r = trailing_return_type(1);
 	lambda_basics();
 	lambda_capture();
 	lambda_complex();
 	return 0;
 }
-/**
- @}
- @}
- */
+/// @}
