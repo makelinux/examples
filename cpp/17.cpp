@@ -374,9 +374,14 @@ void variant_demo()
 	assert(holds_alternative<string>(y));
 }
 
-int x = 50;
-/// @brief x = x < 100 ? 100 : x > 200 ? 200 : x;
-int x_clamped = clamp(x, 100, 200);
+void clamp_demo()
+{
+	///  clamp(x, low, high) == x < low ? low : x > high ? high : x;
+	assert(clamp(0, 1, 3) == 1);
+	assert(clamp(2, 1, 3) == 2);
+	assert(clamp(4, 1, 3) == 3);
+}
+
 /// @}
 
 int main()
@@ -386,6 +391,7 @@ int main()
 	cout << __cplusplus << endl;
 	cout << __cpp_deduction_guides << endl;
 	variant_demo();
+	clamp_demo();
 }
 
 /// @}
