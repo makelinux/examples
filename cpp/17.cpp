@@ -287,35 +287,6 @@ void test_attr()
 	}
 }
 
-void test_variant()
-{
-	variant<int, float> v, w;
-	v = 12; // v contains int
-	int i = get<int>(v);
-	w = get<int>(v);
-	w = get<0>(v); // same effect as the previous line
-	w = v; // same effect as the previous line
-
-	// get<double>(v); // error: no double in [int, float]
-	// get<3>(v); // error: valid index values are 0 and 1
-
-	try {
-		get<float>(w); // w contains int, not float: will throw
-	} catch (const bad_variant_access&) {}
-
-	using namespace literals;
-
-	variant<string> x("abc");
-	// converting constructors work when unambiguous
-	x = "def"; // converting assignment also works when unambiguous
-
-	variant<string, void const*> y("abc");
-	// casts to void const * when passed a char const *
-	assert(holds_alternative<void const*>(y)); // succeeds
-	y = "xyz"s;
-	assert(holds_alternative<string>(y)); // succeeds
-}
-
 /**
  @}
  @defgroup constif Compile time constexpr if
@@ -371,6 +342,38 @@ void map_demo()
 	// dst == { 1, 2, 3, 4, 5 }
 }
 
+/// https://en.cppreference.com/w/cpp/utility/variant
+void variant_demo()
+{
+	variant<int, float> v, w;
+	v = 12; // v contains int
+	int i = get<int>(v);
+	w = get<int>(v);
+	w = get<0>(v); // same effect as the previous line
+	w = v; // same effect as the previous line
+
+	// get<double>(v); // error: no double in [int, float]
+	// get<3>(v); // error: valid index values are 0 and 1
+
+	try {
+		get<float>(w); // w contains int, not float: will throw
+	} catch (const bad_variant_access&) {}
+
+	using namespace literals;
+
+	variant<string> x("abc");
+
+	// converting constructors work when unambiguous
+	x = "def"; // converting assignment also works when unambiguous
+
+	variant<string, void const*> y("abc");
+
+	// casts to void const * when passed a char const *
+	assert(holds_alternative<void const*>(y));
+	y = "xyz"s;
+	assert(holds_alternative<string>(y));
+}
+
 int x = 50;
 /// @brief x = x < 100 ? 100 : x > 200 ? 200 : x;
 int x_clamped = clamp(x, 100, 200);
@@ -378,6 +381,7 @@ int main()
 {
 	folding_demo();
 	lambda_examples();
+	variant_demo();
 }
 
 /**
