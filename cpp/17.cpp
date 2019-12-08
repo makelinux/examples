@@ -315,8 +315,8 @@ char char_u8 = u8'x';
  https://en.cppreference.com/w/cpp/language/enum
  @{
  */
-enum byte : unsigned char {};
-byte b { 123 };
+enum byte_e : unsigned char {};
+byte_e b { 123 };
 
 /**
  @}
