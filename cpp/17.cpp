@@ -377,14 +377,15 @@ void variant_demo()
 int x = 50;
 /// @brief x = x < 100 ? 100 : x > 200 ? 200 : x;
 int x_clamped = clamp(x, 100, 200);
+/// @}
+
 int main()
 {
 	folding_demo();
 	lambda_examples();
+	cout << __cplusplus << endl;
+	cout << __cpp_deduction_guides << endl;
 	variant_demo();
 }
 
-/**
- @}
- @}
- */
+/// @}
