@@ -21,11 +21,10 @@ using namespace std;
 
  @file
  @brief C++17
- @defgroup CPP17 C++17 features
+ @defgroup CPP17 C++17 examples
  @{
  @defgroup templ17 Template
- https://en.cppreference.com/w/cpp/language/lambda
- https://docs.microsoft.com/en-us/cpp/cpp/lambda-expressions-constexpr
+ https://en.cppreference.com/w/cpp/language/templates
  @{
  @defgroup class_template_argument_deduction Class template argument deduction
  https://en.cppreference.com/w/cpp/language/class_template_argument_deduction
