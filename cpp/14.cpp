@@ -20,13 +20,19 @@ using namespace std;
  https://en.cppreference.com/w/cpp/language/lambda
  @{
  */
+static void lambda_demo()
+{
+	// Generic lambdas
+	// auto before_generic_lambda = [](int x) { return x; };
+	auto generic_lambda = [](auto x) { return x; };
 
-// Generic lambdas
-// auto before_generic_lambda = [](int x) { return x; };
-auto generic_lambda = [](auto x) { return x; };
+	auto universal_size = [](const auto& m) { return m.size(); };
 
-auto universal_size = [](const auto& m) { return m.size(); };
+	auto capture_initializers = [value = 1] { return value; };
 
+	unique_ptr<int> ptr(new int(10));
+	auto capture_by_move = [value = std::move(ptr)] { return *value; };
+}
 /**
  @}
  @defgroup ded14 Deduction
