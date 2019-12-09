@@ -1,5 +1,9 @@
 #include <utility>
 #include <iostream>
+#include <memory>
+#include <chrono>
+#include <tuple>
+#include <string>
 #include <cassert>
 
 using namespace std;
@@ -56,7 +60,7 @@ auto deduced_return_type_lambda = [](auto& x) -> auto& {
 	return deduced_return_type_template(x);
 };
 
-/*
+/**
  @}
  @defgroup other14 Other
  @{
@@ -73,8 +77,54 @@ auto deduced_return_type_lambda = [](auto& x) -> auto& {
 	https://en.cppreference.com/w/cpp/utility/integer_sequence
 	https://en.cppreference.com/w/cpp/utility/exchange
 	https://en.cppreference.com/w/cpp/io/manip/quoted
+
+	// [[deprecated]]
    */
 
+/// Binary literals, digit separators
+
+auto binary_literal = 0b0100'1100'0110;
+
+auto integer_literal = 1'000'000;
+
+auto floating_point_literal = 0.000'015'3;
+
+/// Standard user-defined literals
+
+auto str = "hello world"s; // auto deduces string
+auto dur = 60s;            // auto deduces chrono::seconds
+
+/// Tuple addressing via type
+
+static void tuple_demo()
+{
+	tuple<string, string, int> tuple_by_type("foo", "bar", 7);
+
+	int i = get<int>(tuple_by_type);
+	assert(i == 7);
+
+	int j = get<2>(tuple_by_type);
+	assert(j == 7);
+}
+
+/// Template variables
+namespace template_variables {
+
+template<typename T>
+constexpr T pi = T(3.141592653589793238462643383);
+
+// Usual specialization rules apply:
+template<>
+constexpr const char* pi<const char*> = "pi";
+
+static void demo()
+{
+
+	assert(pi<int> == 3);
+	assert(string(pi<const char*>) == "pi");
+}
+
+}
 /// @}
 
 int main(void)
@@ -84,6 +134,8 @@ int main(void)
 	int& y = deduced_return_type_lambda(x); // reference to `x`
 	assert(&y == &x);
 	assert(y == 1);
+	tuple_demo();
+	template_variables::demo();
 
 	return 0;
 }
