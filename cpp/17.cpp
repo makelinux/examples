@@ -31,14 +31,18 @@ using namespace std;
 
  @{
  @defgroup templ17 Template
+
  https://en.cppreference.com/w/cpp/language/templates
+
  @{
 */
 #if __cpp_deduction_guides
 
 /**
  @defgroup class_template_argument_deduction Class template argument deduction
+
  https://en.cppreference.com/w/cpp/language/class_template_argument_deduction
+
  @{
  */
 
@@ -177,6 +181,11 @@ void lambda_examples()
 
 /**
  @}
+ @defgroup land17 Language
+ @{
+
+ https://en.cppreference.com/w/cpp/language
+
  @defgroup folding Folding
  @{
  */
@@ -200,7 +209,9 @@ void test2()
 /**
  @}
  @defgroup iv Inline variables
+
  https://en.cppreference.com/w/cpp/language/inline
+
  @{
  */
 
@@ -213,8 +224,11 @@ S x2 = S{123};
 /**
  @}
  @defgroup nn Qualified nested namespace
+
  https://en.cppreference.com/w/cpp/language/namespace
+
  http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4026.html
+
  @{
  */
 
@@ -226,7 +240,9 @@ namespace A::B::qualified_nested_namespace {
 /**
  @}
  @defgroup sb Structured bindings
+
  https://en.cppreference.com/w/cpp/language/structured_binding
+
  @{
  */
 
@@ -258,9 +274,12 @@ void structured_bindings()
 
 /**
  @}
- @defgroup iscs Variable declaration in conditional
+ @defgroup iscs Variable declaration in conditionals
+
  https://en.cppreference.com/w/cpp/language/if
+
  https://en.cppreference.com/w/cpp/language/switch
+
  @{
  */
 
@@ -278,9 +297,13 @@ template<class T> struct dependent_false : false_type {};
 /**
  @}
  @defgroup attr New attributes 'fallthrough', 'nodiscard' and 'maybe_unused'
+
  https://en.cppreference.com/w/cpp/language/attributes/fallthrough
+
  https://en.cppreference.com/w/cpp/language/attributes/nodiscard
+
  https://en.cppreference.com/w/cpp/language/attributes/maybe_unused
+
  @{
  */
 
@@ -334,7 +357,8 @@ byte_e b { 123 };
 
 /**
  @}
- @defgroup more More features
+ @}
+ @defgroup lib17 Library
  @{
  */
 
@@ -400,10 +424,10 @@ void clamp_demo()
 
 int main()
 {
-	folding_demo();
-	lambda_examples();
 	cout << __cplusplus << endl;
 	cout << __cpp_deduction_guides << endl;
+	folding_demo();
+	lambda_examples();
 	variant_demo();
 	clamp_demo();
 }
