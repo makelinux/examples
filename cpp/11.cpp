@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cassert>
 #include <functional>
+#include <algorithm>
+#include <array>
 
 using namespace std;
 
@@ -81,7 +83,7 @@ static void lambda_basics(void)
 {
 	int i = 1;
 
-	auto annotated_named_lambda_declaraion =  // optional name
+	auto annotated_named_lambda_expression =  // optional name
 		[ ] // capture
 		( ) // optional list of arguments
 		{ }; // body
@@ -104,22 +106,23 @@ static void lambda_basics(void)
 	assert(get_i() == 1);
 
 	// lambda captures external variable by reference
-	auto inc_get = [&] () -> int { return ++i; };
+	// with omitted arguments and return type
+	auto inc_get = [&] { return ++i; };
 	assert(inc_get() == 2);
 	assert(inc_get() == 3);
 
 	// annotated expanded empty inline lambda call:
 	[ ] // capture
-	( ) // optional list of arguments
-	-> void // optional return value
-	{ } // body
+		( ) // optional list of arguments
+			-> void // optional return value
+			{ } // body
 	( ); // call with arguments
 
 	// annotated expanded sample inline lambda call:
 	[i] // capture
-	(int a) // optional list of arguments
-	-> int // optional return value
-	{ return i + a; } // body
+		(int a) // optional list of arguments
+			-> int // optional return value
+			{ return i + a; } // body
 	(1); // call with argument
 
 	// inline lambda which is called in place
@@ -173,6 +176,7 @@ static int use_lambda(int a, function<int(int)> f)
 	return f(a);
 }
 
+/// https://en.cppreference.com/w/cpp/utility/functional/function
 static function<int(int)> g_f;
 
 static void set_lambda(function<int(int)> f)

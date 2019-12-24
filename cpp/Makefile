@@ -1,5 +1,5 @@
-all: 20 17 14 11 98
-CXXFLAGS+=-Wall -Wno-long-long -pedantic -Wno-unused
+all: 20 17 14 11 03
+CXXFLAGS+=-Wall -Wextra -Wno-long-long -Wno-unused
 #CXX=g++-8
 
 20: CXX=clang++
@@ -8,4 +8,4 @@ CXXFLAGS+=-Wall -Wno-long-long -pedantic -Wno-unused
 17: CXXFLAGS+=-std=c++17
 14: CXXFLAGS+=-std=c++14
 11: CXXFLAGS+=-std=c++11
-98: CXXFLAGS+=-std=c++98
+03: CXXFLAGS+=-std=c++03
