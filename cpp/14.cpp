@@ -79,7 +79,7 @@ auto deduced_return_type_lambda = [](auto& x) -> auto& {
 	https://en.cppreference.com/w/cpp/io/manip/quoted
 
 	// [[deprecated]]
-   */
+ */
 
 /// Binary literals, digit separators
 
