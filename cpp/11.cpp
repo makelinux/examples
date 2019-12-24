@@ -203,6 +203,38 @@ static void lambda_complex(void)
 	assert(use_lambda(1, [](int a) {return a + 1;}) == 2);
 }
 
+void func_11()
+{
+	class functor {
+		int y = 1;
+		public:
+		int operator()(int a) const {
+			return a + y;
+		}
+	};
+	functor ft;
+	assert(ft(1) == 2);
+
+	// https://en.cppreference.com/w/cpp/utility/functional/function
+	function<int(int)> ft2 = ft;
+	assert(ft(2) == 3);
+	return;
+
+	// https://en.cppreference.com/w/cpp/utility/functional/bind
+	auto binded = std::bind(ft2, 3);
+	assert(binded() == 5);
+}
+
+void sort_11()
+{
+	std::array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	std::sort(s.begin(), s.end(),
+		  // sort using a lambda expression
+		  [](int a, int b)
+		  { return a > b; }
+		 );
+}
+
 /// @}
 
 int main(void)
@@ -212,6 +244,25 @@ int main(void)
 	lambda_basics();
 	lambda_capture();
 	lambda_complex();
+	func_11();
+	sort_11();
 	return 0;
 }
 /// @}
+
+extern "C" {
+void main3()
+{
+	struct ab {
+		int a;
+		int b;
+	};
+
+
+	// Point2D point2D = {.x = 1, .y = 2};
+	// Point2D point2D = {.x , };
+	ab ab {1, 2};
+
+	// Point3D point3D {.x = 1, .y = 2, .z = 2};
+}
+}
