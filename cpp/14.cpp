@@ -125,6 +125,13 @@ static void demo()
 }
 
 }
+
+/// int explicit_return_type()
+auto implicit_return_type()
+{
+	return 1;
+}
+
 /// @}
 
 int main(void)
@@ -136,6 +143,7 @@ int main(void)
 	assert(y == 1);
 	tuple_demo();
 	template_variables::demo();
+	implicit_return_type();
 
 	return 0;
 }
