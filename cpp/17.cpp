@@ -290,8 +290,8 @@ void structured_bindings()
 
 void conditional_with_init()
 {
-	if (auto a = true)
-		;
+	if (auto a = true) {
+	};
 
 	switch (int a = 10) {
 	}
@@ -446,7 +446,6 @@ void dynamic_memory_17()
 int main()
 {
 	cout << __cplusplus << endl;
-	cout << __cpp_deduction_guides << endl;
 	folding_demo();
 	lambda_examples();
 	variant_demo();
