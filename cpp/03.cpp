@@ -24,7 +24,12 @@ struct _ {
   bool operator() (int i, int j) { return i < j; }
 } functor;
 
-/// http://www.cplusplus.com/reference/algorithm/sort/?kw=sort
+/**
+ http://www.cplusplus.com/reference/algorithm/sort/?kw=sort
+
+ Compare with @ref sort_11
+ */
+
 void sort_03()
 {
 	int a[] =  {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
