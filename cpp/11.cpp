@@ -4,6 +4,7 @@
 #include <functional>
 #include <algorithm>
 #include <array>
+#include <memory>
 
 using namespace std;
 
@@ -33,8 +34,6 @@ using namespace std;
 	https://en.cppreference.com/w/cpp/language/reference &&
 
 	https://en.cppreference.com/w/cpp/language/attributes
-
-	https://en.cppreference.com/w/cpp/language/nullptr
 
 	https://en.cppreference.com/w/cpp/language/string_literal
 
@@ -242,6 +241,44 @@ void sort_11()
 		 );
 }
 
+void dynamic_memory_11()
+{
+	int d = 0;
+	unique_ptr<int> u1;
+	assert(!u1);
+	u1.reset(&d);
+	assert(u1);
+	*u1 = 1;
+	assert(d == 1);
+	unique_ptr<int> u2;
+        // u2 = u1; - prohibited
+        u2 = move(u1);
+	assert(!u1);
+	assert(u2);
+	// must release because d is local
+	u2.release();
+	u2.reset(new int(10));
+	assert(*u2 == 10);
+	u2.reset(); // deletes int(10)
+	assert(u2 == nullptr); // https://en.cppreference.com/w/cpp/language/nullptr
+
+	assert(!u2);
+
+	shared_ptr<int> s1;
+	assert(!s1);
+	assert(!s1.use_count());
+	auto s2 = make_shared<int>(1);
+	assert(s2.use_count() == 1);
+	s1 = s2;
+	assert(s1.use_count() == 2);
+	*s1 = 2;
+	assert(*s1 == *s1.get());
+	assert(*s2 == 2);
+	s2.reset();
+	assert(s1.use_count() == 1);
+	assert(!s2.use_count());
+}
+
 /// @}
 
 int main(void)
@@ -254,6 +291,7 @@ int main(void)
 	lambda_complex();
 	func_11();
 	sort_11();
+	dynamic_memory_11();
 	return 0;
 }
 /// @}
