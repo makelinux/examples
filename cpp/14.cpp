@@ -5,6 +5,7 @@
 #include <tuple>
 #include <string>
 #include <cassert>
+#include <memory>
 
 using namespace std;
 
@@ -71,7 +72,6 @@ auto deduced_return_type_lambda = [](auto& x) -> auto& {
 	https://en.cppreference.com/w/cpp/language/aggregate_initialization
 	https://en.cppreference.com/w/cpp/language/lambda
 
-	https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique
 	https://en.cppreference.com/w/cpp/thread/shared_timed_mutex
 	https://en.cppreference.com/w/cpp/thread/shared_lock
 	https://en.cppreference.com/w/cpp/utility/integer_sequence
@@ -132,6 +132,14 @@ auto implicit_return_type()
 	return 1;
 }
 
+void dynamic_memory_14()
+{
+	// https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique
+	auto u = make_unique<int>(1);
+	assert(u);
+	assert(*u == 1);
+}
+
 /// @}
 
 int main(void)
@@ -144,6 +152,8 @@ int main(void)
 	tuple_demo();
 	template_variables::demo();
 	implicit_return_type();
+	dynamic_memory_14();
+	sort_14();
 
 	return 0;
 }
