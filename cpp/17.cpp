@@ -8,6 +8,8 @@
 #include <map>
 #include <set>
 #include <iostream>
+#include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -423,6 +425,22 @@ void clamp_demo()
 	assert(clamp(4, 1, 3) == 3);
 }
 
+void dynamic_memory_17()
+{
+	int d[2] = {10, 11};
+	unique_ptr<int[]> u1(d);
+	assert(u1.get()[0] == 10); // C++11
+	assert(u1[1] == 11);
+	assert((bool)u1);
+	u1.release();
+	const shared_ptr<int> s1{0};
+	//cout << s1.element_type.name() << endl;
+	//cout << typeid(s1.weak_type).name() << endl;
+	assert(typeid(reinterpret_pointer_cast<shared_ptr<int>>(s1)).name()
+	       == string("St10shared_ptrIS_IiEE"));
+	vector<int> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+}
+
 /// @}
 
 int main()
@@ -433,6 +451,8 @@ int main()
 	lambda_examples();
 	variant_demo();
 	clamp_demo();
+	dynamic_memory_17();
+	// for (auto&& [first,second] : mymap) { }
 }
 
 /// @}
