@@ -5,6 +5,8 @@
 #include <tuple>
 #include <string>
 #include <cassert>
+#include <algorithm>
+#include <array>
 #include <memory>
 
 using namespace std;
@@ -138,6 +140,18 @@ void dynamic_memory_14()
 	auto u = make_unique<int>(1);
 	assert(u);
 	assert(*u == 1);
+}
+
+/// Compare with @ref sort_11
+
+void sort_14()
+{
+	array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	sort(s.begin(), s.end(),
+		  // sort using a generic lambda expression
+		  [](auto a, auto b)
+		  { return a > b; }
+		 );
 }
 
 /// @}
