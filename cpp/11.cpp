@@ -44,6 +44,10 @@ using namespace std;
 
 	https://en.cppreference.com/w/cpp/language/aggregate_initialization
 
+	https://en.cppreference.com/w/cpp/language/initializer_list
+
+	https://en.cppreference.com/w/cpp/language/direct_initialization
+
 	https://en.cppreference.com/w/cpp/language/range-for
 
 	https://en.cppreference.com/w/cpp/language/decltype
@@ -83,8 +87,6 @@ auto trailing_return_type(int a) -> int
 
 static void lambda_basics(void)
 {
-	int i = 1;
-
 	auto annotated_named_lambda_expression =  // optional name
 		[ ] // capture
 		( ) // optional list of arguments
@@ -104,6 +106,7 @@ static void lambda_basics(void)
 	assert(pass(5) == 5);
 
 	// lambda captures external value
+	int i = 1;
 	auto get_i = [=] () -> int { return i; };
 	assert(get_i() == 1);
 
@@ -115,16 +118,16 @@ static void lambda_basics(void)
 
 	// annotated expanded empty inline lambda call:
 	[ ] // capture
-		( ) // optional list of arguments
-			-> void // optional return value
-			{ } // body
+	( ) // optional list of arguments
+	-> void // optional return value
+	{ } // body
 	( ); // call with arguments
 
 	// annotated expanded sample inline lambda call:
 	[i] // capture
-		(int a) // optional list of arguments
-			-> int // optional return value
-			{ return i + a; } // body
+	(int a) // optional list of arguments
+	-> int // optional return value
+	{ return i + a; } // body
 	(1); // call with argument
 
 	// inline lambda which is called in place
@@ -223,14 +226,16 @@ void func_11()
 	return;
 
 	// https://en.cppreference.com/w/cpp/utility/functional/bind
-	auto binded = std::bind(ft2, 3);
+	auto binded = bind(ft2, 3);
 	assert(binded() == 5);
 }
 
+/// Compare with @ref sort_03
+
 void sort_11()
 {
-	std::array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
-	std::sort(s.begin(), s.end(),
+	array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	sort(s.begin(), s.end(),
 		  // sort using a lambda expression
 		  [](int a, int b)
 		  { return a > b; }
@@ -242,6 +247,7 @@ void sort_11()
 int main(void)
 {
 	cout << __cplusplus << endl;
+	static_assert(__cplusplus == 201103);
 	auto r = trailing_return_type(1);
 	lambda_basics();
 	lambda_capture();
