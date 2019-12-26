@@ -48,8 +48,6 @@ using namespace std;
 
 	https://en.cppreference.com/w/cpp/language/decltype
 
-	https://en.cppreference.com/w/cpp/language/auto
-
 	https://en.cppreference.com/w/cpp/language/constexpr
 
 	https://en.cppreference.com/w/cpp/language/parameter_pack
@@ -64,6 +62,10 @@ using namespace std;
  https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzarg/trailing_return.htm
 
 */
+
+
+/// https://en.cppreference.com/w/cpp/language/auto
+auto auto_int = 1;
 
 // int before(int a) { return a; }
 auto trailing_return_type(int a) -> int
