@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 
-static_assert(__cplusplus == 201707);
+static_assert(__cplusplus >= 201707);
 
 
 using namespace std;
