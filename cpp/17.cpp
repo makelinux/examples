@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <variant>
 #include <string>
+#include <string_view>
 #include <cassert>
 #include <algorithm>
 #include <map>
@@ -441,6 +442,17 @@ void dynamic_memory_17()
 	vector<int> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
 }
 
+
+void string_view_demo()
+{
+	static_assert(__cpp_lib_string_view);
+	string s = "abcd";
+	string_view v = s;
+	assert(v.data()  == s.c_str());
+	assert(v.substr(1, 2).data() >= s.c_str());
+	assert(v.substr(1, 2).data() <= s.c_str() + s.length());
+}
+
 /// @}
 
 int main()
@@ -451,6 +463,7 @@ int main()
 	variant_demo();
 	clamp_demo();
 	dynamic_memory_17();
+	string_view_demo();
 	// for (auto&& [first,second] : mymap) { }
 }
 
