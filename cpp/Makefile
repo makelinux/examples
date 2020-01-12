@@ -1,5 +1,6 @@
 all: 20 17 14 11 03
 CXXFLAGS+=-Wall -Wextra -Wno-long-long -Wno-unused
+CXXFLAGS+=-include features.cpp
 
 ifneq (, $(shell which g++-9))
 CXX=g++-9
