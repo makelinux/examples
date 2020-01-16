@@ -255,7 +255,9 @@ void dynamic_memory_11()
 	assert(d == 1);
 	unique_ptr<int> u2;
         // u2 = u1; - prohibited
-        u2 = move(u1);
+	int * p1 = u1.get();
+        u2 = move(u1); // https://en.cppreference.com/w/cpp/utility/move
+	assert(p1 == u2.get());
 	assert(!u1);
 	assert(u2);
 	// must release because d is local
