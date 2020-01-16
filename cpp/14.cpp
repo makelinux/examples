@@ -1,3 +1,5 @@
+static_assert(__cplusplus == 201402);
+
 #include <utility>
 #include <iostream>
 #include <memory>
@@ -158,7 +160,6 @@ void sort_14()
 
 int main(void)
 {
-	cout << __cplusplus << endl;
 	auto x = deduced_return_type(1);
 	int& y = deduced_return_type_lambda(x); // reference to `x`
 	assert(&y == &x);

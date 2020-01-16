@@ -1,3 +1,5 @@
+static_assert(__cplusplus >= 201707);
+
 #include <iostream>
 #include <vector>
 #include <string_view>
@@ -6,7 +8,6 @@
 #include <vector>
 #include <iostream>
 
-static_assert(__cplusplus >= 201707);
 
 
 using namespace std;
@@ -19,6 +20,4 @@ using namespace std;
 
 int main()
 {
-	cout << __cplusplus << endl;
-	assert(__cplusplus > 201703);
 }

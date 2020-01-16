@@ -1,3 +1,5 @@
+static_assert(__cplusplus == 201703);
+
 #include <utility>
 #include <tuple>
 #include <unordered_map>
@@ -457,7 +459,6 @@ void string_view_demo()
 
 int main()
 {
-	cout << __cplusplus << endl;
 	folding_demo();
 	lambda_examples();
 	variant_demo();

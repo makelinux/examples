@@ -56,7 +56,6 @@ void sort_03()
 
 int main(void)
 {
-	cout << __cplusplus << endl;
 	assert(__cplusplus == 199711);
 
 	int x3 = {3};

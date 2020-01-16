@@ -1,3 +1,5 @@
+static_assert(__cplusplus == 201103);
+
 #include <utility>
 #include <iostream>
 #include <cassert>
@@ -5,6 +7,7 @@
 #include <algorithm>
 #include <array>
 #include <memory>
+
 
 using namespace std;
 
@@ -283,8 +286,6 @@ void dynamic_memory_11()
 
 int main(void)
 {
-	cout << __cplusplus << endl;
-	static_assert(__cplusplus == 201103);
 	auto r = trailing_return_type(1);
 	lambda_basics();
 	lambda_capture();
