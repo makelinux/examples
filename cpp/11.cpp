@@ -48,8 +48,6 @@ using namespace std;
 
 	https://en.cppreference.com/w/cpp/language/initializer_list
 
-	https://en.cppreference.com/w/cpp/language/direct_initialization
-
 	https://en.cppreference.com/w/cpp/language/range-for
 
 	https://en.cppreference.com/w/cpp/language/decltype
@@ -57,6 +55,25 @@ using namespace std;
 	https://en.cppreference.com/w/cpp/language/parameter_pack
 
  */
+
+void init_11()
+{
+	// https://en.cppreference.com/w/cpp/language/direct_initialization
+	// https://en.cppreference.com/w/cpp/language/list_initialization
+
+	class C { public: int a, b, c; };
+	auto o2 = C{1, 2, 3};
+	C o3{1, 2, 3};
+
+	// https://en.cppreference.com/w/cpp/language/zero_initialization
+	auto z1 = C();
+	C z2 = {};
+	auto z3 = C{};
+
+	assert(!z1.a);
+	assert(!z2.a);
+	assert(!z3.a);
+}
 
 /**
  Trailing return type
@@ -295,6 +312,7 @@ constexpr int constexpr_factorial(int n)
 
 int main(void)
 {
+	init_11();
 	auto r = trailing_return_type(1);
 	lambda_basics();
 	lambda_capture();

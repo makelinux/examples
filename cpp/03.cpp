@@ -18,6 +18,20 @@ using namespace std;
  @{
  */
 
+void init_03()
+{
+
+	// https://en.cppreference.com/w/cpp/language/copy_initialization
+	int x3 = {3};
+	double x4 = {3.0};
+
+	class C { public: int a, b, c; };
+
+	C o1 = {1, 2, 3};
+	C o2 = {.a = 1, .b = 2, .c = 3};
+	C o3 = {a: 1, b: 2, c: 3};
+}
+
 bool func(int i, int j) { return i < j; }
 
 struct _ {
@@ -58,8 +72,7 @@ int main(void)
 {
 	assert(__cplusplus == 199711);
 
-	int x3 = {3};
-	double x4 = {3.0};
+	init_03();
 
 	sort_03();
 }

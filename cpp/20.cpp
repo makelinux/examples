@@ -18,6 +18,28 @@ using namespace std;
   https://en.cppreference.com/w/cpp/language/coroutines
   */
 
+void init_20()
+{
+	struct point { int x, y; };
+	struct line { point a, b; };
+
+	// https://en.cppreference.com/w/cpp/language/aggregate_initialization
+
+	point p1 = { .x = { 1 }, .y{ 2 } };
+	point p2 { .x = { 1 }, .y{ 2 } };
+	point p4 = { x: 1, y: 2 }; // gcc extension
+
+	line l1 = {};
+	line l2 = {1, 2};
+	assert(l2.a.x == 1);
+	assert(l2.a.y == 2);
+
+	line l3 = {1, 2, 3, 4};
+	assert(l3.b.x == 3);
+	assert(l3.b.y == 4);
+}
+
 int main()
 {
+	init_20();
 }
