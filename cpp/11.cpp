@@ -54,8 +54,6 @@ using namespace std;
 
 	https://en.cppreference.com/w/cpp/language/decltype
 
-	https://en.cppreference.com/w/cpp/language/constexpr
-
 	https://en.cppreference.com/w/cpp/language/parameter_pack
 
  */
@@ -284,6 +282,15 @@ void dynamic_memory_11()
 	assert(!s2.use_count());
 }
 
+static_assert(__cpp_constexpr);
+
+/// https://en.cppreference.com/w/cpp/language/constexpr
+
+constexpr int constexpr_factorial(int n)
+{
+    return n <= 1 ? 1 : (n * constexpr_factorial(n - 1));
+}
+
 /// @}
 
 int main(void)
@@ -295,6 +302,7 @@ int main(void)
 	func_11();
 	sort_11();
 	dynamic_memory_11();
+	static_assert(constexpr_factorial(4));
 	return 0;
 }
 /// @}
