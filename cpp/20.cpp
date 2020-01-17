@@ -25,10 +25,13 @@ void init_20()
 
 	// https://en.cppreference.com/w/cpp/language/aggregate_initialization
 
+#if __cplusplus > 201707
 	point p1 = { .x = { 1 }, .y{ 2 } };
 	point p2 { .x = { 1 }, .y{ 2 } };
-	point p4 = { x: 1, y: 2 }; // gcc extension
-
+#endif
+#ifndef __clang__
+	point p4 = { x: 1, y: 2 }; // C-like gcc extension
+#endif
 	line l1 = {};
 	line l2 = {1, 2};
 	assert(l2.a.x == 1);
