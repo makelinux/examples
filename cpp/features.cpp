@@ -21,6 +21,11 @@ comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' | sort -u) \
 	sed 's/_}}{{c|/_/' | grep -o '__cpp\w*' | sort -u) | \
 	awk '{ print "check(" $1 ");";}'
 
+comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' | sort -u) \
+	<(wget -q -O- https://raw.githubusercontent.com/BRevzin/sd6/master/macros.yaml | \
+	awk '/name: __cpp/ { print $3 }' | sort -u) | \
+	awk '{ print "check(" $1 ");";}'
+
 Tip: append result of  snippets above to this file.
 
 Builing table:
@@ -280,3 +285,8 @@ check(__cpp_lib_to_chars);
 check(__cpp_lib_type_identity);
 check(__cpp_lib_unwrap_ref);
 check(__cpp_lib_variant);
+check(__cpp_constexpr_dynamic_alloc);
+check(__cpp_designated_initializers);
+check(__cpp_lib_generic_unordered_hash_lookup);
+check(__cpp_modules);
+check(__cpp_using_enum);
