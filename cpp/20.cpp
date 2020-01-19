@@ -26,16 +26,21 @@ void init_20()
 	// https://en.cppreference.com/w/cpp/language/aggregate_initialization
 
 #if __cplusplus > 201707
-	point p1 = { .x = { 1 }, .y{ 2 } };
-	point p2 { .x = { 1 }, .y{ 2 } };
+	point p1 = { .x = { 1 } };
+	assert(p1.x == 1);
+	assert(!p1.y);
+
+	point p2 { .y { 2 } };
+	assert(p2.y == 2);
+	assert(!p2.x);
 #endif
 
-	line l1 = {};
-	line l2 = {1, 2};
+	line l1 = { };
+	line l2 = { 1, 2 };
 	assert(l2.a.x == 1);
 	assert(l2.a.y == 2);
 
-	line l3 = {1, 2, 3, 4};
+	line l3 = { 1, 2, 3, 4 };
 	assert(l3.b.x == 3);
 	assert(l3.b.y == 4);
 }

@@ -10,6 +10,7 @@ CXX=g++-9
 20: CXXFLAGS+=-fconcepts -fgnu-tm
 else
 20: CXX=clang++
+20: CXXFLAGS+=-Wno-missing-braces
 endif
 
 20: CXXFLAGS+=-std=c++2a
