@@ -1,4 +1,4 @@
-static_assert(__cplusplus == 201402);
+static_assert(__cplusplus == 201402, "");
 
 #include <utility>
 #include <iostream>

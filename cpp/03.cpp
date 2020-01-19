@@ -25,11 +25,15 @@ void init_03()
 	int x3 = {3};
 	double x4 = {3.0};
 
-	class C { public: int a, b, c; };
+	struct point { int x, y; };
 
-	C o1 = {1, 2, 3};
-	C o2 = {.a = 1, .b = 2, .c = 3};
-	C o3 = {a: 1, b: 2, c: 3};
+	point p1 = {1, 2};
+#if gcc_extension
+	// designated initializers
+	// https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html
+	point gpp_ext = { .x = 1 }; // C99-like gcc extension
+	point gcc_ext = { x: 1 }; // C-like gcc extension
+#endif
 }
 
 bool func(int i, int j) { return i < j; }

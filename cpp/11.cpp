@@ -1,4 +1,4 @@
-static_assert(__cplusplus == 201103);
+static_assert(__cplusplus == 201103, "");
 
 #include <utility>
 #include <iostream>
@@ -299,6 +299,9 @@ void dynamic_memory_11()
 	assert(!s2.use_count());
 }
 
+#if ! gcc_extension
+#define static_assert(a) static_assert(a, "")
+#endif
 static_assert(__cpp_constexpr);
 
 /// https://en.cppreference.com/w/cpp/language/constexpr

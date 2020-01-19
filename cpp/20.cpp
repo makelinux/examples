@@ -29,9 +29,7 @@ void init_20()
 	point p1 = { .x = { 1 }, .y{ 2 } };
 	point p2 { .x = { 1 }, .y{ 2 } };
 #endif
-#ifndef __clang__
-	point p4 = { x: 1, y: 2 }; // C-like gcc extension
-#endif
+
 	line l1 = {};
 	line l2 = {1, 2};
 	assert(l2.a.x == 1);
