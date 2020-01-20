@@ -1,16 +1,3 @@
-static_assert(__cplusplus == 201103, "");
-
-#include <utility>
-#include <iostream>
-#include <cassert>
-#include <functional>
-#include <algorithm>
-#include <array>
-#include <memory>
-
-
-using namespace std;
-
 /**
  @file
  @brief C++11
@@ -21,7 +8,25 @@ using namespace std;
  https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP11.md
 
  @{
+*/
+static_assert(__cplusplus == 201103, "");
 
+#include <utility>
+#include <iostream>
+#include <cassert>
+#include <functional>
+#include <algorithm>
+#include <array>
+#include <memory>
+
+#if __has_include (<version>)
+#include <version>
+#endif
+
+
+using namespace std;
+
+/**
  @defgroup lang11 Language
  @{
 	https://en.cppreference.com/w/cpp/language/move_constructor
@@ -299,9 +304,12 @@ void dynamic_memory_11()
 	assert(!s2.use_count());
 }
 
+/// @cond
 #if ! gcc_extension
 #define static_assert(a) static_assert(a, "")
 #endif
+/// @endcond
+
 static_assert(__cpp_constexpr);
 
 /// https://en.cppreference.com/w/cpp/language/constexpr
