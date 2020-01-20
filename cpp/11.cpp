@@ -157,17 +157,17 @@ static void lambda_basics(void)
 	closure();
 
 	// with arguments
-	auto pass = [] (int a) -> int { return a; };
+	auto pass = [] (int a) { return a; };
 	assert(pass(5) == 5);
 
 	// lambda captures external value
-	int i = 1;
-	auto get_i = [=] () -> int { return i; };
+	int c = 1;
+	auto get_i = [=] () { return c; };
 	assert(get_i() == 1);
 
 	// lambda captures external variable by reference
 	// with omitted arguments and return type
-	auto inc_get = [&] { return ++i; };
+	auto inc_get = [&] { return ++c; };
 	assert(inc_get() == 2);
 	assert(inc_get() == 3);
 
@@ -179,11 +179,13 @@ static void lambda_basics(void)
 	( ); // call with arguments
 
 	// annotated expanded sample inline lambda call:
-	[i] // capture
+	c = // result
+	[c] // capture
 	(int a) // optional list of arguments
 	-> int // optional return value
-	{ return i + a; } // body
+	{ return c + a; } // body
 	(1); // call with argument
+	assert(c == 4);
 
 	// inline lambda which is called in place
 	// https://en.wikipedia.org/wiki/Anonymous_function
@@ -225,7 +227,7 @@ static void lambda_capture(void)
 	assert(j == i);
 
 	// can access globals anyway
-	auto inc_global = [] () -> int { return ++glob; };
+	auto inc_global = [] () { return ++glob; };
 	assert(inc_global() == 1);
 	assert(inc_global() == 2);
 }
