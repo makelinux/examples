@@ -1,3 +1,17 @@
+/**
+ @file
+ @brief C++20
+ @defgroup CPP20 C++20 examples
+
+ https://en.wikipedia.org/wiki/C++20
+
+ https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP20.md
+
+ https://en.cppreference.com/w/cpp/20
+
+ @{
+*/
+
 static_assert(__cplusplus >= 201707);
 
 #include <iostream>
@@ -49,7 +63,6 @@ void init_20()
 
 // https://en.wikipedia.org/wiki/Concepts_(C++)
 // https://en.cppreference.com/w/cpp/language/constraints
-// https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP20.md
 
 // Using 'requires':
 
@@ -78,6 +91,8 @@ int main()
 	init_20();
 	concept_demo();
 }
+/// @}
+
 /**
  @mainpage
 
