@@ -1,3 +1,17 @@
+/**
+ @file
+ @brief C++17
+ @defgroup CPP17 C++17 examples
+
+ https://en.wikipedia.org/wiki/C++17
+
+ https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP17.md
+
+ https://en.cppreference.com/w/cpp/language/history/17
+
+ @{
+*/
+
 static_assert(__cplusplus == 201703);
 
 #include <utility>
@@ -27,17 +41,6 @@ using namespace std;
 
  @ref CPP17
 
- @file
- @brief C++17
- @defgroup CPP17 C++17 examples
-
- https://en.wikipedia.org/wiki/C++17
-
- https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP17.md
-
- https://en.cppreference.com/w/cpp/language/history/17
-
- @{
  @defgroup templ17 Template
 
  https://en.cppreference.com/w/cpp/language/templates
@@ -58,7 +61,7 @@ using namespace std;
 pair p(1, 2.3);
 
 /// @brief auto t = make_tuple(4, 3, 2.5);
-tuple t(3, 4, 5);
+tuple t(4, 2, 2.5);
 
 /// @brief less<void> l;
 less l;
@@ -73,7 +76,7 @@ struct arg_deduction {
 /// @brief before_arg_deduction<int>
 arg_deduction c1 {1};
 
-/// @brief begore_arg_deduction<float>
+/// @brief before_arg_deduction<float>
 arg_deduction c2;
 
 /// @}
@@ -111,7 +114,7 @@ struct my_integer_sequence {
 auto seq = my_integer_sequence<0, 1, 2>();
 
 /**
- @}
+ @} template_parameters
  @}
  @}
  @defgroup lambda Lambda
@@ -253,6 +256,8 @@ namespace A::B::qualified_nested_namespace {
 
  @{
  */
+
+static_assert(__cpp_structured_bindings);
 
 void structured_bindings()
 {
@@ -422,6 +427,7 @@ void variant_demo()
 
 void clamp_demo()
 {
+	static_assert(__cpp_lib_clamp);
 	///  clamp(x, low, high) == x < low ? low : x > high ? high : x;
 	assert(clamp(0, 1, 3) == 1);
 	assert(clamp(2, 1, 3) == 2);
@@ -466,6 +472,9 @@ int main()
 	dynamic_memory_17();
 	string_view_demo();
 	// for (auto&& [first,second] : mymap) { }
+	static_assert(__cpp_hex_float);
+	double hex_double = 0x1.2p3; // https://en.cppreference.com/w/cpp/language/floating_literal
+	assert(hex_double == 9.0);
 }
 
 /// @}
