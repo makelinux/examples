@@ -99,8 +99,41 @@ auto trailing_return_type(int a) -> int
 	return a;
 }
 
+void func_11()
+{
+	class functor {
+		int y = 1;
+		public:
+		int operator()(int a) const {
+			return a + y;
+		}
+	};
+	functor ft;
+	assert(ft(1) == 2);
+
+	// https://en.cppreference.com/w/cpp/utility/functional/function
+	function<int(int)> ft2 = ft;
+	assert(ft(2) == 3);
+	return;
+
+	// https://en.cppreference.com/w/cpp/utility/functional/bind
+	auto binded = bind(ft2, 3);
+	assert(binded() == 5);
+}
+
+static_assert(__cpp_constexpr);
+
+/// https://en.cppreference.com/w/cpp/language/constexpr
+
+constexpr int constexpr_factorial(int n)
+{
+    return n <= 1 ? 1 : (n * constexpr_factorial(n - 1));
+}
+
+
+/// @}
+
 /**
- @}
  @defgroup lambda11 Lambda
  https://en.cppreference.com/w/cpp/language/lambda
  https://www.geeksforgeeks.org/lambda-expression-in-c/
@@ -162,7 +195,9 @@ static void lambda_basics(void)
 	// and is provided only for demonstration.
 }
 
+/// @cond
 static int glob;
+/// @endcond
 
 static void lambda_capture(void)
 {
@@ -195,8 +230,26 @@ static void lambda_capture(void)
 	assert(inc_global() == 2);
 }
 
-/// More complex useful examples
+/// Compare with @ref sort_03
 
+void sort_11()
+{
+	array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	sort(s.begin(), s.end(),
+		  // sort using a lambda expression
+		  [](int a, int b)
+		  { return a > b; }
+		 );
+}
+
+/// @}
+
+/**
+ @defgroup lambda11_comples More complex Lambdas
+ @{
+ */
+
+/// @cond
 // int use_lambda(int a; int (func*)(int))
 static int use_lambda(int a, function<int(int)> f)
 {
@@ -205,6 +258,8 @@ static int use_lambda(int a, function<int(int)> f)
 
 /// https://en.cppreference.com/w/cpp/utility/functional/function
 static function<int(int)> g_f;
+
+/// @endcond
 
 static void set_lambda(function<int(int)> f)
 {
@@ -230,39 +285,7 @@ static void lambda_complex(void)
 	assert(use_lambda(1, [](int a) {return a + 1;}) == 2);
 }
 
-void func_11()
-{
-	class functor {
-		int y = 1;
-		public:
-		int operator()(int a) const {
-			return a + y;
-		}
-	};
-	functor ft;
-	assert(ft(1) == 2);
-
-	// https://en.cppreference.com/w/cpp/utility/functional/function
-	function<int(int)> ft2 = ft;
-	assert(ft(2) == 3);
-	return;
-
-	// https://en.cppreference.com/w/cpp/utility/functional/bind
-	auto binded = bind(ft2, 3);
-	assert(binded() == 5);
-}
-
-/// Compare with @ref sort_03
-
-void sort_11()
-{
-	array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
-	sort(s.begin(), s.end(),
-		  // sort using a lambda expression
-		  [](int a, int b)
-		  { return a > b; }
-		 );
-}
+/// @}
 
 void dynamic_memory_11()
 {
@@ -309,15 +332,6 @@ void dynamic_memory_11()
 #define static_assert(a) static_assert(a, "")
 #endif
 /// @endcond
-
-static_assert(__cpp_constexpr);
-
-/// https://en.cppreference.com/w/cpp/language/constexpr
-
-constexpr int constexpr_factorial(int n)
-{
-    return n <= 1 ? 1 : (n * constexpr_factorial(n - 1));
-}
 
 /// @}
 
