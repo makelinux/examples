@@ -31,16 +31,6 @@ static_assert(__cplusplus == 201703);
 using namespace std;
 
 /**
- @mainpage
-
- @ref CPP03
-
- @ref CPP11
-
- @ref CPP14
-
- @ref CPP17
-
  @defgroup templ17 Template
 
  https://en.cppreference.com/w/cpp/language/templates
