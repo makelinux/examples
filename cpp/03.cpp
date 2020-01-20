@@ -1,11 +1,3 @@
-#include <utility>
-#include <iostream>
-#include <cassert>
-#include <algorithm>
-#include <vector>
-
-using namespace std;
-
 /**
  @file
  @brief C++03 / C++98
@@ -16,6 +8,20 @@ using namespace std;
  https://en.wikipedia.org/wiki/C++03
 
  @{
+ */
+#include <utility>
+#include <iostream>
+#include <cassert>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+/**
+ @defgroup lang03 Language
+ @{
+
  */
 
 void init_03()
@@ -36,17 +42,22 @@ void init_03()
 #endif
 }
 
-bool func(int i, int j) { return i < j; }
 
-struct _ {
-  bool operator() (int i, int j) { return i < j; }
-} functor;
 
 /**
+ @fn void sort_03()
  http://www.cplusplus.com/reference/algorithm/sort/?kw=sort
 
  Compare with @ref sort_11
  */
+
+/// @private
+bool func(int i, int j) { return i < j; };
+
+/// @private
+struct _ {
+	bool operator() (int i, int j) { return i < j; }
+} functor;
 
 void sort_03()
 {
@@ -63,6 +74,7 @@ void sort_03()
 	std::sort(v.begin(), v.end(), std::greater<int>());
 
 	// using object as comp
+
 	std::sort (v.begin(), v.end(), functor);
 
 	int prev = -1;
@@ -71,6 +83,8 @@ void sort_03()
 		prev = *i;
 	}
 }
+
+/// @}
 
 int main(void)
 {
