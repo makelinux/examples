@@ -12,7 +12,9 @@
 
 Updating from /usr/include/:
 
-comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' | sort -u) <(grep --binary-files=without-match -ro '__cpp_\w*' -h . /usr/include/ | sort -u) | awk '{ print "check(" $1 ");";}'
+comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' |sort -u)
+	<(grep --binary-files=without-match -ro '__cpp_\w*' -h . /usr/include/ | sort -u) \
+	| awk '{ print "check(" $1 ");";}'
 
 Updating from web:
 
@@ -30,7 +32,7 @@ Tip: append result of  snippets above to this file.
 
 Builing table:
 
-join <(join <(join <(./11) <(./14))  <(./17)) <(./20) > a.csv
+join <(join <(join <(join <(./03) <(./11)) <(./14)) <(./17)) <(./20) > a.csv
 
 */
 
@@ -45,9 +47,9 @@ using namespace std;
 
 #define u(a) concat(a, __LINE__)
 
-#define check2(x, y) do { cout << x; \\
-	if (string(x) != #y) cout << " " << #y; \\
-	else cout << " ------"; cout << endl; } \\
+#define check2(x, y) do { cout << x; \
+	if (string(x) != #y) cout << " " << #y; \
+	else cout << " ------"; cout << endl; } \
 	while (0)
 
 #define check(x) class c##x { public: c##x() { check2(#x, x); }} c##x
