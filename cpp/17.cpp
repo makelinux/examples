@@ -27,6 +27,7 @@ static_assert(__cplusplus == 201703);
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <functional> //11
 
 using namespace std;
 
@@ -453,6 +454,25 @@ void string_view_demo()
 
 /// @}
 
+void types_17()
+{
+	static_assert(is_integral_v<int>);
+	static_assert(__cpp_hex_float);
+	double hex_double = 0x1.2p3; // https://en.cppreference.com/w/cpp/language/floating_literal
+	assert(hex_double == 9.0);
+
+	static_assert(is_invocable<decltype(types_17)>::value);
+	static_assert(is_invocable<int()>::value);
+	static_assert(is_invocable_r<int, int()>::value);
+	static_assert(is_invocable_r<void, void(int), int>::value);
+
+	auto inc = [](int a) -> int { return a + 1; };
+	static_assert(is_invocable_r<int, decltype(inc), int>::value);
+	static_assert(__cpp_lib_invoke);
+	// https://en.cppreference.com/w/cpp/utility/functional/invoke
+	assert(invoke(inc, 2) == 3);
+}
+
 int main()
 {
 	folding_demo();
@@ -462,9 +482,7 @@ int main()
 	dynamic_memory_17();
 	string_view_demo();
 	// for (auto&& [first,second] : mymap) { }
-	static_assert(__cpp_hex_float);
-	double hex_double = 0x1.2p3; // https://en.cppreference.com/w/cpp/language/floating_literal
-	assert(hex_double == 9.0);
+	types_17();
 }
 
 /// @}

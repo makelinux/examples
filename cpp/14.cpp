@@ -156,6 +156,21 @@ void sort_14()
 		 );
 }
 
+void types_14()
+{
+	static_assert(is_null_pointer< decltype(nullptr) >::value);
+	static_assert(is_null_pointer< nullptr_t >::value);
+	static_assert(__cpp_decltype);
+	static_assert(is_integral<int>());
+
+	// https://en.cppreference.com/w/cpp/language/auto
+	int a = 0;
+	decltype(auto) a_copy = a;
+	assert(&a_copy != &a);
+	decltype(auto) a_ref = (a);
+	assert(&a_ref == &a);
+
+}
 /// @}
 
 int main(void)
@@ -169,6 +184,7 @@ int main(void)
 	implicit_return_type();
 	dynamic_memory_14();
 	sort_14();
+	types_14();
 
 	return 0;
 }

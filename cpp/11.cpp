@@ -336,6 +336,24 @@ void dynamic_memory_11()
 #endif
 /// @endcond
 
+void types_11()
+{
+	static_assert(__cpp_decltype);
+
+	int a;
+	decltype(a) b;
+
+	static_assert(is_same<decltype(a), decltype(b)>::value);
+	static_assert(!is_same<decltype(a), unsigned>::value);
+	static_assert(is_same<int, int32_t>::value);
+	static_assert(is_same<signed, int32_t>::value);
+
+	static_assert(is_integral<int>::value);
+	static_assert(is_integral<bool>::value);
+	static_assert(!is_integral<float>::value);
+	static_assert(is_pointer<int*>::value);
+
+}
 /// @}
 
 int main(void)
@@ -350,6 +368,8 @@ int main(void)
 	sort_11();
 	dynamic_memory_11();
 	static_assert(constexpr_factorial(4));
+
+	types_11();
 	return 0;
 }
 /// @}

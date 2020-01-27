@@ -15,6 +15,7 @@
 #include <cstring>
 #include <algorithm>
 #include <vector>
+#include <typeinfo>
 
 using namespace std;
 
@@ -92,6 +93,19 @@ void sort_03()
 	}
 }
 
+/// https://en.cppreference.com/w/cpp/language/reference
+int& a_ref(int &a) { return a; }
+
+void types_03()
+{
+	int a = 0;
+	assert(typeid(int) == typeid(a));
+	assert(typeid(int).name() == string("i"));
+
+	a_ref(a) = 2;
+	assert(a == 2);
+}
+
 /// @}
 
 int main(void)
@@ -101,6 +115,8 @@ int main(void)
 	init_03();
 
 	sort_03();
+
+	types_03();
 }
 
 /// @}
