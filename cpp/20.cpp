@@ -50,6 +50,7 @@ void init_20()
 #endif
 
 	line l1 = { };
+	assert(!l1.a.x);
 	line l2 = { 1, 2 };
 	assert(l2.a.x == 1);
 	assert(l2.a.y == 2);

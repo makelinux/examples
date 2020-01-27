@@ -54,7 +54,7 @@ pair p(1, 2.3);
 tuple t(4, 2, 2.5);
 
 /// @brief less<void> l;
-less l;
+less less;
 
 template <typename T = float>
 struct arg_deduction {

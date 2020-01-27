@@ -39,13 +39,16 @@ using namespace std;
 // Run checks as global constructors automatically
 // without manual operations
 
-#define concat2(a,b) a##b
+#define concat2(a, b) a##b
 
-#define concat(a,b) concat2(a,b)
+#define concat(a, b) concat2(a, b)
 
-#define u(a) concat(a,__LINE__)
+#define u(a) concat(a, __LINE__)
 
-#define check2(x, y) do { cout << x; if (string(x) != #y) cout << " " << #y; else cout << " ------"; cout << endl; } while (0)
+#define check2(x, y) do { cout << x; \\
+	if (string(x) != #y) cout << " " << #y; \\
+	else cout << " ------"; cout << endl; } \\
+	while (0)
 
 #define check(x) class c##x { public: c##x() { check2(#x, x); }} c##x
 

@@ -34,12 +34,20 @@ void init_03()
 	struct point { int x, y; };
 
 	point p1 = {1, 2};
+	(void) p1.x;
+	(void) p1.y;
+
 #if gcc_extension
 	// designated initializers
 	// https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html
 	point gpp_ext = { .x = 1 }; // C99-like gcc extension
 	point gcc_ext = { x: 1 }; // C-like gcc extension
+	(void) gpp_ext;
+	(void) gcc_ext;
 #endif
+	(void) p1;
+	(void) x3;
+	(void) x4;
 }
 
 

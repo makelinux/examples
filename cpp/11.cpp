@@ -69,6 +69,7 @@ void init_11()
 	class C { public: int a, b, c; };
 	auto o2 = C{1, 2, 3};
 	C o3{1, 2, 3};
+	(void) o3;
 
 	// https://en.cppreference.com/w/cpp/language/zero_initialization
 	auto z1 = C();
@@ -263,7 +264,7 @@ static function<int(int)> g_f;
 
 /// @endcond
 
-static void set_lambda(function<int(int)> f)
+static void set_lambda(function<int(int)> &&f)
 {
 	g_f = f;
 }
@@ -341,6 +342,7 @@ int main(void)
 {
 	init_11();
 	auto r = trailing_return_type(1);
+	(void) r;
 	lambda_basics();
 	lambda_capture();
 	lambda_complex();
@@ -364,6 +366,9 @@ void main3()
 	// Point2D point2D = {.x = 1, .y = 2};
 	// Point2D point2D = {.x , };
 	ab ab {1, 2};
+	(void) ab;
+	(void) ab.a;
+	(void) ab.b;
 
 	// Point3D point3D {.x = 1, .y = 2, .z = 2};
 }
