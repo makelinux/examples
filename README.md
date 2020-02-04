@@ -1,2 +1,2 @@
-# examples
-Examples of various features
+# Examples of
+* [C++ features](cpp/README.md)
