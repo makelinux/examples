@@ -19,3 +19,5 @@ DOT_FONTNAME           = Ubuntu
 SOURCE_BROWSER         = YES
 INLINE_SOURCES         = YES
 QUIET = YES
+ENABLE_PREPROCESSING = NO
+EXCLUDE_SYMBOLS       = requires double _*
