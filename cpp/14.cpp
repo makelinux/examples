@@ -185,7 +185,5 @@ int main(void)
 	dynamic_memory_14();
 	sort_14();
 	types_14();
-
-	return 0;
 }
 /// @}
