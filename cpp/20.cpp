@@ -22,6 +22,9 @@ static_assert(__cplusplus >= 201707);
 #include <vector>
 #include <iostream>
 
+#if __has_include (<concepts>)
+#include <concepts>
+#endif
 
 
 using namespace std;
@@ -61,36 +64,127 @@ void init_20()
 }
 
 #if __cpp_concepts
+/**
+ @}
 
-// https://en.wikipedia.org/wiki/Concepts_(C++)
-// https://en.cppreference.com/w/cpp/language/constraints
+ @defgroup conc20 Concepts
+
+ https://en.wikipedia.org/wiki/Concepts_(C++)
+ https://en.cppreference.com/w/cpp/language/constraints
+ https://en.cppreference.com/w/cpp/header/concepts
+
+ @{
+*/
+
+/**
+ @defgroup req20 Requires clause and expression
+ @{
+*/
 
 // Using 'requires':
+// https://en.cppreference.com/w/cpp/keyword/requires
 
-template<typename T>
-requires is_same_v<T, int>
-T inc(T a)
-{ return a + 1; };
+template <typename T> requires is_integral_v<T> T constexpr requires_demo(T a) { return a + 1; };
 
-template<typename T>
-T inc(T a)
-requires is_same_v<T, string>
-{ return a + "1"; };
+static_assert(requires_demo(1) == 2);
 
-void concept_demo()
-{
-	assert(inc<int>(1) == 2);
-	assert(inc<string>("1") == "11");
-}
+/**
+  requires-clause can be after function declaration and supports template overloading
+ */
 
+template <typename T> auto constexpr requires_demo(T && a) requires is_same_v<T, double> { return 2; };
+static_assert(requires_demo(0.1) == 2);
+
+// Annotated example of complex requirement
+template <class T>
+requires // requires-clause
+is_signed_v<T> || is_unsigned_v<T> && ! is_void_v<void> // constraint expression
+void complex_requirement_demo() { };
+
+/// Annotated example of requires-expression
+
+template < class T >
+requires  // requires-clause
+requires() // requires-expression
+{ true;} // unevaluated requirements sequence
+void requires_expression_demo() { };
+
+template <class T> requires requires(T a) { a / 0; } auto constexpr what(T a) { return 1; };
+static_assert(what(1) == 1);
+
+template <class T> requires requires(T a) { a[0]; } auto constexpr what(T a) { return 2; };
+static_assert(what("2") == 2);
+
+/// @}
+
+/**
+  a concept can be defined as function, but not only
+ */
+
+template <typename T> concept bool integral_ct() { return is_integral_v<T>; };
+
+template <integral_ct T> constexpr T _inc3(T a) { return a + 1; };
+
+static_assert(_inc3(1) == 2);
+
+// concept can replace type
+
+template <integral_ct T> constexpr T _inc1(T a) { return a + 1; };
+
+static_assert(_inc1<int>(1) == 2);
+
+// can be used in generic function
+constexpr auto generic_function_with_integral_concept(integral_ct v) { return v + 1; }
+static_assert(generic_function_with_integral_concept(1) == 2);
+
+integral_ct integral_var = 1; // variable defined with concept
+
+/**
+ @defgroup conc_alt20 Alternative forms of concept definition
+ @{
+ */
+
+/// trivial concepts as assignment
+template <typename T> concept truism = true;
+
+#if !__cpp_lib_concepts
+
+/// short concept definition from a constraint directly
+template <class T> concept integral = is_integral_v<T>;
+
+#endif
+
+/**
+  defining concept with requires-expression
+ */
+
+template <class T> concept integral_req_ct = requires (T a) { is_integral_v<T>; };
+
+template <integral_req_ct T> constexpr T _inc2(T a) { return a + 1; };
+
+static_assert(_inc2(1) == 2);
+
+/**
+  defining concept as function with requires-expression
+ */
+
+template <typename T> concept bool integral_func_req_ct()
+	requires requires () { is_integral_v<T>; }
+	{ return true; };
+
+template <integral_func_req_ct T> constexpr T _inc4(T a) { return a + 1; };
+
+static_assert(_inc4(1) == 2);
+
+/// @}
+
+/// @}
 #else
-void concept_demo() {}
 #pragma message("undefined __cpp_concepts")
 #endif
 int main()
 {
 	init_20();
-	concept_demo();
 }
 /// @}
 
