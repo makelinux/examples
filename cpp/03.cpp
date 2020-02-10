@@ -49,6 +49,14 @@ void init_03()
 	(void) p1;
 	(void) x3;
 	(void) x4;
+
+	// Mutable
+	struct struct_with_mutable {
+		struct_with_mutable(){};
+		mutable int m;
+	} const const_struct_with_mutable;
+	const_struct_with_mutable.m = 2;
+	assert(const_struct_with_mutable.m == 2);
 }
 
 
