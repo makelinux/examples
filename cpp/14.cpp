@@ -25,25 +25,9 @@ using namespace std;
  https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP14.md
 
  @{
- @defgroup lambda14 Lambda
- https://en.cppreference.com/w/cpp/language/lambda
- @{
  */
-static void lambda_demo()
-{
-	// Generic lambdas
-	// auto before_generic_lambda = [](int x) { return x; };
-	auto generic_lambda = [](auto x) { return x; };
 
-	auto universal_size = [](const auto& m) { return m.size(); };
-
-	auto capture_initializers = [value = 1] { return value; };
-
-	unique_ptr<int> ptr(new int(10));
-	auto capture_by_move = [value = std::move(ptr)] { return *value; };
-}
 /**
- @}
  @defgroup ded14 Deduction
  @{
  */
@@ -74,12 +58,12 @@ auto deduced_return_type_lambda = [](auto& x) -> auto& {
 	https://en.cppreference.com/w/cpp/language/integer_literal
 	https://en.cppreference.com/w/cpp/language/function // decltype(auto)
 	https://en.cppreference.com/w/cpp/language/aggregate_initialization
-	https://en.cppreference.com/w/cpp/language/lambda
 
 	https://en.cppreference.com/w/cpp/thread/shared_timed_mutex
 	https://en.cppreference.com/w/cpp/thread/shared_lock
 	https://en.cppreference.com/w/cpp/utility/integer_sequence
 	https://en.cppreference.com/w/cpp/utility/exchange
+	https://en.cppreference.com/w/cpp/utility/forward
 	https://en.cppreference.com/w/cpp/io/manip/quoted
 
 	// [[deprecated]]
@@ -142,6 +126,30 @@ void dynamic_memory_14()
 	auto u = make_unique<int>(1);
 	assert(u);
 	assert(*u == 1);
+/**
+ @defgroup lambda14 Lambda
+ https://en.cppreference.com/w/cpp/language/lambda
+ @{
+ */
+static void lambda_14()
+{
+	// Generic lambdas
+	// auto before_generic_lambda = [](int x) { return x; };
+	auto generic_lambda = [](auto x) { return x; };
+
+	auto universal_size = [](const auto& m) { return m.size(); };
+
+
+	auto capture_initializers = [value = 1] { return value; };
+
+	assert(capture_initializers() == 1);
+
+	auto mutable_lambda = [value = 1] () mutable { return ++value; };
+
+	assert(mutable_lambda() == 2);
+
+	unique_ptr<int> ptr(new int(10));
+	auto capture_by_move = [value = std::move(ptr)] { return *value; };
 }
 
 /// Compare with @ref sort_11
@@ -185,5 +193,6 @@ int main(void)
 	dynamic_memory_14();
 	sort_14();
 	types_14();
+	lambda_14();
 }
 /// @}
