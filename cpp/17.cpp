@@ -28,6 +28,8 @@ static_assert(__cplusplus == 201703);
 #include <vector>
 #include <memory>
 #include <functional> //11
+#include <utility>
+#include <valarray>
 
 using namespace std;
 
@@ -439,6 +441,11 @@ void dynamic_memory_17()
 	assert(typeid(reinterpret_pointer_cast<shared_ptr<int>>(s1)).name()
 	       == string("St10shared_ptrIS_IiEE"));
 	vector<int> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+
+	// https://en.cppreference.com/w/cpp/numeric/valarray/deduction_guides
+	int a[] = {1, 2, 3};
+	valarray va(a, 3); // uses explicit deduction guide
+	static_assert(is_integral_v<remove_reference<decltype(va[0])>::type>);
 }
 
 
