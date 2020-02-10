@@ -172,7 +172,6 @@ static void lambda_14()
 
 	auto universal_size = [](const auto& m) { return m.size(); };
 
-
 	static_assert(__cpp_init_captures);
 	auto capture_initializers = [value = 1] { return value; };
 
@@ -181,6 +180,7 @@ static void lambda_14()
 	auto mutable_lambda = [value = 1] () mutable { return ++value; };
 
 	assert(mutable_lambda() == 2);
+	assert(mutable_lambda() == 3);
 
 	unique_ptr<int> ptr(new int(10));
 	auto capture_by_move = [value = std::move(ptr)] { return *value; };
