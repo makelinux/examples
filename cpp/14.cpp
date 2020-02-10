@@ -32,6 +32,13 @@ using namespace std;
  @{
  */
 
+namespace return_type_deduction_14 {
+
+auto implicit_int_return_type()
+{
+	return 1;
+}
+
 // template <typename T> T before_deduced_return_type(int a) { return a; }
 auto deduced_return_type(int a)
 {
@@ -48,6 +55,16 @@ template <typename T> auto& deduced_return_type_template(T& t)
 auto deduced_return_type_lambda = [](auto& x) -> auto& {
 	return deduced_return_type_template(x);
 };
+
+void return_type_deduction_demo()
+{
+	implicit_int_return_type();
+	auto x = deduced_return_type(1);
+	int& y = deduced_return_type_lambda(x); // reference to `x`
+	assert(&y == &x);
+	assert(y == 1);
+}
+}
 
 /**
  @}
@@ -114,10 +131,6 @@ static void demo()
 
 }
 
-/// int explicit_return_type()
-auto implicit_return_type()
-{
-	return 1;
 }
 
 void dynamic_memory_14()
@@ -183,10 +196,7 @@ void types_14()
 
 int main(void)
 {
-	auto x = deduced_return_type(1);
-	int& y = deduced_return_type_lambda(x); // reference to `x`
-	assert(&y == &x);
-	assert(y == 1);
+	return_type_deduction_14::return_type_deduction_demo();
 	tuple_demo();
 	template_variables::demo();
 	implicit_return_type();
