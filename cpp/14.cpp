@@ -34,6 +34,8 @@ using namespace std;
 
 namespace return_type_deduction_14 {
 
+static_assert(__cpp_return_type_deduction);
+
 auto implicit_int_return_type()
 {
 	return 1;
@@ -92,15 +94,16 @@ namespace variables_14 {
 /// Template variables
 /// https://en.cppreference.com/w/cpp/language/variable_template
 
+static_assert(__cpp_variable_templates);
 
 /// Numeric pi
 template<typename T>
-constexpr T pi = T(3.141592653589793238462643383);
+T pi = T(3.141592653589793238462643383);
 
 // String pi
 // Usual specialization rules apply:
 template<>
-constexpr const char* pi<const char*> = "pi";
+const char* pi<const char*> = "pi";
 
 static void demo()
 {
@@ -140,6 +143,7 @@ void types_14()
 
 	// https://en.cppreference.com/w/cpp/language/auto
 	int a = 0;
+	static_assert(__cpp_decltype_auto);
 	decltype(auto) a_copy = a;
 	assert(&a_copy != &a);
 	decltype(auto) a_ref = (a);
@@ -163,11 +167,13 @@ static void lambda_14()
 {
 	// Generic lambdas
 	// auto before_generic_lambda = [](int x) { return x; };
+	static_assert(__cpp_generic_lambdas);
 	auto generic_lambda = [](auto x) { return x; };
 
 	auto universal_size = [](const auto& m) { return m.size(); };
 
 
+	static_assert(__cpp_init_captures);
 	auto capture_initializers = [value = 1] { return value; };
 
 	assert(capture_initializers() == 1);
