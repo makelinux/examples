@@ -70,7 +70,6 @@ void return_type_deduction_demo()
  @}
  @defgroup other14 Other
  @{
-	https://en.cppreference.com/w/cpp/language/variable_template
 	https://en.cppreference.com/w/cpp/language/constexpr
 	https://en.cppreference.com/w/cpp/language/integer_literal
 	https://en.cppreference.com/w/cpp/language/function // decltype(auto)
@@ -88,21 +87,49 @@ void return_type_deduction_demo()
 
 /// Binary literals, digit separators
 
-auto binary_literal = 0b0100'1100'0110;
+namespace variables_14 {
 
-auto integer_literal = 1'000'000;
+/// Template variables
+/// https://en.cppreference.com/w/cpp/language/variable_template
 
-auto floating_point_literal = 0.000'015'3;
 
-/// Standard user-defined literals
+/// Numeric pi
+template<typename T>
+constexpr T pi = T(3.141592653589793238462643383);
 
-auto str = "hello world"s; // auto deduces string
-auto dur = 60s;            // auto deduces chrono::seconds
+// String pi
+// Usual specialization rules apply:
+template<>
+constexpr const char* pi<const char*> = "pi";
 
-/// Tuple addressing via type
-
-static void tuple_demo()
+static void demo()
 {
+	assert(pi<int> == 3);
+	assert(string(pi<const char*>) == "pi");
+
+	auto binary_literal = 0b0100'1100'0110;
+
+	auto integer_literal = 1'000'000;
+
+	auto floating_point_literal = 0.000'015'3;
+
+	/// Standard user-defined literals
+
+	auto str = "hello world"s; // auto deduces string
+	auto dur = 60s;            // auto deduces chrono::seconds
+
+}
+
+}
+
+void types_14()
+{
+	static_assert(is_null_pointer<decltype(nullptr)>::value);
+	static_assert(is_null_pointer<nullptr_t>::value);
+	static_assert(__cpp_decltype);
+	static_assert(is_integral<int>());
+
+	// Tuple addressing via type
 	tuple<string, string, int> tuple_by_type("foo", "bar", 7);
 
 	int i = get<int>(tuple_by_type);
@@ -110,35 +137,23 @@ static void tuple_demo()
 
 	int j = get<2>(tuple_by_type);
 	assert(j == 7);
-}
 
-/// Template variables
-namespace template_variables {
+	// https://en.cppreference.com/w/cpp/language/auto
+	int a = 0;
+	decltype(auto) a_copy = a;
+	assert(&a_copy != &a);
+	decltype(auto) a_ref = (a);
+	assert(&a_ref == &a);
 
-template<typename T>
-constexpr T pi = T(3.141592653589793238462643383);
-
-// Usual specialization rules apply:
-template<>
-constexpr const char* pi<const char*> = "pi";
-
-static void demo()
-{
-
-	assert(pi<int> == 3);
-	assert(string(pi<const char*>) == "pi");
-}
-
-}
-
-}
-
-void dynamic_memory_14()
-{
 	// https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique
+	//auto u = unique_ptr<int>(new int(1));
 	auto u = make_unique<int>(1);
 	assert(u);
 	assert(*u == 1);
+	auto ua = make_unique<int[]>(3);
+}
+
+/// @}
 /**
  @defgroup lambda14 Lambda
  https://en.cppreference.com/w/cpp/language/lambda
@@ -177,30 +192,12 @@ void sort_14()
 		 );
 }
 
-void types_14()
-{
-	static_assert(is_null_pointer< decltype(nullptr) >::value);
-	static_assert(is_null_pointer< nullptr_t >::value);
-	static_assert(__cpp_decltype);
-	static_assert(is_integral<int>());
-
-	// https://en.cppreference.com/w/cpp/language/auto
-	int a = 0;
-	decltype(auto) a_copy = a;
-	assert(&a_copy != &a);
-	decltype(auto) a_ref = (a);
-	assert(&a_ref == &a);
-
-}
 /// @}
 
 int main(void)
 {
 	return_type_deduction_14::return_type_deduction_demo();
-	tuple_demo();
-	template_variables::demo();
-	implicit_return_type();
-	dynamic_memory_14();
+	variables_14::demo();
 	sort_14();
 	types_14();
 	lambda_14();
