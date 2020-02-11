@@ -69,7 +69,7 @@ void init_03()
  */
 
 /// @private
-bool func(int i, int j) { return i < j; };
+bool func(int i, int j) { return i < j; }
 
 /// @private
 struct _ {

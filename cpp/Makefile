@@ -1,7 +1,7 @@
 all: 20 17 14 11 03
 CXXFLAGS+=-Wall -Wno-unused
 CXXFLAGS+=-Wextra -Wno-missing-field-initializers
-#CXXFLAGS+=-Wpedantic
+CXXFLAGS+=-Wpedantic
 CXXFLAGS+=-Dgcc_extension
 CXXFLAGS+=-include features.cpp
 
