@@ -240,8 +240,8 @@ S x2 = S{123};
  @{
  */
 
-// namespace A { namespace B { namespace before_qualified_nested_namespace
-namespace A::B::qualified_nested_namespace {
+/// Before: namespace other { namespace other2 {
+namespace other::qualified_nested_namespace {
 	int in_qualified_nested_namespace;
 }
 

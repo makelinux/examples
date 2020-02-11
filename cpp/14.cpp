@@ -32,7 +32,7 @@ using namespace std;
  @{
  */
 
-namespace return_type_deduction_14 {
+namespace deduction {
 
 static_assert(__cpp_return_type_deduction);
 
@@ -67,6 +67,7 @@ void return_type_deduction_demo()
 	assert(y == 1);
 }
 }
+using namespace deduction;
 
 /**
  @}
@@ -88,8 +89,7 @@ void return_type_deduction_demo()
  */
 
 /// Binary literals, digit separators
-
-namespace variables_14 {
+namespace variables {
 
 /// Template variables
 /// https://en.cppreference.com/w/cpp/language/variable_template
@@ -124,6 +124,7 @@ static void demo()
 }
 
 }
+using namespace variables;
 
 void types_14()
 {
@@ -211,8 +212,8 @@ void sort_14()
 
 int main(void)
 {
-	return_type_deduction_14::return_type_deduction_demo();
-	variables_14::demo();
+	return_type_deduction_demo();
+	demo();
 	sort_14();
 	types_14();
 	lambda_14();
