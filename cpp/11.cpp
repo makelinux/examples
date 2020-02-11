@@ -122,7 +122,7 @@ void func_11()
 	assert(binded() == 5);
 }
 
-static_assert(__cpp_constexpr);
+static_assert(__cpp_constexpr, "");
 
 /// https://en.cppreference.com/w/cpp/language/constexpr
 
@@ -334,28 +334,22 @@ void dynamic_memory_11()
 	assert(!s2.use_count());
 }
 
-/// @cond
-#if ! gcc_extension
-#define static_assert(a) static_assert(a, "")
-#endif
-/// @endcond
-
 void types_11()
 {
-	static_assert(__cpp_decltype);
+	static_assert(__cpp_decltype, "");
 
 	int a;
 	decltype(a) b;
 
-	static_assert(is_same<decltype(a), decltype(b)>::value);
-	static_assert(!is_same<decltype(a), unsigned>::value);
-	static_assert(is_same<int, int32_t>::value);
-	static_assert(is_same<signed, int32_t>::value);
+	assert((is_same<decltype(a), decltype(b)>::value));
+	assert((!is_same<decltype(a), unsigned>::value));
+	assert((is_same<int, int32_t>::value));
+	assert((is_same<signed, int32_t>::value));
 
-	static_assert(is_integral<int>::value);
-	static_assert(is_integral<bool>::value);
-	static_assert(!is_integral<float>::value);
-	static_assert(is_pointer<int*>::value);
+	assert(is_integral<int>::value);
+	assert(is_integral<bool>::value);
+	assert(!is_integral<float>::value);
+	assert(is_pointer<int*>::value);
 
 }
 /// @}
@@ -371,7 +365,7 @@ int main(void)
 	func_11();
 	sort_11();
 	dynamic_memory_11();
-	static_assert(constexpr_factorial(4));
+	static_assert(constexpr_factorial(4), "");
 
 	types_11();
 	return 0;

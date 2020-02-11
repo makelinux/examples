@@ -34,6 +34,7 @@ using namespace std;
 
 namespace deduction {
 
+#define static_assert(a) static_assert(a, "")
 static_assert(__cpp_return_type_deduction);
 
 auto implicit_int_return_type()
