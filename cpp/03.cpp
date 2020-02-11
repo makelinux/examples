@@ -65,7 +65,7 @@ void init_03()
  @fn void sort_03()
  http://www.cplusplus.com/reference/algorithm/sort/?kw=sort
 
- Compare with @ref sort_11
+ Compare with @ref lambda::sort_11
  */
 
 /// @private

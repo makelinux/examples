@@ -177,9 +177,30 @@ static_assert(_inc4(1) == 2);
 #else
 #pragma message("undefined __cpp_concepts")
 #endif
+
+namespace lambda {
+
+void lambda_20()
+{
+	// generic lambda, operator() is a template with two parameters
+	auto glambda = []<class T>(T a, auto&& b) { return a < b; };
+	assert(glambda(2,1));
+
+	// generic lambda, operator() is a template with one parameter pack
+	auto f = []<typename ...Ts>(Ts&& ...ts) {
+		return 1;
+	};
+	assert(f(1,2,3));
+}
+
+}
+using namespace lambda;
+
+/// @}
 int main()
 {
 	init_20();
+	lambda_20();
 }
 /// @}
 

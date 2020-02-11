@@ -140,6 +140,7 @@ constexpr int constexpr_factorial(int n)
  https://www.geeksforgeeks.org/lambda-expression-in-c/
  @{
  */
+namespace lambda {
 
 static void lambda_basics(void)
 {
@@ -244,6 +245,9 @@ void sort_11()
 		  { return a > b; }
 		 );
 }
+
+}
+using namespace lambda;
 
 /// @}
 

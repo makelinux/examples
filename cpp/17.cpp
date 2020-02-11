@@ -119,6 +119,7 @@ auto seq = my_integer_sequence<0, 1, 2>();
 
  @{
  */
+namespace lambda {
 
 // explicit constexpr
 auto identity = [](int n) constexpr { return n; };
@@ -172,7 +173,7 @@ void capture_this_by_value()
 	assert(val() == 1);
 }
 
-void lambda_examples()
+void lambda_17()
 {
 	assert(can_be_constexpr1(2) == 2);
 	int i = 3;
@@ -180,6 +181,9 @@ void lambda_examples()
 	non_const(1);
 	capture_this_by_value();
 }
+
+}
+using namespace lambda;
 
 /// @}
 
@@ -483,7 +487,7 @@ void types_17()
 int main()
 {
 	folding_demo();
-	lambda_examples();
+	lambda_17();
 	variant_demo();
 	clamp_demo();
 	dynamic_memory_17();

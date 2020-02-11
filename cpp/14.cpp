@@ -163,6 +163,10 @@ void types_14()
  https://en.cppreference.com/w/cpp/language/lambda
  @{
  */
+namespace lambda {
+
+}
+using namespace lambda;
 static void lambda_14()
 {
 	// Generic lambdas
@@ -182,11 +186,16 @@ static void lambda_14()
 	assert(mutable_lambda() == 2);
 	assert(mutable_lambda() == 3);
 
+	// capture initialization can change context
+	int c = 0;
+	auto change_c = [value = ++c] () { };
+	assert(c == 1);
+
 	unique_ptr<int> ptr(new int(10));
 	auto capture_by_move = [value = std::move(ptr)] { return *value; };
 }
 
-/// Compare with @ref sort_11
+/// Compare with @ref lambda::sort_11
 
 void sort_14()
 {
