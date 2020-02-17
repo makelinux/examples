@@ -370,24 +370,7 @@ int main(void)
 	types_11();
 	return 0;
 }
-/// @}
-
-extern "C" {
-void main3()
-{
-	struct ab {
-		int a;
-		int b;
-	};
 
 
-	// Point2D point2D = {.x = 1, .y = 2};
-	// Point2D point2D = {.x , };
-	ab ab {1, 2};
-	(void) ab;
-	(void) ab.a;
-	(void) ab.b;
 
-	// Point3D point3D {.x = 1, .y = 2, .z = 2};
-}
-}
+
