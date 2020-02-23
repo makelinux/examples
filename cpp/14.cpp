@@ -177,8 +177,6 @@ void types_14()
  */
 namespace lambda {
 
-}
-using namespace lambda;
 static void lambda_14()
 {
 	// Generic lambdas
@@ -218,6 +216,9 @@ void sort_14()
 		  { return a > b; }
 		 );
 }
+
+}
+using namespace lambda;
 
 /// @}
 

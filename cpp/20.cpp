@@ -25,10 +25,10 @@ static_assert(__cplusplus >= 201707);
 using namespace std;
 
 /**
-  https://en.cppreference.com/w/cpp/ranges
-  https://en.cppreference.com/w/cpp/utility/source_location
-  https://en.cppreference.com/w/cpp/language/coroutines
-  */
+ @defgroup lang20 Language
+ https://en.cppreference.com/w/cpp/language
+ @{
+ */
 
 void init_20()
 {
@@ -57,6 +57,40 @@ void init_20()
 	assert(l3.b.x == 3);
 	assert(l3.b.y == 4);
 }
+
+namespace lambda {
+
+void lambda_20()
+{
+#if __cplusplus >= 201709
+	// generic lambda, operator() is a template with two parameters
+	auto glambda = []<class T>(T a, auto&& b) { return a < b; };
+	assert(glambda(1,2));
+	// generic lambda, operator() is a template with one parameter pack
+	auto f = []<typename ...Ts>(Ts&& ...ts) {
+		return 1;
+	};
+	assert(f(1,2,3));
+
+	struct point { int x, y; };
+	auto point_lambda = []<class T=point>(T&& var) {};
+	point_lambda({1, 2});
+#endif
+}
+
+}
+using namespace lambda;
+
+
+/// @} lang20
+
+/**
+ @defgroup templ20 Template
+
+ https://en.cppreference.com/w/cpp/language/templates
+
+ @{
+*/
 
 #if __cpp_concepts
 /**
@@ -178,25 +212,30 @@ static_assert(_inc4(1) == 2);
 #pragma message("undefined __cpp_concepts")
 #endif
 
-namespace lambda {
 
-void lambda_20()
-{
-	// generic lambda, operator() is a template with two parameters
-	auto glambda = []<class T>(T a, auto&& b) { return a < b; };
-	assert(glambda(1,2));
 
-	// generic lambda, operator() is a template with one parameter pack
-	auto f = []<typename ...Ts>(Ts&& ...ts) {
-		return 1;
-	};
-	assert(f(1,2,3));
-}
 
-}
-using namespace lambda;
+
+/**
+ @defgroup other20 Other
+ @{
+
+  TODO:
+
+  https://en.cppreference.com/w/cpp/ranges
+
+  https://en.cppreference.com/w/cpp/language/range-for
+
+  https://en.cppreference.com/w/cpp/utility/source_location
+
+  https://en.cppreference.com/w/cpp/language/coroutines
+
+  https://en.cppreference.com/w/cpp/language/constinit
+
+ */
 
 /// @}
+
 int main()
 {
 	init_20();

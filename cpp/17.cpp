@@ -78,7 +78,6 @@ arg_deduction c2;
 #endif
 
 /**
- @{
  @defgroup template_parameters Template parameters
  https://en.cppreference.com/w/cpp/language/template_parameters
  @{
@@ -106,26 +105,24 @@ struct my_integer_sequence {
 /// @brief auto seq = integer_sequence<int, 0, 1, 2>();
 auto seq = my_integer_sequence<0, 1, 2>();
 
-/**
- @} template_parameters
- @}
- @}
- */
-
-/// @cond
-namespace lambda {
-/// @endcond
+/// @} template_parameters
+/// @} templ17
 
 /**
- @defgroup lambda Lambda
+ @defgroup lambda17 Lambda
 
  @{
+ */
+
+/**
  @defgroup constexpr_lambda Constexpr lambda
  https://en.cppreference.com/w/cpp/language/lambda
  https://docs.microsoft.com/en-us/cpp/cpp/lambda-expressions-constexpr
 
  @{
  */
+
+namespace lambda {
 
 // explicit constexpr
 auto identity = [](int n) constexpr { return n; };
@@ -157,6 +154,7 @@ constexpr int const_inc(int n)
 constexpr int(*inc)(int) = const_inc;
 static_assert(const_inc(1) == 2);
 
+}
 /// @}
 
 /**
@@ -164,6 +162,8 @@ static_assert(const_inc(1) == 2);
  https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
  @{
  */
+
+namespace lambda {
 
 void capture_this_by_value()
 {
@@ -189,14 +189,14 @@ void lambda_17()
 	capture_this_by_value();
 }
 
-/// @}
-
 }
 using namespace lambda;
 
+/// @} lcbv
+
+/// @} lambda17
 
 /**
- @}
  @defgroup land17 Language
  @{
 
@@ -223,22 +223,7 @@ void test2()
 }
 
 /**
- @}
- @defgroup iv Inline variables
-
- https://en.cppreference.com/w/cpp/language/inline
-
- @{
- */
-
-struct S { int x; };
-
-inline S x1 = S{321};
-
-S x2 = S{123};
-
-/**
- @}
+ @} folding
  @defgroup nn Qualified nested namespace
 
  https://en.cppreference.com/w/cpp/language/namespace
@@ -252,13 +237,13 @@ S x2 = S{123};
 namespace other::qualified_nested_namespace {
 	int in_qualified_nested_namespace;
 }
+// } } - just for symmetry 
 
 /**
- @}
+ @} nn
  @defgroup sb Structured bindings
 
  https://en.cppreference.com/w/cpp/language/structured_binding
-
  @{
  */
 
@@ -291,7 +276,7 @@ void structured_bindings()
 }
 
 /**
- @}
+ @} sb
  @defgroup iscs Variable declaration in conditionals
 
  https://en.cppreference.com/w/cpp/language/if
@@ -493,6 +478,18 @@ void string_view_demo()
 	assert(v.substr(1, 2).data() <= s.c_str() + s.length());
 }
 
+/// @} lib17
+
+/**
+ @defgroup other17 Other
+ @{
+
+ */
+
+/// https://en.cppreference.com/w/cpp/language/inline
+
+inline int inline_var;
+
 /// @}
 
 int main()
@@ -507,4 +504,4 @@ int main()
 	types_17();
 }
 
-/// @}
+/// @} CPP17
