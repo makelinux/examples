@@ -295,8 +295,6 @@ void conditional_with_init()
 	}
 }
 
-template<class T> struct dependent_false : false_type {};
-
 /**
  @}
  @defgroup attr New attributes 'fallthrough', 'nodiscard' and 'maybe_unused'
