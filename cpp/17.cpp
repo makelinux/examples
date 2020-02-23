@@ -110,6 +110,13 @@ auto seq = my_integer_sequence<0, 1, 2>();
  @} template_parameters
  @}
  @}
+ */
+
+/// @cond
+namespace lambda {
+/// @endcond
+
+/**
  @defgroup lambda Lambda
 
  @{
@@ -119,7 +126,6 @@ auto seq = my_integer_sequence<0, 1, 2>();
 
  @{
  */
-namespace lambda {
 
 // explicit constexpr
 auto identity = [](int n) constexpr { return n; };
@@ -151,8 +157,9 @@ constexpr int const_inc(int n)
 constexpr int(*inc)(int) = const_inc;
 static_assert(const_inc(1) == 2);
 
+/// @}
+
 /**
- @}
  @defgroup lcbv Lambda capture this by value
  https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
  @{
@@ -182,10 +189,11 @@ void lambda_17()
 	capture_this_by_value();
 }
 
+/// @}
+
 }
 using namespace lambda;
 
-/// @}
 
 /**
  @}
@@ -365,8 +373,30 @@ char char_u8 = u8'x';
 enum byte_e : unsigned char {};
 byte_e b { 123 };
 
+/// @}
+
+void types_17()
+{
+	static_assert(is_integral_v<int>);
+	static_assert(__cpp_hex_float);
+	double hex_double = 0x1.2p3; // https://en.cppreference.com/w/cpp/language/floating_literal
+	assert(hex_double == 9.0);
+
+	static_assert(is_invocable<decltype(types_17)>::value);
+	static_assert(is_invocable<int()>::value);
+	static_assert(is_invocable_r<int, int()>::value);
+	static_assert(is_invocable_r<void, void(int), int>::value);
+	static_assert(negation_v<bool_constant<false>>);
+
+	auto inc = [](int a) -> int { return a + 1; };
+	static_assert(is_invocable_r<int, decltype(inc), int>::value);
+	static_assert(__cpp_lib_invoke);
+	// https://en.cppreference.com/w/cpp/utility/functional/invoke
+	assert(invoke(inc, 2) == 3);
+}
+
+
 /**
- @}
  @}
  @defgroup lib17 Library
  @{
@@ -464,25 +494,6 @@ void string_view_demo()
 }
 
 /// @}
-
-void types_17()
-{
-	static_assert(is_integral_v<int>);
-	static_assert(__cpp_hex_float);
-	double hex_double = 0x1.2p3; // https://en.cppreference.com/w/cpp/language/floating_literal
-	assert(hex_double == 9.0);
-
-	static_assert(is_invocable<decltype(types_17)>::value);
-	static_assert(is_invocable<int()>::value);
-	static_assert(is_invocable_r<int, int()>::value);
-	static_assert(is_invocable_r<void, void(int), int>::value);
-
-	auto inc = [](int a) -> int { return a + 1; };
-	static_assert(is_invocable_r<int, decltype(inc), int>::value);
-	static_assert(__cpp_lib_invoke);
-	// https://en.cppreference.com/w/cpp/utility/functional/invoke
-	assert(invoke(inc, 2) == 3);
-}
 
 int main()
 {
