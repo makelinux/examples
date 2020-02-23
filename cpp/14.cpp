@@ -70,23 +70,33 @@ void return_type_deduction_demo()
 }
 using namespace deduction;
 
+///  @}
 /**
- @}
  @defgroup other14 Other
  @{
-	https://en.cppreference.com/w/cpp/language/constexpr
-	https://en.cppreference.com/w/cpp/language/integer_literal
-	https://en.cppreference.com/w/cpp/language/function // decltype(auto)
-	https://en.cppreference.com/w/cpp/language/aggregate_initialization
+ TODO:
 
-	https://en.cppreference.com/w/cpp/thread/shared_timed_mutex
-	https://en.cppreference.com/w/cpp/thread/shared_lock
-	https://en.cppreference.com/w/cpp/utility/integer_sequence
-	https://en.cppreference.com/w/cpp/utility/exchange
-	https://en.cppreference.com/w/cpp/utility/forward
-	https://en.cppreference.com/w/cpp/io/manip/quoted
+ https://en.cppreference.com/w/cpp/language/constexpr
 
-	// [[deprecated]]
+ https://en.cppreference.com/w/cpp/language/integer_literal
+
+ https://en.cppreference.com/w/cpp/language/function // decltype(auto)
+
+ https://en.cppreference.com/w/cpp/language/aggregate_initialization
+
+ https://en.cppreference.com/w/cpp/thread/shared_timed_mutex
+
+ https://en.cppreference.com/w/cpp/thread/shared_lock
+
+ https://en.cppreference.com/w/cpp/utility/integer_sequence
+
+ https://en.cppreference.com/w/cpp/utility/exchange
+
+ https://en.cppreference.com/w/cpp/utility/forward
+
+ https://en.cppreference.com/w/cpp/io/manip/quoted
+
+ // [[deprecated]]
  */
 
 /// Binary literals, digit separators
