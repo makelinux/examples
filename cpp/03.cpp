@@ -41,14 +41,11 @@ void init_03()
 #if gcc_extension
 	// designated initializers
 	// https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html
+	__extension__
 	point gpp_ext = { .x = 1 }; // C99-like gcc extension
+	__extension__
 	point gcc_ext = { x: 1 }; // C-like gcc extension
-	(void) gpp_ext;
-	(void) gcc_ext;
 #endif
-	(void) p1;
-	(void) x3;
-	(void) x4;
 
 	// Mutable
 	struct struct_with_mutable {
