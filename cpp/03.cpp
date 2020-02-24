@@ -54,6 +54,8 @@ void init_03()
 	} const const_struct_with_mutable;
 	const_struct_with_mutable.m = 2;
 	assert(const_struct_with_mutable.m == 2);
+	int y = 0;
+	int& reference = y;
 }
 
 
