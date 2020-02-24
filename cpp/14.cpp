@@ -32,8 +32,6 @@ using namespace std;
  @{
  */
 
-namespace deduction {
-
 #define static_assert(a) static_assert(a, "")
 static_assert(__cpp_return_type_deduction);
 
@@ -67,8 +65,6 @@ void return_type_deduction_demo()
 	assert(&y == &x);
 	assert(y == 1);
 }
-}
-using namespace deduction;
 
 ///  @}
 /**
@@ -100,7 +96,6 @@ using namespace deduction;
  */
 
 /// Binary literals, digit separators
-namespace variables {
 
 /// Template variables
 /// https://en.cppreference.com/w/cpp/language/variable_template
@@ -133,9 +128,6 @@ static void demo()
 	auto dur = 60s;            // auto deduces chrono::seconds
 
 }
-
-}
-using namespace variables;
 
 void types_14()
 {
@@ -175,8 +167,6 @@ void types_14()
  https://en.cppreference.com/w/cpp/language/lambda
  @{
  */
-namespace lambda {
-
 static void lambda_14()
 {
 	// Generic lambdas
@@ -216,9 +206,6 @@ void sort_14()
 		  { return a > b; }
 		 );
 }
-
-}
-using namespace lambda;
 
 /// @}
 

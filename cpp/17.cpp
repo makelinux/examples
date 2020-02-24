@@ -122,8 +122,6 @@ auto seq = my_integer_sequence<0, 1, 2>();
  @{
  */
 
-namespace lambda {
-
 // explicit constexpr
 auto identity = [](int n) constexpr { return n; };
 static_assert(identity(1) == 1);
@@ -154,7 +152,6 @@ constexpr int const_inc(int n)
 constexpr int(*inc)(int) = const_inc;
 static_assert(const_inc(1) == 2);
 
-}
 /// @}
 
 /**
@@ -162,8 +159,6 @@ static_assert(const_inc(1) == 2);
  https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
  @{
  */
-
-namespace lambda {
 
 void capture_this_by_value()
 {
@@ -188,9 +183,6 @@ void lambda_17()
 	non_const(1);
 	capture_this_by_value();
 }
-
-}
-using namespace lambda;
 
 /// @} lcbv
 
@@ -234,7 +226,7 @@ void test2()
  */
 
 /// Before: namespace other { namespace other2 {
-namespace other::qualified_nested_namespace {
+namespace outer_namespace::qualified_nested_namespace {
 	int in_qualified_nested_namespace;
 }
 // } } - just for symmetry 

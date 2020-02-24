@@ -150,7 +150,6 @@ constexpr int constexpr_factorial(int n)
  https://www.geeksforgeeks.org/lambda-expression-in-c/
  @{
  */
-namespace lambda {
 
 static void lambda_basics(void)
 {
@@ -256,13 +255,10 @@ void sort_11()
 		 );
 }
 
-}
-using namespace lambda;
-
 /// @}
 
 /**
- @defgroup lambda11_comples More complex Lambdas
+ @defgroup lambda11_complex More complex Lambdas
  @{
  */
 
@@ -305,7 +301,7 @@ static void lambda_complex(void)
 	assert(use_lambda(1, [](int a) {return a + 1;}) == 2);
 }
 
-/// @}
+/// @} lambda11_complex
 
 void dynamic_memory_11()
 {
@@ -363,9 +359,7 @@ void types_11()
 	assert(is_integral<bool>::value);
 	assert(!is_integral<float>::value);
 	assert(is_pointer<int*>::value);
-
 }
-/// @}
 
 int main(void)
 {
