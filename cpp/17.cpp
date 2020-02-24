@@ -9,6 +9,8 @@
 
  https://en.cppreference.com/w/cpp/language/history/17
 
+ https://en.cppreference.com/w/cpp/language/range-for
+
  @{
 */
 
