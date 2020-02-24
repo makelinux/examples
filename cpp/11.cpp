@@ -267,16 +267,17 @@ using namespace lambda;
  */
 
 /// @cond
+
+/// https://en.cppreference.com/w/cpp/utility/functional/function
+
 // int use_lambda(int a; int (func*)(int))
 static int use_lambda(int a, function<int(int)> f)
 {
+	// lambda argument is like pointer to functions
 	return f(a);
 }
 
-/// https://en.cppreference.com/w/cpp/utility/functional/function
 static function<int(int)> g_f;
-
-/// @endcond
 
 static void set_lambda(function<int(int)> &&f)
 {
@@ -287,6 +288,8 @@ static int call_lambda(int a)
 {
 	return g_f(a);
 }
+
+/// @endcond
 
 static void lambda_complex(void)
 {
