@@ -1,4 +1,7 @@
 /* 
+
+ http://ee.hawaii.edu/~tep/EE160/Book/chapapx/node7.html
+
  https://developerinsider.co/difference-between-c-and-ansi-c/
  */
 

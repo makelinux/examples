@@ -1,5 +1,6 @@
 /*
-   "Traditional" C, subset of K&R 
+  "Traditional" C, before books of K&R
+  https://gcc.gnu.org/onlinedocs/gcc-7.5.0/cpp/Traditional-warnings.html
  */
 
 #include <string.h>
