@@ -25,5 +25,4 @@ def sum(l: list[int]) -> int:
 
 assert(sum([1,2,3]) == 6)
 
-from sys import *
-print("passed", version)
+import passed

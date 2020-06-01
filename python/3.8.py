@@ -4,7 +4,6 @@
 #
 # https://docs.python.org/3/whatsnew/3.8.html
 
-import unittest
 from datetime import *
 
 # Arguments before / are considered as positional arguments only
@@ -38,6 +37,7 @@ assert(f'{i=:.3f}' == 'i=1.000')
 
 assert(f'{i+i=}' == 'i+i=2')
 
-from sys import *
+import asyncio
+# get_coro get_name set_name
 
-print("passed", version)
+import passed

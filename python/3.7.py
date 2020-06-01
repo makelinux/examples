@@ -12,5 +12,26 @@ assert(var.get() == 1)
 var.set(2)
 assert(var.get() == 2)
 
-from sys import *
-print("passed", version)
+import asyncio
+
+buf = ''
+
+async def corutine():
+    global buf
+    buf += '3'
+    pass
+
+async def test_task():
+    global buf
+    buf += '1'
+    # Before:
+    #task = asyncio.ensure_future(corutine())
+    task = asyncio.create_task(corutine())
+    buf += '2'
+    await task
+    buf += '4'
+
+asyncio.run(test_task())
+assert(buf == '1234')
+
+import passed
