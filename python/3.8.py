@@ -10,13 +10,15 @@ from datetime import *
 #
 # https://docs.python.org/3/whatsnew/3.8.html#positional-only-parameters
 
-def add(x, y, /, z = 0):
+
+def add(x, y, /, z=0):
     a = x + y + z
     return a
 
+
 try:
-    add(x = 2, y = 5)
-except:
+    add(x=2, y=5)
+except (Exception):
     res = add(1, 2, 3)
 assert(res == 6)
 

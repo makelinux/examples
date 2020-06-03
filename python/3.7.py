@@ -16,16 +16,18 @@ import asyncio
 
 buf = ''
 
+
 async def corutine():
     global buf
     buf += '3'
     pass
 
+
 async def test_task():
     global buf
     buf += '1'
     # Before:
-    #task = asyncio.ensure_future(corutine())
+    # task = asyncio.ensure_future(corutine())
     task = asyncio.create_task(corutine())
     buf += '2'
     await task
