@@ -37,6 +37,9 @@ def async_query(on_success: Callable[[int], None],
                 on_error: Callable[[int, Exception], None]) -> None:
     pass
 
+
+# https://docs.python.org/3.5/whatsnew/3.5.html#pep-492-coroutines-with-async-and-await-syntax
+
 import asyncio
 
 
