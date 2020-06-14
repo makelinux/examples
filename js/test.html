@@ -1,0 +1,29 @@
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<script type="text/javascript">
+
+var passed = 0, failed = 0;
+
+function fin()
+{
+	var scripts = Array.prototype.slice.call(document.getElementsByTagName('script'), 0);
+	document.write(scripts.pop().src.split('/').pop() + ", ");
+	document.write("passed: ", passed, ", failed: ", failed, "<br>");
+	passed = 0, failed = 0;
+}
+
+function assert_eq(a, b)
+{
+	if ((aj = JSON.stringify(a)) != (bj = JSON.stringify(b))) {
+		document.write("error: ", aj , "!=", bj, "<br>")
+		failed++;
+	} else {
+		passed++;
+	}
+}
+
+</script>
+
+<script type="text/javascript" src="7.js" onload="fin()"></script>
+<script type="text/javascript" src="8.js" onload="fin()"></script>
+<script type="text/javascript" src="9.js" onload="fin()"></script>
+<script type="text/javascript" src="10.js" onload="fin()"></script>
