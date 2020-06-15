@@ -1,6 +1,9 @@
 # ECMAScript / JavaScript features per release by examples
 
-[ES7](7.js) [ES8](8.js) [ES9](9.js) [ES10](10.js)
+* [ES7](7.js)
+* [ES8](8.js)
+* [ES9](9.js)
+* [ES10](10.js)
 
 References
 * https://en.wikipedia.org/wiki/ECMAScript#ES2015
