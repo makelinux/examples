@@ -71,16 +71,59 @@ using namespace std;
 
  */
 
+/// func_type - overloaded functions
+
+char func_type(const int& x)
+{
+	assert(is_const<typename remove_reference<decltype(x)>::type>::value);
+	assert(is_lvalue_reference<decltype(x)>::value);
+	return 'C';
+}
+
+char func_type(int& x)
+{
+	assert(is_lvalue_reference<decltype(x)>::value);
+	return 'L';
+}
+
+char func_type(int&& x)
+{
+	assert(is_rvalue_reference<decltype(x)>::value);
+	return 'R';
+}
+
+template<class T>
+char func_type_template(T&& x) // x is a forwarding reference
+{
+	// x is not R-value here
+	assert(func_type(x) != 'R');
+
+	// x can be forwarded as R or L value
+	// https://en.cppreference.com/w/cpp/utility/forward
+	return func_type(forward<T>(x)); // like func_type((T)(x));
+}
+
 void references_11()
 {
 	// https://en.cppreference.com/w/cpp/language/reference
-	assert(std::is_reference<int&>::value);
+	assert(is_reference<int&>::value);
 
 	// L-value:
-	assert(std::is_lvalue_reference<int&>::value);
+	assert(is_lvalue_reference<int&>::value);
 
 	// R-value
-	assert(std::is_rvalue_reference<int&&>::value);
+	assert(is_rvalue_reference<int&&>::value);
+
+	const int c = 1;
+	int i;
+
+	assert(func_type(c) == 'C');
+	assert(func_type(i) == 'L');
+	assert(func_type(1) == 'R');
+
+	assert(func_type_template(c) == 'C');
+	assert(func_type_template(i) == 'L');
+	assert(func_type_template(1) == 'R');
 }
 
 void init_11()
@@ -382,6 +425,8 @@ void types_11()
 	assert(is_pointer<int*>::value);
 }
 
+  https://en.cppreference.com/w/cpp/utility/declval
+  https://en.cppreference.com/w/cpp/language/parameter_pack
 int main(void)
 {
 	references_11();
