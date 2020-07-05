@@ -1,4 +1,6 @@
-all: 20 17 14 11 03
+all: build check
+
+build: 20 17 14 11 03
 CXXFLAGS+=-Wall -Wno-unused
 CXXFLAGS+=-Wextra -Wno-missing-field-initializers
 CXXFLAGS+=-Wpedantic
@@ -19,3 +21,6 @@ endif
 14: CXXFLAGS+=-std=c++14
 11: CXXFLAGS+=-std=c++11
 03: CXXFLAGS+=-std=c++03
+
+check:
+	./03 && ./11 && ./14 && ./17 && ./20
