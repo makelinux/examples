@@ -1,4 +1,4 @@
-all: build check
+all: build check features.csv
 
 build: 20 17 14 11 03
 CXXFLAGS+=-Wall -Wno-unused
@@ -24,3 +24,8 @@ endif
 
 check:
 	./03 && ./11 && ./14 && ./17 && ./20
+
+features.csv:
+	#./03 && ./11 && ./14 && ./17 && ./20
+	bash -c "export features=1; join --nocheck-order <(join <(join <(join <(./03) <(./11)) <(./14)) <(./17)) <(./20)" \
+		> $@

@@ -31,10 +31,12 @@ comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' | sort -u) \
 Tip: append result of  snippets above to this file.
 
 Builing table:
-
+export features=1
 join <(join <(join <(join <(./03) <(./11)) <(./14)) <(./17)) <(./20) > a.csv
 
 */
+
+#include <cstdlib>
 
 using namespace std;
 
@@ -61,7 +63,8 @@ using namespace std;
 		class c##x { \
 			public: \
 				c##x() { \
-					check2(#x, x); \
+					if (std::getenv("features")) \
+						check2(#x, x); \
 				} \
 		} c##x // global instantiation
 
