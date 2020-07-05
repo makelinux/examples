@@ -47,12 +47,23 @@ using namespace std;
 
 #define u(a) concat(a, __LINE__)
 
-#define check2(x, y) do { cout << x; \
-	if (string(x) != #y) cout << " " << #y; \
-	else cout << " ------"; cout << endl; } \
+#define check2(x, y) \
+	do { \
+		cout << x; \
+		if (string(x) != #y) \
+			cout << " " << #y; \
+		else \
+			cout << " ------"; cout << endl; \
+	} \
 	while (0)
 
-#define check(x) class c##x { public: c##x() { check2(#x, x); }} c##x
+#define check(x) \
+		class c##x { \
+			public: \
+				c##x() { \
+					check2(#x, x); \
+				} \
+		} c##x // global instantiation
 
 // Just append new check at the end of the file
 
