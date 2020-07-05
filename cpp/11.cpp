@@ -43,8 +43,6 @@ using namespace std;
 
   https://en.cppreference.com/w/cpp/language/final
 
-  https://en.cppreference.com/w/cpp/language/reference &&
-
   https://en.cppreference.com/w/cpp/language/attributes
 
   https://en.cppreference.com/w/cpp/language/string_literal
@@ -72,6 +70,18 @@ using namespace std;
   https://en.cppreference.com/w/cpp/types/is_constructible
 
  */
+
+void references_11()
+{
+	// https://en.cppreference.com/w/cpp/language/reference
+	assert(std::is_reference<int&>::value);
+
+	// L-value:
+	assert(std::is_lvalue_reference<int&>::value);
+
+	// R-value
+	assert(std::is_rvalue_reference<int&&>::value);
+}
 
 void init_11()
 {
@@ -372,6 +382,7 @@ void types_11()
 
 int main(void)
 {
+	references_11();
 	init_11();
 	auto r = trailing_return_type(1);
 	(void) r;

@@ -32,8 +32,20 @@ static_assert(__cplusplus == 201703);
 #include <functional> //11
 #include <utility>
 #include <valarray>
+//#include <execution>
 
 using namespace std;
+
+void references_17()
+{
+	static_assert(std::is_reference_v<int&>);
+
+	// L-value:
+	static_assert(std::is_lvalue_reference_v<int&>);
+
+	// R-value
+	static_assert(std::is_rvalue_reference_v<int&&>);
+}
 
 /**
  @defgroup templ17 Template
@@ -42,6 +54,7 @@ using namespace std;
 
  @{
 */
+
 #if __cpp_deduction_guides
 
 /**
@@ -486,6 +499,7 @@ inline int inline_var;
 
 int main()
 {
+	references_17();
 	folding_demo();
 	lambda_17();
 	variant_demo();
