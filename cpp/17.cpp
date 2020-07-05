@@ -351,7 +351,7 @@ void constif()
  @{
  */
 
-char char_u8 = u8'x';
+static char char_u8 = u8'x';
 
 /**
  @}
@@ -361,7 +361,7 @@ char char_u8 = u8'x';
  @{
  */
 enum byte_e : unsigned char {};
-byte_e b { 123 };
+static byte_e b { 123 };
 
 /// @}
 
