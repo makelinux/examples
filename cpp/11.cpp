@@ -330,9 +330,10 @@ void dynamic_memory_11()
 
 	int * p1 = u1.get();
         u2 = move(u1); // https://en.cppreference.com/w/cpp/utility/move
-	assert(p1 == u2.get());
-	assert(!u1);
+	assert(u2.get() == p1);
 	assert(u2);
+	assert(!u1);
+	assert(u2.get() == &d);
 	// must release because d is local
 	u2.release();
 	u2.reset(new int(10));
@@ -367,6 +368,7 @@ void types_11()
 	static_assert(__cpp_decltype, "");
 
 	int a;
+	// https://en.cppreference.com/w/cpp/language/decltype
 	decltype(a) b;
 
 	assert((is_same<decltype(a), decltype(b)>::value));
