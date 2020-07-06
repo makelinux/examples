@@ -33,6 +33,73 @@ using namespace std;
 
  */
 
+void types_11()
+{
+	static_assert(__cpp_decltype, "");
+
+	int a;
+	// https://en.cppreference.com/w/cpp/header/type_traits
+	decltype(a) b; // https://en.cppreference.com/w/cpp/language/decltype
+
+	assert((is_same<decltype(a), decltype(b)>::value));
+	assert((!is_same<decltype(a), unsigned>::value));
+	assert((is_same<int, int32_t>::value));
+	assert((is_same<signed, int32_t>::value));
+
+	assert(is_integral<int>::value);
+	assert(is_integral<bool>::value);
+	assert(!is_integral<float>::value);
+	assert(is_pointer<int*>::value);
+}
+
+void dynamic_memory_11()
+{
+	int d = 0;
+	unique_ptr<int> u1; // https://en.cppreference.com/w/cpp/memory/unique_ptr
+	assert(!u1);
+	u1.reset(&d);
+	assert(u1);
+	*u1 = 1;
+	assert(d == 1);
+
+	unique_ptr<int> u2;
+        // u2 = u1; - prohibited
+
+	int * p1 = u1.get();
+        u2 = move(u1); // https://en.cppreference.com/w/cpp/utility/move
+	assert(u2.get() == p1);
+	assert(u2);
+	assert(!u1);
+	assert(u2.get() == &d);
+	// must release because d is local
+	u2.release();
+	u2.reset(new int(10));
+	assert(*u2 == 10);
+
+	u2.reset(); // deletes int(10)
+	assert(u2 == nullptr); // https://en.cppreference.com/w/cpp/language/nullptr
+
+	assert(!u2);
+
+	shared_ptr<int> s1;
+	assert(!s1);
+	assert(!s1.use_count());
+
+	auto s2 = make_shared<int>(1);
+	assert(s2.use_count() == 1);
+
+	s1 = s2;
+	assert(s1.use_count() == 2);
+
+	*s1 = 2;
+	assert(*s1 == *s1.get());
+	assert(*s2 == 2);
+
+	s2.reset();
+	assert(s1.use_count() == 1);
+	assert(!s2.use_count());
+}
+
 /// func_type - overloaded functions
 
 char func_type(const int& x)
@@ -319,73 +386,6 @@ static void lambda_complex(void)
 }
 
 /// @} lambda11_complex
-
-void dynamic_memory_11()
-{
-	int d = 0;
-	unique_ptr<int> u1; // https://en.cppreference.com/w/cpp/memory/unique_ptr
-	assert(!u1);
-	u1.reset(&d);
-	assert(u1);
-	*u1 = 1;
-	assert(d == 1);
-
-	unique_ptr<int> u2;
-        // u2 = u1; - prohibited
-
-	int * p1 = u1.get();
-        u2 = move(u1); // https://en.cppreference.com/w/cpp/utility/move
-	assert(u2.get() == p1);
-	assert(u2);
-	assert(!u1);
-	assert(u2.get() == &d);
-	// must release because d is local
-	u2.release();
-	u2.reset(new int(10));
-	assert(*u2 == 10);
-
-	u2.reset(); // deletes int(10)
-	assert(u2 == nullptr); // https://en.cppreference.com/w/cpp/language/nullptr
-
-	assert(!u2);
-
-	shared_ptr<int> s1;
-	assert(!s1);
-	assert(!s1.use_count());
-
-	auto s2 = make_shared<int>(1);
-	assert(s2.use_count() == 1);
-
-	s1 = s2;
-	assert(s1.use_count() == 2);
-
-	*s1 = 2;
-	assert(*s1 == *s1.get());
-	assert(*s2 == 2);
-
-	s2.reset();
-	assert(s1.use_count() == 1);
-	assert(!s2.use_count());
-}
-
-void types_11()
-{
-	static_assert(__cpp_decltype, "");
-
-	int a;
-	// https://en.cppreference.com/w/cpp/language/decltype
-	decltype(a) b;
-
-	assert((is_same<decltype(a), decltype(b)>::value));
-	assert((!is_same<decltype(a), unsigned>::value));
-	assert((is_same<int, int32_t>::value));
-	assert((is_same<signed, int32_t>::value));
-
-	assert(is_integral<int>::value);
-	assert(is_integral<bool>::value);
-	assert(!is_integral<float>::value);
-	assert(is_pointer<int*>::value);
-}
 
 /**
  @{
