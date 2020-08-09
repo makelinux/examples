@@ -225,6 +225,19 @@ constexpr int constexpr_factorial(int n)
     return n <= 1 ? 1 : (n * constexpr_factorial(n - 1));
 }
 
+/// https://en.cppreference.com/w/cpp/language/parameter_pack
+
+template<typename T>
+T constexpr adder(T v) {
+  return v;
+}
+
+template<typename T, typename... Args>
+T constexpr adder(T first, Args... args) {
+  return first + adder(args...);
+}
+
+static_assert(adder(1,2,3) == 6,"");
 
 /// @}
 
@@ -417,8 +430,6 @@ static void lambda_complex(void)
   https://en.cppreference.com/w/cpp/language/range-for
 
   https://en.cppreference.com/w/cpp/utility/declval
-
-  https://en.cppreference.com/w/cpp/language/parameter_pack
 
   https://en.cppreference.com/w/cpp/language/range-for
 
