@@ -14,10 +14,15 @@
 
 static_assert(__cplusplus >= 201707);
 
+#if __has_include (<bit>)
+#include <bit>
+#endif
 #include <vector>
 #include <cmath>
 #include <cassert>
 #include <vector>
+#include <map>
+#include <memory>
 #include <experimental/array>
 #if __has_include (<concepts>)
 #include <concepts>
@@ -30,6 +35,11 @@ using namespace std;
  https://en.cppreference.com/w/cpp/language
  @{
  */
+
+#if __cpp_char8_t
+/// https://en.cppreference.com/w/cpp/keyword/char8_t
+char8_t char8;
+#endif
 
 /// https://en.cppreference.com/w/cpp/container/array/to_array
 
@@ -62,6 +72,28 @@ void init_20()
 	line l3 = { 1, 2, 3, 4 };
 	assert(l3.b.x == 3);
 	assert(l3.b.y == 4);
+}
+
+void types_20()
+{
+#if __cpp_lib_bit_cast
+	cout << typeid(bit_cast<double>(0));
+#endif
+}
+
+void dynamic_memory_20()
+{
+	/// Shared array
+	/// https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared
+	auto a = make_shared<int[10]>();
+	cout << typeid(decltype(a.get())).name();
+	static_assert(is_same_v<decltype(a.get()), int*>);
+
+	/// https://en.cppreference.com/w/cpp/container/map/contains
+	map<int, int> m = {{2,3}};
+#if __cplusplus > 201707
+	assert(m.contains(2));
+#endif
 }
 
 namespace lambda {
