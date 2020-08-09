@@ -58,7 +58,9 @@ void references_17()
 #if __cpp_deduction_guides
 
 /**
- @defgroup class_template_argument_deduction Class template argument deduction
+ @defgroup template_argument_deduction Template argument deduction
+
+ https://en.cppreference.com/w/cpp/language/template_argument_deduction
 
  https://en.cppreference.com/w/cpp/language/class_template_argument_deduction
 
@@ -66,13 +68,13 @@ void references_17()
  */
 
 /// @brief pair<int, double> p(1, 2.3);
-pair p(1, 2.3);
+constexpr pair p(1, 2.3);
+static_assert(p.second == 2.3);
 
 /// @brief auto t = make_tuple(4, 3, 2.5);
-tuple t(4, 2, 2.5);
+constexpr tuple t(4, 2, 2.5);
 
-/// @brief less<void> l;
-less less;
+static_assert(std::get<2>(t) == 2.5);
 
 template <typename T = float>
 struct arg_deduction {
@@ -84,8 +86,15 @@ struct arg_deduction {
 /// @brief before_arg_deduction<int>
 arg_deduction c1 {1};
 
+#if __cpp_deduction_guides > 201611
+
 /// @brief before_arg_deduction<float>
 arg_deduction c2;
+
+/// @brief less<void> l;
+less less;
+
+#endif
 
 /// @}
 #else
@@ -214,19 +223,15 @@ void lambda_17()
  */
 
 template<typename... Args>
-bool folding_and(Args... args) { return (true && ... && args); }
+constexpr bool folding_and(Args... args) { return (true && ... && args); }
+
+template<typename... Args>
+constexpr auto folding_sum(Args... args) { return (... + args); }
 
 void folding_demo()
 {
-	folding_and(true, false, true); // == flase
-}
-
-template<typename... Args>
-auto folding_sum(Args... args) { return (... + args); }
-
-void test2()
-{
-	folding_sum(1.0, 2.0f, 3); // == 6.0
+	static_assert(!folding_and(true, false, true));
+	static_assert(folding_sum(1.0, 2.0f, 3) == 6.0);
 }
 
 /**
