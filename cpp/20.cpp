@@ -18,6 +18,7 @@ static_assert(__cplusplus >= 201707);
 #include <cmath>
 #include <cassert>
 #include <vector>
+#include <experimental/array>
 #if __has_include (<concepts>)
 #include <concepts>
 #endif
@@ -29,6 +30,11 @@ using namespace std;
  https://en.cppreference.com/w/cpp/language
  @{
  */
+
+/// https://en.cppreference.com/w/cpp/container/array/to_array
+
+auto to_array_demo = experimental::to_array("foo");
+static_assert(to_array_demo.size() == 4);
 
 void init_20()
 {
