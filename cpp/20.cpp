@@ -98,6 +98,17 @@ void dynamic_memory_20()
 
 namespace lambda {
 
+#if __cpp_template_template_args
+template <typename ... Args>
+auto make_lambda_with_parameter_pack_capture(Args&& ... args)
+{
+	// parameter pack capture:
+	return [... args = forward<Args>(args)] {
+		return (... + args);
+	};
+}
+#endif
+
 void lambda_20()
 {
 #if __cplusplus >= 201709
@@ -113,6 +124,10 @@ void lambda_20()
 	struct point { int x, y; };
 	auto point_lambda = []<class T=point>(T&& var) {};
 	point_lambda({1, 2});
+
+	#if __cpp_template_template_args
+	assert(make_lambda_with_parameter_pack_capture(1,2,3)() ==  6);
+	#endif
 #endif
 }
 
