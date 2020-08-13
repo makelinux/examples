@@ -20,6 +20,7 @@ static_assert(__cplusplus == 201103, "");
 #include <algorithm>
 #include <array>
 #include <memory>
+#include <thread>
 
 #if __has_include (<version>)
 #include <version>
@@ -455,6 +456,8 @@ int main(void)
 	static_assert(constexpr_factorial(4), "");
 
 	types_11();
+	thread t([]{ });
+	t.join();
 	return 0;
 }
 

@@ -6,6 +6,7 @@ CXXFLAGS+=-Wextra -Wno-missing-field-initializers
 CXXFLAGS+=-Wpedantic
 CXXFLAGS+=-Dgcc_extension
 CXXFLAGS+=-include features.cpp
+LDLIBS+=-pthread
 
 ifneq (, $(shell which g++-9))
 CXX=g++-9

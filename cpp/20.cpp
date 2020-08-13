@@ -23,6 +23,7 @@ static_assert(__cplusplus >= 201707);
 #include <vector>
 #include <map>
 #include <memory>
+#include <thread>
 #include <experimental/array>
 #if __has_include (<concepts>)
 #include <concepts>
@@ -293,6 +294,9 @@ int main()
 {
 	init_20();
 	lambda_20();
+#if __cpp_lib_jthread
+	jthread t([]{ });
+#endif
 }
 /// @}
 
