@@ -1,4 +1,4 @@
-# [Minimal working examples](https://en.wikipedia.org/wiki/Minimal_working_example) of features per release
-* [C++](cpp)
-* [python](python)
-* [ECMAScript / JavaScript](js)
+# Minimal working examples by release of
+* [C++](cpp/README.md)
+* [python](python/README.md)
+* [ECMAScript / JavaScript](js/README.md)
