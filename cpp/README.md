@@ -1,8 +1,6 @@
-# C++ features by examples
+# C++ features examples by version
 
-* Compilable and runnable code
-* [Minimal working examples](https://en.wikipedia.org/wiki/Minimal_working_example)
-* From [C++98](03.cpp) to [C++20](20.cpp)
+* Minimal working examples of [C++98](03.cpp), [C++11](11.cpp), [C++11](14.cpp), [C++17](17.cpp) and [C++20](20.cpp)
 * [Concepts](https://github.com/makelinux/examples/search?q=conc20&unscoped_q=conc20)
 * Lambda expressions
 * Templates

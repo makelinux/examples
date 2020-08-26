@@ -1,4 +1,4 @@
-# ECMAScript / JavaScript features per release by examples
+# ECMAScript / JavaScript features examples by version
 
 * [ES7](7.js)
 * [ES8](8.js)
