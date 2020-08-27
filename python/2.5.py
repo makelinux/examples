@@ -6,9 +6,9 @@ assert (1 if False else 2) == 2
 
 try:
     pass
-except Exception1:
+except TypeError:
     pass
-except Exception2:
+except AttributeError:
     pass
 else:
     pass

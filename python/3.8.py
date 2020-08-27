@@ -33,7 +33,8 @@ i = 1
 
 assert f'{i=}' == 'i=1'
 
-# The usual f-string format specifiers allow more control over how the result of the expression is displayed:
+# The usual f-string format specifiers allow more control over how the result
+# of the expression is displayed:
 
 assert f'{i=:.3f}' == 'i=1.000'
 

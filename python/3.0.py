@@ -5,7 +5,6 @@
 assert 3 / 2 == 1.5
 assert isinstance(range(3), range)
 
-import sys
 import io
 
 buff = io.StringIO()
