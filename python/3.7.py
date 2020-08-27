@@ -2,6 +2,7 @@
 
 # https://docs.python.org/3/whatsnew/3.7.html
 
+import sys
 from contextvars import *
 import dataclasses
 import importlib.resources
@@ -35,5 +36,12 @@ async def test_task():
 
 asyncio.run(test_task())
 assert(buf == '1234')
+
+breakpoint_passed = False
+
+sys.breakpointhook = lambda: globals().update(breakpoint_passed=True)
+breakpoint()
+
+assert(breakpoint_passed)
 
 import passed
