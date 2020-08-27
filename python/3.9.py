@@ -9,11 +9,11 @@ from datetime import *
 d1 = {'a': 0, 'b': 2}
 d2 = {'a': 1, 'c': 3}
 
-assert(d1 | d2 == {'a': 1, 'b': 2, 'c': 3})
+assert d1 | d2 == {'a': 1, 'b': 2, 'c': 3}
 
 d1 |= d2
 
-assert(d1 == {'a': 1, 'b': 2, 'c': 3})
+assert d1 == {'a': 1, 'b': 2, 'c': 3}
 
 # https://docs.python.org/3.9/whatsnew/3.9.html#pep-585-builtin-generic-types
 
@@ -25,6 +25,6 @@ def sum(l: list[int]) -> int:
     return s
 
 
-assert(sum([1, 2, 3]) == 6)
+assert sum([1, 2, 3]) == 6
 
 import passed

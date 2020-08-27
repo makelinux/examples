@@ -8,7 +8,7 @@ class C(object):
         pass
 
 
-assert(C.__name__ == 'C')
+assert C.__name__ == 'C'
 
 
 import passed

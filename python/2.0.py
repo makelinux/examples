@@ -3,7 +3,7 @@
 # https://docs.python.org/3.10/whatsnew/2.0.html
 
 comprehension = [c for c in 'ab' if c > 'a']
-assert('a' not in comprehension)
-assert('b' in comprehension)
+assert 'a' not in comprehension
+assert 'b' in comprehension
 
 import passed

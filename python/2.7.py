@@ -2,8 +2,8 @@
 
 # https://docs.python.org/3.10/whatsnew/2.7.html
 
-assert({1, 2} == set([1, 2]))
-assert({x: x * x for x in range(3)} == {0: 0, 1: 1, 2: 4})
+assert {1, 2} == set([1, 2])
+assert {x: x * x for x in range(3)} == {0: 0, 1: 1, 2: 4}
 
 from collections import OrderedDict
 
@@ -12,9 +12,9 @@ from collections import OrderedDict
 d = OrderedDict([('a', 1), ('b', 2), ('c', 3)])
 d['b'] = 4
 
-assert(d == OrderedDict([('a', 1), ('b', 4), ('c', 3)]))
+assert d == OrderedDict([('a', 1), ('b', 4), ('c', 3)])
 
-assert(d.popitem(last=False) == ('a', 1))
+assert d.popitem(last=False) == ('a', 1)
 
 import argparse
 

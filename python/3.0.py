@@ -2,8 +2,8 @@
 
 # https://docs.python.org/3.10/whatsnew/3.0.html
 
-assert(3 / 2 == 1.5)
-assert(isinstance(range(3), range))
+assert 3 / 2 == 1.5
+assert isinstance(range(3), range)
 
 import sys
 import io
@@ -14,7 +14,7 @@ buff = io.StringIO()
 
 print(1, 2, 3, sep=", ", end="!", file=buff)
 
-assert(buff.getvalue() == "1, 2, 3!")
+assert buff.getvalue() == "1, 2, 3!"
 
 
 class Meta(type):

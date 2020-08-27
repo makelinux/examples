@@ -8,10 +8,10 @@ import dataclasses
 import importlib.resources
 
 var: ContextVar[int] = ContextVar('var', default=1)
-assert(var.get() == 1)
+assert var.get() == 1
 
 var.set(2)
-assert(var.get() == 2)
+assert var.get() == 2
 
 import asyncio
 
@@ -35,13 +35,13 @@ async def test_task():
     buf += '4'
 
 asyncio.run(test_task())
-assert(buf == '1234')
+assert buf == '1234'
 
 breakpoint_passed = False
 
 sys.breakpointhook = lambda: globals().update(breakpoint_passed=True)
 breakpoint()
 
-assert(breakpoint_passed)
+assert breakpoint_passed
 
 import passed
