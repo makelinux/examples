@@ -21,7 +21,7 @@ int main()
 	{
 		struct xy { int x, y; };
 		struct line { struct xy a, b; };
-		struct line c = {1, };
+		struct line c = {1, }; /* instead memset */
 		assert(c.a.x);
 		assert(!c.b.y);
 	}

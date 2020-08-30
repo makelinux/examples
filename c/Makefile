@@ -6,3 +6,9 @@ CFLAGS+=-Wextra -Wno-missing-field-initializers
 tr: CFLAGS+=-std=c89 -Wtraditional
 ansi: CFLAGS+=-ansi
 99: CFLAGS+=-std=c99
+check:
+	./tr
+	./ansi
+	./99
+	./libc
+	@echo $@ finished

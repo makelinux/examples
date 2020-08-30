@@ -6,6 +6,7 @@
 
 int main()
 {
+	assert(__STDC_VERSION__ > 199900);
 	struct xy { int x, y; };
 	struct ab { struct xy a, b; };
 
@@ -18,4 +19,6 @@ int main()
 
 	{ }
 	int declaration_after_statement;
+
+	return 0;
 }

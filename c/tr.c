@@ -27,4 +27,5 @@ int main()
 	memset(&s, 0, sizeof s);
 	u-=1;
 	(void) u;
+	return 0;
 }
