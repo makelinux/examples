@@ -7,22 +7,28 @@
 d1 = {'a': 0, 'b': 2}
 d2 = {'a': 1, 'c': 3}
 
+# Merging dictionaries
+
 assert d1 | d2 == {'a': 1, 'b': 2, 'c': 3}
 
 d1 |= d2
 
+# Updating a dictionary
+
+assert d1 | d2 == {'a': 1, 'b': 2, 'c': 3}
 assert d1 == {'a': 1, 'b': 2, 'c': 3}
 
+
+# In type annotations you can now use built-in collection types such as list
+# and dict as generic types instead of importing the corresponding
+# capitalized types.
 # https://docs.python.org/3.9/whatsnew/3.9.html#pep-585-builtin-generic-types
 
 
-def sum(l: list[int]) -> int:
-    s = 0
-    for i in l:
-        s += i
-    return s
+def is_list(l: list[int]) -> bool:
+    return isinstance(l, list)
 
 
-assert sum([1, 2, 3]) == 6
+assert is_list([1, 2, 3])
 
 import passed
