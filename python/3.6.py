@@ -4,6 +4,8 @@
 
 # https://docs.python.org/3.6/whatsnew/3.6.html#pep-498-formatted-string-literals
 
+from passed import passed
+
 i = 1
 assert f'{i}' == '1'
 assert f'i={i:02}' == 'i=01'
@@ -22,8 +24,6 @@ assert f'{str!r}' == "'a'"
 string: str
 i: int
 
-import asyncio
-
 
 async def main():
     print('hello')
@@ -32,4 +32,4 @@ async def main():
 
 # asyncio.run(main())
 
-import passed
+passed()

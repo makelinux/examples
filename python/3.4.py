@@ -8,5 +8,6 @@ import pathlib
 import selectors
 import statistics
 import tracemalloc
+from passed import passed
 
-import passed
+passed()

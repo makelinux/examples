@@ -7,7 +7,8 @@ import ipaddress
 import lzma
 import unittest.mock
 import venv
+from passed import passed
 
 # TODO
 
-import passed
+passed()

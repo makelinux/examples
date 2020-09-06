@@ -3,7 +3,8 @@
 # https://docs.python.org/3.10/whatsnew/3.2.html
 
 import argparse
+from passed import passed
 
 # TODO
 
-import passed
+passed()

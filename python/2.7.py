@@ -1,5 +1,7 @@
 #!/usr/bin/env python2.7
 
+from passed import passed
+
 # https://docs.python.org/3.10/whatsnew/2.7.html
 
 assert {1, 2} == set([1, 2])
@@ -22,4 +24,4 @@ import logging
 import logging.config
 import importlib
 
-import passed
+passed()

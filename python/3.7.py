@@ -7,6 +7,7 @@ import sys
 from contextvars import ContextVar
 import dataclasses
 import importlib.resources
+from passed import passed
 
 var: ContextVar[int] = ContextVar('var', default=1)
 assert var.get() == 1
@@ -45,4 +46,4 @@ breakpoint()
 
 assert breakpoint_passed
 
-import passed
+passed()

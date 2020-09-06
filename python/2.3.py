@@ -1,6 +1,9 @@
 #!/usr/bin/env python2.3
 # -*- coding: UTF-8 -*-
 
+from passed import passed
+
+
 # before 2.4
 
 comprehension = [c for c in 'ab' if c > 'a']
@@ -28,7 +31,6 @@ assert bool(1) is True
 assert bool([]) is False
 assert range(5)[::2] == [0, 2, 4]
 
+passed()
 import logging
 import csv
-
-import passed

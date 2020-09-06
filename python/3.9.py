@@ -1,5 +1,7 @@
 #!/usr/bin/env python3.9
 
+from passed import passed
+
 # https://docs.python.org/3.9/whatsnew/3.9.html
 
 # https://docs.python.org/3.9/whatsnew/3.9.html#dictionary-merge-update-operators
@@ -31,4 +33,4 @@ def is_list(l: list[int]) -> bool:
 
 assert is_list([1, 2, 3])
 
-import passed
+passed()

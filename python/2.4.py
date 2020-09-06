@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.4
 
+from passed import passed
 
 # https://docs.python.org/3.10/whatsnew/2.4.html#pep-218-built-in-set-objects
 
@@ -59,4 +60,4 @@ assert list(reversed(xrange(1, 4))) == [3, 2, 1]
 
 import subprocess
 
-import passed
+passed()

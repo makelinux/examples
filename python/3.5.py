@@ -1,5 +1,7 @@
 #!/usr/bin/env python3.5
 
+from passed import passed
+
 # https://docs.python.org/3/whatsnew/3.5.html
 
 from typing import Callable, List, NewType
@@ -54,4 +56,4 @@ finally:
 
 assert r == 1
 
-import passed
+passed()

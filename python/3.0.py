@@ -1,5 +1,7 @@
 #!/usr/bin/env python3.1
 
+from passed import passed
+
 # https://docs.python.org/3.10/whatsnew/3.0.html
 
 assert 3 / 2 == 1.5
@@ -24,4 +26,4 @@ class Foo(metaclass=Meta):
     pass
 
 
-import passed
+passed()
