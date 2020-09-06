@@ -3,7 +3,7 @@
 # https://docs.python.org/3/whatsnew/3.7.html
 
 import sys
-from contextvars import *
+from contextvars import ContextVar
 import dataclasses
 import importlib.resources
 

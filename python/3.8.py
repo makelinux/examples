@@ -4,7 +4,6 @@
 #
 # https://docs.python.org/3/whatsnew/3.8.html
 
-from datetime import *
 
 # Arguments before / are considered as positional arguments only
 #

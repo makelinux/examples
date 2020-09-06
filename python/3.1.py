@@ -2,7 +2,7 @@
 
 # https://docs.python.org/3.10/whatsnew/3.1.html
 
-from decimal import *
+from decimal import Decimal
 
 assert format(1000, ',d') == '1,000'
 

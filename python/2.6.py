@@ -2,7 +2,7 @@
 
 # https://docs.python.org/3.10/whatsnew/2.6.html
 
-from threading import *
+from threading import Lock
 
 lock = Lock()
 with lock:

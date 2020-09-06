@@ -2,8 +2,6 @@
 
 # https://docs.python.org/3.9/whatsnew/3.9.html
 
-from datetime import *
-
 # https://docs.python.org/3.9/whatsnew/3.9.html#dictionary-merge-update-operators
 
 d1 = {'a': 0, 'b': 2}

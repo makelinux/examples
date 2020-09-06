@@ -2,7 +2,7 @@
 
 # https://docs.python.org/3/whatsnew/3.5.html
 
-from typing import *
+from typing import Callable, List, NewType
 
 
 def function_with_type_annotation(a: str) -> str:
