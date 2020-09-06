@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.5
 
+import asyncio
 from passed import passed
 
 # https://docs.python.org/3/whatsnew/3.5.html
@@ -41,8 +42,6 @@ def async_query(on_success: Callable[[int], None],
 
 
 # https://docs.python.org/3.5/whatsnew/3.5.html#pep-492-coroutines-with-async-and-await-syntax
-
-import asyncio
 
 
 async def coroutine():

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.1
 
+import io
 from passed import passed
 
 # https://docs.python.org/3.10/whatsnew/3.0.html
@@ -7,7 +8,6 @@ from passed import passed
 assert 3 / 2 == 1.5
 assert isinstance(range(3), range)
 
-import io
 
 buff = io.StringIO()
 

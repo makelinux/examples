@@ -2,7 +2,6 @@
 
 # https://docs.python.org/3/whatsnew/3.4.html
 
-import asyncio
 import enum
 import pathlib
 import selectors

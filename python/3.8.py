@@ -1,6 +1,5 @@
 #!/usr/bin/env python3.8
 
-import asyncio
 from passed import passed
 
 # https://www.geeksforgeeks.org/awesome-new-features-in-python-3-8/
@@ -41,7 +40,6 @@ assert f'{i=:.3f}' == 'i=1.000'
 
 assert f'{i+i=}' == 'i+i=2'
 
-import asyncio
 # get_coro get_name set_name
 
 passed()

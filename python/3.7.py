@@ -3,6 +3,7 @@
 # https://docs.python.org/3/whatsnew/3.7.html
 # https://realpython.com/python37-new-features/
 
+import asyncio
 import sys
 from contextvars import ContextVar
 import dataclasses
@@ -14,8 +15,6 @@ assert var.get() == 1
 
 var.set(2)
 assert var.get() == 2
-
-import asyncio
 
 buf = ''
 

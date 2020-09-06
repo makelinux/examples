@@ -4,6 +4,7 @@
 
 # https://docs.python.org/3.6/whatsnew/3.6.html#pep-498-formatted-string-literals
 
+import asyncio
 from passed import passed
 
 i = 1

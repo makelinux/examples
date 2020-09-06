@@ -1,5 +1,7 @@
 #!/usr/bin/env python2.4
 
+import subprocess
+import string
 from passed import passed
 
 # https://docs.python.org/3.10/whatsnew/2.4.html#pep-218-built-in-set-objects
@@ -29,8 +31,6 @@ assert 'f' in s
 
 # https://docs.python.org/3.10/whatsnew/2.4.html#pep-292-simpler-string-substitutions
 
-import string
-
 t = string.Template('a=$a')
 assert t.substitute({'a': 1}) == 'a=1'
 
@@ -58,6 +58,5 @@ assert list(reversed(xrange(1, 4))) == [3, 2, 1]
 
 # https://docs.python.org/3.10/whatsnew/2.4.html#pep-324-new-subprocess-module
 
-import subprocess
 
 passed()

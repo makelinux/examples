@@ -1,6 +1,8 @@
 #!/usr/bin/env python2.3
 # -*- coding: UTF-8 -*-
 
+import logging
+import csv
 from passed import passed
 
 
@@ -32,5 +34,3 @@ assert bool([]) is False
 assert range(5)[::2] == [0, 2, 4]
 
 passed()
-import logging
-import csv
