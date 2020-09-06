@@ -11,34 +11,33 @@ from passed import passed
 
 # Arguments before / are considered as positional arguments only
 
-def add(x, y, /, z=0):
-    a = x + y + z
-    return a
+def pos_only_arg_demo(pos_only_arg, /):
+    return pos_only_arg
 
 
 try:
-    add(x=2, y=5)
+    res = pos_only_arg_demo(pos_only_arg='Fail')
 except TypeError:
-    res = add(1, 2, 3)
-assert res == 6
+    res = pos_only_arg_demo('Passed')
+assert res == 'Passed'
 
 # Assignment Expression
 # https://docs.python.org/3/whatsnew/3.8.html#assignment-expressions
 
-assert (b := 2) > 1
+assert (an_int := 2) > 1
 
 # https://docs.python.org/3/whatsnew/3.8.html#f-strings-support-for-self-documenting-expressions-and-debugging
 
-i = 1
+an_int = 1
 
-assert f'{i=}' == 'i=1'
+assert f'{an_int=}' == 'an_int=1'
 
 # The usual f-string format specifiers allow more control over how the result
 # of the expression is displayed:
 
-assert f'{i=:.3f}' == 'i=1.000'
+assert f'{an_int=:.3f}' == 'an_int=1.000'
 
-assert f'{i+i=}' == 'i+i=2'
+assert f'{an_int+an_int=}' == 'an_int+an_int=2'
 
 # get_coro get_name set_name
 

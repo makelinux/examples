@@ -6,19 +6,19 @@ from passed import passed
 
 # https://docs.python.org/3.9/whatsnew/3.9.html#dictionary-merge-update-operators
 
-d1 = {'a': 0, 'b': 2}
-d2 = {'a': 1, 'c': 3}
+dict_1 = {'a': 0, 'b': 2}
+dict_2 = {'a': 1, 'c': 3}
 
 # Merging dictionaries
 
-assert d1 | d2 == {'a': 1, 'b': 2, 'c': 3}
+assert dict_1 | dict_2 == {'a': 1, 'b': 2, 'c': 3}
 
-d1 |= d2
+dict_1 |= dict_2
 
 # Updating a dictionary
 
-assert d1 | d2 == {'a': 1, 'b': 2, 'c': 3}
-assert d1 == {'a': 1, 'b': 2, 'c': 3}
+assert dict_1 | dict_2 == {'a': 1, 'b': 2, 'c': 3}
+assert dict_1 == {'a': 1, 'b': 2, 'c': 3}
 
 
 # In type annotations you can now use built-in collection types such as list
@@ -27,8 +27,8 @@ assert d1 == {'a': 1, 'b': 2, 'c': 3}
 # https://docs.python.org/3.9/whatsnew/3.9.html#pep-585-builtin-generic-types
 
 
-def is_list(l: list[int]) -> bool:
-    return isinstance(l, list)
+def is_list(a_list: list[int]) -> bool:
+    return isinstance(a_list, list)
 
 
 assert is_list([1, 2, 3])

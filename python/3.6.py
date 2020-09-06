@@ -7,23 +7,23 @@
 import asyncio
 from passed import passed
 
-i = 1
-assert f'{i}' == '1'
-assert f'i={i:02}' == 'i=01'
-assert f"{i:#0x}" == "0x1"  # using integer format specifier
+an_int = 1
+assert f'{an_int}' == '1'
+assert f'an_int={an_int:02}' == 'an_int=01'
+assert f"{an_int:#0x}" == "0x1"  # using integer format specifier
 
-r = 1.23
-assert f'{r}' == '1.23'
-assert f'r={r:1.2}' == 'r=1.2'
+a_real = 1.23
+assert f'{a_real}' == '1.23'
+assert f'a_real={a_real:1.2}' == 'a_real=1.2'
 
-str = 'a'
-assert f'{str}' == 'a'
-assert f'{str!r}' == "'a'"
+a_str = 'a'
+assert f'{a_str}' == 'a'
+assert f'{a_str!r}' == "'a'"
 
 # https://docs.python.org/3.6/whatsnew/3.6.html#pep-526-syntax-for-variable-annotations
 
-string: str
-i: int
+a_str: str
+an_int: int
 
 
 async def main():

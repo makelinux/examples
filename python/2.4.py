@@ -8,14 +8,14 @@ from passed import passed
 
 assert 1 in set([1, 2])
 
-s = set('ab')
-assert 'b' in s
-s.add('c')
-assert 'c' in s
-s.update('d')
-assert 'd' in s
-s.remove('a')
-assert 'a' not in s
+a_str = set('ab')
+assert 'b' in a_str
+a_str.add('c')
+assert 'c' in a_str
+a_str.update('d')
+assert 'd' in a_str
+a_str.remove('a')
+assert 'a' not in a_str
 
 
 # https://docs.python.org/3.10/whatsnew/2.4.html#pep-289-generator-expressions
@@ -23,16 +23,16 @@ assert 'a' not in s
 generator_expression = (c for c in 'ef' if c > 'e')
 
 for c in generator_expression:
-    s.add(c)
+    a_str.add(c)
 
-assert 'e' not in s
-assert 'f' in s
+assert 'e' not in a_str
+assert 'f' in a_str
 
 
 # https://docs.python.org/3.10/whatsnew/2.4.html#pep-292-simpler-string-substitutions
 
-t = string.Template('a=$a')
-assert t.substitute({'a': 1}) == 'a=1'
+a_str = string.Template('var=$var')
+assert a_str.substitute({'var': 1}) == 'var=1'
 
 
 # https://docs.python.org/3.10/whatsnew/2.4.html#pep-318-decorators-for-functions-and-methods
@@ -45,8 +45,8 @@ def decoration(func):
 
 
 @decoration
-def decorated(a):
-    return a
+def decorated(arg):
+    return arg
 
 
 assert decorated.attr
