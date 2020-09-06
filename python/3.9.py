@@ -33,4 +33,7 @@ def is_list(a_list: list[int]) -> bool:
 
 assert is_list([1, 2, 3])
 
+assert 'ab'.removeprefix('a') == 'b'
+assert 'ab'.removesuffix('b') == 'a'
+
 passed()
