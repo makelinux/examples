@@ -11,4 +11,4 @@ Usage:
 
 References
 * [What’s New in Python](https://docs.python.org/3.10/whatsnew/index.html)
-* [Minimal working examples](https://en.wikipedia.org/wiki/Minimal_working_example)
+* [Minimal working example](https://en.wikipedia.org/wiki/Minimal_working_example)

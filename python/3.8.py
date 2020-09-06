@@ -5,10 +5,9 @@
 # https://docs.python.org/3/whatsnew/3.8.html
 
 
-# Arguments before / are considered as positional arguments only
-#
 # https://docs.python.org/3/whatsnew/3.8.html#positional-only-parameters
 
+# Arguments before / are considered as positional arguments only
 
 def add(x, y, /, z=0):
     a = x + y + z

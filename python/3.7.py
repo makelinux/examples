@@ -1,6 +1,7 @@
 #!/usr/bin/env python3.7
 
 # https://docs.python.org/3/whatsnew/3.7.html
+# https://realpython.com/python37-new-features/
 
 import sys
 from contextvars import ContextVar
