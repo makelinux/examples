@@ -103,6 +103,19 @@ void sort_03()
 /// https://en.cppreference.com/w/cpp/language/reference
 int& a_ref(int &a) { return a; }
 
+struct Common
+{
+    int n;
+    Common(int x) : n(x) {}
+};
+
+/// [ref](https://en.cppreference.com/w/cpp/language/virtual)
+struct Virtual_A : virtual Common { Virtual_A() : Common(1) {} };
+struct Virtual_B : virtual Common { Virtual_B() : Common(2) {} };
+struct Diamond : Virtual_A, Virtual_B {
+	Diamond() : Common(3), Virtual_A(), Virtual_B() {}
+};
+
 void types_03()
 {
 	int a = 0;
@@ -111,6 +124,10 @@ void types_03()
 
 	a_ref(a) = 2;
 	assert(a == 2);
+
+	Diamond d;
+	assert(d.Virtual_A::n == 3);
+	assert(d.Virtual_B::n == 3);
 }
 
 /// @}
