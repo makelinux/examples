@@ -240,6 +240,18 @@ T constexpr adder(T first, Args... args) {
 
 static_assert(adder(1,2,3) == 6,"");
 
+struct Base11
+{
+     virtual void method1();
+     virtual void method2();
+};
+
+struct Derived11 : Base11
+{
+    void method1() override; ///< [ref](https://en.cppreference.com/w/cpp/language/override)
+    void method2() final; ///< [ref](https://en.cppreference.com/w/cpp/language/final)
+};
+
 /// @}
 
 /**
@@ -411,10 +423,6 @@ static void lambda_complex(void)
   https://en.cppreference.com/w/cpp/language/move_assignment
 
   https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
-
-  https://en.cppreference.com/w/cpp/language/override
-
-  https://en.cppreference.com/w/cpp/language/final
 
   https://en.cppreference.com/w/cpp/language/attributes
 
