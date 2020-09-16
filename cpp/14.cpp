@@ -72,6 +72,8 @@ void return_type_deduction_demo()
  @{
  TODO:
 
+ https://en.cppreference.com/w/cpp/container/map/find
+
  https://en.cppreference.com/w/cpp/language/constexpr
 
  https://en.cppreference.com/w/cpp/language/integer_literal
@@ -188,7 +190,7 @@ static void lambda_14()
 
 	// capture initialization can change context
 	int c = 0;
-	auto change_c = [value = ++c] () { };
+	auto change_c = [value = ++c] { };
 	assert(c == 1);
 
 	unique_ptr<int> ptr(new int(10));
