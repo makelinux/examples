@@ -8,12 +8,12 @@ CXXFLAGS+=-Dgcc_extension
 CXXFLAGS+=-include features.cpp
 LDLIBS+=-pthread
 
-ifneq (, $(shell which g++-9))
-CXX=g++-9
+ifneq (, $(shell which g++-10))
+20: CXX=g++-10
 20: CXXFLAGS+=-fconcepts -fgnu-tm
 else
-20: CXX=clang++
-20: CXXFLAGS+=-Wno-missing-braces
+20: CXX=clang++-10
+20: CXXFLAGS+=-Wno-missing-braces -Wno-unused-parameter
 endif
 
 20: CXXFLAGS+=-std=c++2a

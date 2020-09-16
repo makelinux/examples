@@ -200,8 +200,10 @@ static_assert(what("2") == 2);
 
 /// @}
 
+#if __cpp_concepts < 201907
+
 /**
-  a concept can be defined as function, but not only
+  In Technical Specification a concept can be defined as function
  */
 
 template <typename T> concept bool integral_ct() { return is_integral_v<T>; }
@@ -221,6 +223,23 @@ constexpr auto generic_function_with_integral_concept(integral_ct v) { return v 
 static_assert(generic_function_with_integral_concept(1) == 2);
 
 integral_ct integral_var = 1; // variable defined with concept
+
+/**
+  defining concept as function with requires-expression
+ */
+
+template <typename T> concept bool integral_func_req_ct()
+	requires requires () { is_integral_v<T>; }
+	{ return true; }
+
+template <integral_func_req_ct T> constexpr T _inc4(T a) { return a + 1; }
+
+static_assert(_inc4(1) == 2);
+
+template<typename T> concept compound_requirement =
+requires(T x) {{x + 1} -> int;};
+
+#endif
 
 /**
  @defgroup conc_alt20 Alternative forms of concept definition
@@ -247,17 +266,8 @@ template <integral_req_ct T> constexpr T _inc2(T a) { return a + 1; }
 
 static_assert(_inc2(1) == 2);
 
-/**
-  defining concept as function with requires-expression
- */
 
-template <typename T> concept bool integral_func_req_ct()
-	requires requires () { is_integral_v<T>; }
-	{ return true; }
 
-template <integral_func_req_ct T> constexpr T _inc4(T a) { return a + 1; }
-
-static_assert(_inc4(1) == 2);
 
 /// @}
 
