@@ -51,6 +51,7 @@ void types_11()
 	assert(is_integral<bool>::value);
 	assert(!is_integral<float>::value);
 	assert(is_pointer<int*>::value);
+	assert(sizeof (long long) >= 8);
 }
 
 void dynamic_memory_11()
@@ -417,6 +418,7 @@ static void lambda_complex(void)
  @{
 
   TODO:
+     function<int(void)> get_a = a;
 
   https://en.cppreference.com/w/cpp/language/move_constructor
 
@@ -445,6 +447,10 @@ static void lambda_complex(void)
   https://en.cppreference.com/w/cpp/types/is_move_constructible
 
   https://en.cppreference.com/w/cpp/types/is_constructible
+
+  https://en.cppreference.com/w/cpp/utility/functional/ref
+
+  https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
 
  @}
  */
