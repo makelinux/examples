@@ -55,7 +55,7 @@ void init_20()
 	// https://en.cppreference.com/w/cpp/language/aggregate_initialization
 
 #if __cplusplus > 201707
-	point p1 = { .x = { 1 } };
+	point p1 = { .x = 1 };
 	assert(p1.x == 1);
 	assert(!p1.y);
 
@@ -100,6 +100,7 @@ void dynamic_memory_20()
 namespace lambda {
 
 #if __cpp_template_template_args
+/// Lambda capture of parameter pack
 template <typename ... Args>
 auto make_lambda_with_parameter_pack_capture(Args&& ... args)
 {
@@ -164,8 +165,7 @@ using namespace lambda;
  @{
 */
 
-// Using 'requires':
-// https://en.cppreference.com/w/cpp/keyword/requires
+// Using [requires](https://en.cppreference.com/w/cpp/keyword/requires)
 
 template <typename T> requires is_integral_v<T> T constexpr requires_demo(T a) { return a + 1; }
 
@@ -181,7 +181,7 @@ static_assert(requires_demo(0.1) == 2);
 // Annotated example of complex requirement
 template <class T>
 requires // requires-clause
-is_signed_v<T> || is_unsigned_v<T> && ! is_void_v<void> // constraint expression
+is_signed_v<T> || (is_unsigned_v<T> && ! is_void_v<void>) // constraint expression
 void complex_requirement_demo() { }
 
 /// Annotated example of requires-expression
@@ -293,6 +293,8 @@ static_assert(_inc4(1) == 2);
 int main()
 {
 	init_20();
+	types_20();
+	dynamic_memory_20();
 	lambda_20();
 #if __cpp_lib_jthread
 	jthread t([]{ });
