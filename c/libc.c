@@ -12,7 +12,7 @@ void sort_libc()
 {
 	int list[] = {3, 1, 2};
 
-	qsort(list, 3, sizeof(list[0]), cmp);
+	qsort(list, 3, sizeof list[0], cmp);
 	assert(list[0] == 1);
 	assert(list[2] == 3);
 }
