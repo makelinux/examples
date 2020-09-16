@@ -37,6 +37,14 @@ using namespace std;
  @{
  */
 
+#if __cpp_lib_three_way_comparison
+static_assert(1 <=> 2 < 0 );
+static_assert(2 <=> 1 > 0 );
+static_assert(1 <=> 1 == 0 );
+#else
+#pragma message("undefined __cpp_lib_three_way_comparison")
+#endif
+
 #if __cpp_char8_t
 /// https://en.cppreference.com/w/cpp/keyword/char8_t
 char8_t char8;
