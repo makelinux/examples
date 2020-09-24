@@ -8,7 +8,7 @@ from passed import passed
 def function():
     def closure():
         pass
-    pass
+    closure()
 
 
 passed()

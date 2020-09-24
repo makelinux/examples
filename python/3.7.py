@@ -22,7 +22,6 @@ buf = ''
 async def corutine():
     global buf
     buf += '3'
-    pass
 
 
 async def test_task():
