@@ -214,48 +214,9 @@ static_assert(what("2") == 2);
 
 /// @}
 
-#if __cpp_concepts < 201907
 
 /**
-  In Technical Specification a concept can be defined as function
- */
 
-template <typename T> concept bool integral_ct() { return is_integral_v<T>; }
-
-template <integral_ct T> constexpr T _inc3(T a) { return a + 1; }
-
-static_assert(_inc3(1) == 2);
-
-// concept can replace type
-
-template <integral_ct T> constexpr T _inc1(T a) { return a + 1; }
-
-static_assert(_inc1<int>(1) == 2);
-
-// can be used in generic function
-constexpr auto generic_function_with_integral_concept(integral_ct v) { return v + 1; }
-static_assert(generic_function_with_integral_concept(1) == 2);
-
-integral_ct integral_var = 1; // variable defined with concept
-
-/**
-  defining concept as function with requires-expression
- */
-
-template <typename T> concept bool integral_func_req_ct()
-	requires requires () { is_integral_v<T>; }
-	{ return true; }
-
-template <integral_func_req_ct T> constexpr T _inc4(T a) { return a + 1; }
-
-static_assert(_inc4(1) == 2);
-
-template<typename T> concept compound_requirement =
-requires(T x) {{x + 1} -> int;};
-
-#endif
-
-/**
  @defgroup conc_alt20 Alternative forms of concept definition
  @{
  */
