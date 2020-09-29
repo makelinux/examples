@@ -216,8 +216,7 @@ static_assert(what("2") == 2);
 
 
 /**
-
- @defgroup conc_alt20 Alternative forms of concept definition
+ @defgroup conc_def_20 Concept definitions
  @{
  */
 
@@ -241,6 +240,16 @@ template <integral_req_ct T> constexpr T _inc2(T a) { return a + 1; }
 
 static_assert(_inc2(1) == 2);
 
+/**
+  https://en.cppreference.com/w/cpp/language/constraints#Compound_Requirements
+  https://en.cppreference.com/w/cpp/concepts/convertible_to
+ */
+
+template<typename T> concept compound_requirements =
+requires(T x) {
+	{x + 1} -> convertible_to<bool>;
+	{x * 2} -> same_as<int>;
+};
 
 
 
