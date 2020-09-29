@@ -24,6 +24,7 @@ static_assert(__cplusplus >= 201707);
 #include <map>
 #include <memory>
 #include <thread>
+#include <sstream>
 #include <experimental/array>
 #if __has_include (<concepts>)
 #include <concepts>
@@ -324,8 +325,6 @@ struct ranges_20 {
 
   https://en.cppreference.com/w/cpp/language/range-for
 
-  https://en.cppreference.com/w/cpp/utility/source_location
-
   https://en.cppreference.com/w/cpp/language/coroutines
 
   https://en.cppreference.com/w/cpp/language/constinit
@@ -333,6 +332,19 @@ struct ranges_20 {
  */
 
 /// @}
+
+#include <experimental/source_location>
+
+/// [source_location](https://en.cppreference.com/w/cpp/utility/source_location)
+
+struct location_20 {
+	location_20() {
+		auto l = experimental::source_location::current();
+		basic_stringstream<char> buff;
+		buff << l.file_name() << ":" << l.line() << ":" << l.column() << l.function_name();
+		assert(buff.str().length());
+	}
+} location_20;
 
 int main()
 {
