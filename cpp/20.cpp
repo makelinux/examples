@@ -68,7 +68,7 @@ void init_20()
 	assert(p1.x == 1);
 	assert(!p1.y);
 
-	point p2 { .y { 2 } };
+	point p2 { {} , 2 };
 	assert(p2.y == 2);
 	assert(!p2.x);
 #endif
@@ -96,7 +96,6 @@ void dynamic_memory_20()
 	/// Shared array
 	/// https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared
 	auto a = make_shared<int[10]>();
-	cout << typeid(decltype(a.get())).name();
 	static_assert(is_same_v<decltype(a.get()), int*>);
 
 	/// https://en.cppreference.com/w/cpp/container/map/contains
