@@ -103,6 +103,12 @@ void dynamic_memory_20()
 #if __cplusplus > 201707
 	assert(m.contains(2));
 #endif
+#if __cpp_lib_erase_if
+	/// [erase_if](https://en.cppreference.com/w/cpp/container/map/erase_if)
+	vector<int> v = {11, 12, 13};
+	assert(erase_if(v, [](int a) {return a >= 13;}) == 1);
+	assert(v.size() == 2);
+#endif
 }
 
 namespace lambda {
