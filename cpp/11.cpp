@@ -20,7 +20,9 @@ static_assert(__cplusplus == 201103, "");
 #include <algorithm>
 #include <array>
 #include <memory>
+#include <chrono>
 #include <thread>
+#include <future>
 
 #if __has_include (<version>)
 #include <version>
@@ -415,6 +417,28 @@ static void lambda_complex(void)
 /// @} lambda11_complex
 
 /**
+ @defgroup threads11 Threads
+ [threads](https://en.cppreference.com/w/cpp/thread)
+ @{
+  */
+
+void threads_11()
+{
+	this_thread::yield();
+	this_thread::get_id();
+	this_thread::sleep_for(chrono::nanoseconds(1));
+	promise<int> p;
+	future<int> f = p.get_future();
+	int v = 0;
+	thread t([&p, &v]{ this_thread::sleep_for(chrono::microseconds(1)); p.set_value(2); v = 3; });
+	assert(v == 0);
+	assert(f.get() == 2);
+	assert(v == 3);
+	t.join();
+}
+/// @} threads11
+
+/**
  @{
 
   TODO:
@@ -470,8 +494,7 @@ int main(void)
 	static_assert(constexpr_factorial(4), "");
 
 	types_11();
-	thread t([]{ });
-	t.join();
+	threads_11();
 	return 0;
 }
 
