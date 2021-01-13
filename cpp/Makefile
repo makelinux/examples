@@ -6,6 +6,7 @@ CXXFLAGS+=-Wextra -Wno-missing-field-initializers
 CXXFLAGS+=-Wpedantic
 CXXFLAGS+=-Dgcc_extension
 CXXFLAGS+=-include features.cpp
+CXXFLAGS+=-g -fsanitize=leak
 LDLIBS+=-pthread
 
 ifneq (, $(shell which g++-10))
