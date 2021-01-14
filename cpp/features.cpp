@@ -309,6 +309,7 @@ check(__cpp_designated_initializers);
 check(__cpp_lib_generic_unordered_hash_lookup);
 check(__cpp_modules);
 check(__cpp_using_enum);
+
 check(__cpp_impl_coroutine);
 check(__cpp_lib_coroutine);
 check(__cpp_lib_integer_comparison_functions);
@@ -317,3 +318,9 @@ check(__cpp_lib_is_nothrow_convertible);
 check(__cpp_cxx23_stub);
 check(__cpp_lib_cxx23_stub);
 check(__cpp_lib_smart_ptr_for_overwrite);
+
+check(__cpp_lib_is_scoped_enum);
+check(__cpp_lib_stacktrace);
+check(__cpp_lib_stdatomic_h);
+check(__cpp_lib_string_contains);
+check(__cpp_size_t_suffix);
