@@ -24,6 +24,7 @@ static_assert(__cplusplus >= 201707);
 #include <map>
 #include <memory>
 #include <thread>
+#include <coroutine>
 #include <sstream>
 #include <experimental/array>
 #if __has_include (<concepts>)
@@ -260,6 +261,57 @@ requires(T x) {
 #pragma message("undefined __cpp_concepts")
 #endif
 
+/**
+ @defgroup cor20 Coroutines
+ @{
+
+	[coroutine](https://en.cppreference.com/w/cpp/coroutine)
+
+	[coroutines](https://en.cppreference.com/w/cpp/language/coroutines)
+
+ */
+
+auto switch_to_new_thread(jthread& out)
+{
+	struct awaitable {
+		jthread* p_out;
+		bool await_ready() { return false; }
+		void await_suspend(coroutine_handle<> h) {
+			jthread& out = *p_out;
+			if (out.joinable())
+				throw runtime_error("Output jthread parameter not empty");
+			out = jthread([h] { h.resume(); });
+		}
+		void await_resume() {}
+	};
+	return awaitable{&out};
+}
+
+struct task {
+	struct promise_type {
+		struct task get_return_object() { return {}; }
+		suspend_never initial_suspend() { return {}; }
+		suspend_never final_suspend() noexcept { return {}; }
+		void return_void() {}
+		void unhandled_exception() {}
+	};
+};
+
+struct task resuming_on_new_thread(jthread& out)
+{
+	auto starting_tid = this_thread::get_id();
+	// suspends coroutine
+	co_await switch_to_new_thread(out); ///< [co_await](https://en.cppreference.com/w/cpp/keyword/co_await)
+	// awaiter is destroyed here
+	assert(this_thread::get_id() != starting_tid);
+}
+
+void coroutine_demo()
+{
+	jthread out;
+	resuming_on_new_thread(out);
+}
+/// @}
 
 #if __cpp_lib_ranges
 
@@ -294,8 +346,6 @@ struct ranges_20 {
 
   https://en.cppreference.com/w/cpp/language/range-for
 
-  https://en.cppreference.com/w/cpp/language/coroutines
-
   https://en.cppreference.com/w/cpp/language/constinit
 
  */
@@ -324,6 +374,7 @@ int main()
 #if __cpp_lib_jthread
 	jthread t([]{ });
 #endif
+	coroutine_demo();
 }
 /// @}
 

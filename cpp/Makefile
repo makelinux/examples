@@ -11,6 +11,7 @@ LDLIBS+=-pthread
 
 ifneq (, $(shell which g++-10))
 20: CXX=g++-10
+20: CXXFLAGS+=-fcoroutines -fconcepts -fgnu-tm
 20: CXXFLAGS+=-fconcepts -fgnu-tm
 else
 20: CXX=clang++-10
