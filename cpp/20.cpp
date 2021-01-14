@@ -3,9 +3,9 @@
  @brief C++20
  @defgroup CPP20 C++20 examples
 
- https://en.wikipedia.org/wiki/C++20
+ [C++20](https://en.wikipedia.org/wiki/C++20)
 
- https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP20.md
+ [Modern Cpp20 features](https://github.com/AnthonyCalandra/modern-cpp-features/blob/master/CPP20.md)
 
  https://en.cppreference.com/w/cpp/20
 
@@ -35,7 +35,7 @@ using namespace std;
 
 /**
  @defgroup lang20 Language
- https://en.cppreference.com/w/cpp/language
+ [language](https://en.cppreference.com/w/cpp/language)
  @{
  */
 
@@ -48,11 +48,11 @@ static_assert(1 <=> 1 == 0 );
 #endif
 
 #if __cpp_char8_t
-/// https://en.cppreference.com/w/cpp/keyword/char8_t
+/// [char8_t](https://en.cppreference.com/w/cpp/keyword/char8_t)
 char8_t char8;
 #endif
 
-/// https://en.cppreference.com/w/cpp/container/array/to_array
+/// [to_array](https://en.cppreference.com/w/cpp/container/array/to_array)
 
 auto to_array_demo = experimental::to_array("foo");
 static_assert(to_array_demo.size() == 4);
@@ -62,7 +62,7 @@ void init_20()
 	struct point { int x, y; };
 	struct line { point a, b; };
 
-	// https://en.cppreference.com/w/cpp/language/aggregate_initialization
+	// [aggregate_initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization)
 
 #if __cplusplus > 201707
 	point p1 = { .x = 1 };
@@ -73,7 +73,10 @@ void init_20()
 	assert(p2.y == 2);
 	assert(!p2.x);
 #endif
-
+#if __cpp_aggregate_paren_init >= 201902
+	int a[] (0, 1, 2);
+	assert(a[2] == 2);
+#endif
 	line l1 = { };
 	assert(!l1.a.x);
 	line l2 = { 1, 2 };
@@ -95,11 +98,11 @@ void types_20()
 void dynamic_memory_20()
 {
 	/// Shared array
-	/// https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared
+	/// [make_shared](https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared)
 	auto a = make_shared<int[10]>();
 	static_assert(is_same_v<decltype(a.get()), int*>);
 
-	/// https://en.cppreference.com/w/cpp/container/map/contains
+	/// [contains](https://en.cppreference.com/w/cpp/container/map/contains)
 	map<int, int> m = {{2,3}};
 #if __cplusplus > 201707
 	assert(m.contains(2));
@@ -157,7 +160,7 @@ using namespace lambda;
 /**
  @defgroup templ20 Template
 
- https://en.cppreference.com/w/cpp/language/templates
+ [templates](https://en.cppreference.com/w/cpp/language/templates)
 
  @{
 */
@@ -169,8 +172,8 @@ using namespace lambda;
  @defgroup conc20 Concepts
 
  https://en.wikipedia.org/wiki/Concepts_(C++)
- https://en.cppreference.com/w/cpp/language/constraints
- https://en.cppreference.com/w/cpp/header/concepts
+ [constraints](https://en.cppreference.com/w/cpp/language/constraints)
+ [concepts](https://en.cppreference.com/w/cpp/header/concepts)
 
  @{
 */
@@ -242,8 +245,8 @@ template <integral_req_ct T> constexpr T _inc2(T a) { return a + 1; }
 static_assert(_inc2(1) == 2);
 
 /**
-  https://en.cppreference.com/w/cpp/language/constraints#Compound_Requirements
-  https://en.cppreference.com/w/cpp/concepts/convertible_to
+  [Compound_Requirements](https://en.cppreference.com/w/cpp/language/constraints#Compound_Requirements)
+  [convertible_to](https://en.cppreference.com/w/cpp/concepts/convertible_to)
  */
 
 template<typename T> concept compound_requirements =
@@ -344,9 +347,9 @@ struct ranges_20 {
 
   TODO:
 
-  https://en.cppreference.com/w/cpp/language/range-for
+  [range-for](https://en.cppreference.com/w/cpp/language/range-for)
 
-  https://en.cppreference.com/w/cpp/language/constinit
+  [constinit](https://en.cppreference.com/w/cpp/language/constinit)
 
  */
 
