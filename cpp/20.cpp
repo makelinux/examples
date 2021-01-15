@@ -316,6 +316,18 @@ void coroutine_demo()
 }
 /// @}
 
+/**
+ @defgroup other20 Other
+ @{
+
+  TODO:
+
+  [range-for](https://en.cppreference.com/w/cpp/language/range-for)
+
+  [constinit](https://en.cppreference.com/w/cpp/language/constinit)
+
+ */
+
 #if __cpp_lib_ranges
 
 #include <ranges>
@@ -339,22 +351,6 @@ struct ranges_20 {
 #pragma message("undefined __cpp_lib_ranges")
 #endif
 
-
-
-/**
- @defgroup other20 Other
- @{
-
-  TODO:
-
-  [range-for](https://en.cppreference.com/w/cpp/language/range-for)
-
-  [constinit](https://en.cppreference.com/w/cpp/language/constinit)
-
- */
-
-/// @}
-
 #include <experimental/source_location>
 
 /// [source_location](https://en.cppreference.com/w/cpp/utility/source_location)
@@ -367,6 +363,8 @@ struct location_20 {
 		assert(buff.str().length());
 	}
 } location_20;
+
+/// @} other20
 
 int main()
 {
