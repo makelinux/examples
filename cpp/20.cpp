@@ -76,13 +76,12 @@ void init_20()
 #if __cpp_aggregate_paren_init >= 201902
 	int a[] (0, 1, 2);
 	assert(a[2] == 2);
-#endif
-	line l1 = { };
-	assert(!l1.a.x);
 	line l2 = { 1, 2 };
 	assert(l2.a.x == 1);
 	assert(l2.a.y == 2);
-
+#endif
+	line l1 = { };
+	assert(!l1.a.x);
 	line l3 = { 1, 2, 3, 4 };
 	assert(l3.b.x == 3);
 	assert(l3.b.y == 4);
