@@ -1,6 +1,12 @@
-all: build check features.csv
+default: build check
 
-build: 20 17 14 11 03
+t=20 17 14 11 03 features.csv
+
+build: $t
+
+clean:
+	rm -f $t
+
 CXXFLAGS+=-Wall -Wno-unused
 CXXFLAGS+=-Wextra -Wno-missing-field-initializers
 CXXFLAGS+=-Wpedantic
