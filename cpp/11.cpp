@@ -430,7 +430,7 @@ void threads_11()
 	promise<int> p;
 	future<int> f = p.get_future();
 	int v = 0;
-	thread t([&p, &v]{ this_thread::sleep_for(chrono::microseconds(1)); p.set_value(2); v = 3; });
+	thread t([&p, &v]{ this_thread::sleep_for(chrono::milliseconds(1)); p.set_value(2); v = 3; });
 	assert(v == 0);
 	assert(f.get() == 2);
 	assert(v == 3);
