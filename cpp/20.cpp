@@ -24,7 +24,9 @@ static_assert(__cplusplus >= 201707);
 #include <map>
 #include <memory>
 #include <thread>
+#if __cpp_impl_coroutine
 #include <coroutine>
+#endif
 #include <sstream>
 #include <experimental/array>
 #if __has_include (<concepts>)
@@ -273,6 +275,7 @@ requires(T x) {
 
  */
 
+#if __cpp_impl_coroutine
 auto switch_to_new_thread(jthread& out)
 {
 	struct awaitable {
@@ -313,6 +316,10 @@ void coroutine_demo()
 	jthread out;
 	resuming_on_new_thread(out);
 }
+#else
+void coroutine_demo() {}
+#pragma message("undefined __cpp_impl_coroutine")
+#endif
 /// @}
 
 /**
