@@ -103,7 +103,7 @@ void dynamic_memory_20()
 
 	/// [contains](https://en.cppreference.com/w/cpp/container/map/contains)
 	map<int, int> m = {{2,3}};
-#if __cplusplus > 201707
+#if __cplusplus > 201707 && __GNUG__ > 8
 	assert(m.contains(2));
 #endif
 #if __cpp_lib_erase_if
@@ -116,7 +116,7 @@ void dynamic_memory_20()
 
 namespace lambda {
 
-#if __cpp_template_template_args
+#if __cpp_template_template_args && __GNUG__ > 8
 /// Lambda capture of parameter pack
 template <typename ... Args>
 auto make_lambda_with_parameter_pack_capture(Args&& ... args)
@@ -144,7 +144,7 @@ void lambda_20()
 	auto point_lambda = []<class T=point>(T&& var) {};
 	point_lambda({1, 2});
 
-	#if __cpp_template_template_args
+	#if __cpp_template_template_args && __GNUG__ > 8
 	assert(make_lambda_with_parameter_pack_capture(1,2,3)() ==  6);
 	#endif
 #endif
