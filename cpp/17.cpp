@@ -28,6 +28,7 @@ static_assert(__cplusplus == 201703);
 #include <set>
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <memory>
 #include <functional> //11
 #include <utility>

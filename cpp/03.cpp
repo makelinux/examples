@@ -15,6 +15,10 @@
 #include <cstring>
 #include <algorithm>
 #include <vector>
+#include <deque>
+#include <list>
+#include <queue>
+#include <stack>
 #include <typeinfo>
 
 using namespace std;
@@ -58,7 +62,63 @@ void init_03()
 	int& reference = y;
 }
 
+template<class C>
+void test_generic_container(C & c)
+{
+	assert(c.empty());
+	assert(c.max_size() > 1000);
+	c.push_back(0);
+	assert(c.front() == 0);
+	assert(c.back() == 0);
+	assert(c.size() == 1);
+	c.erase(c.begin());
+	c.push_back(1);
+	c.erase(c.begin());
+	c.assign(4, 1);
+	assert(c.size() == 4);
+	c.clear();
+}
 
+template<class V>
+void test_vector_container(V & v)
+{
+	string err;
+	try {
+		v.at(666) = 0;
+	} catch (std::out_of_range const& exc) {
+		err = exc.what();
+	}
+	assert(err.length());
+	assert(v[0] == 1);
+	v.resize(4);
+
+	int arr[] = {1, 2, 3};
+	v.insert(v.begin(), arr, arr+3);
+	assert(v[1] == 2);
+
+}
+
+/// [container](https://en.cppreference.com/w/cpp/container)
+
+void container_03()
+{
+	list<int> l;
+	test_generic_container(l);
+
+	std::vector<int> v;
+	test_generic_container(v);
+	test_vector_container(v);
+
+	v.reserve(10);
+	assert(v.capacity() == 10);
+
+	deque<int> d;
+	test_generic_container(d);
+	test_vector_container(d);
+
+	stack<int> s;
+	queue<int> q;
+}
 
 /**
  @fn void sort_03()
@@ -137,9 +197,8 @@ int main(void)
 	assert(__cplusplus == 199711);
 
 	init_03();
-
+	container_03();
 	sort_03();
-
 	types_03();
 }
 
