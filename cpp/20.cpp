@@ -14,6 +14,8 @@
 
 static_assert(__cplusplus >= 201707);
 
+#include <functional>
+#include <algorithm>
 #if __has_include (<bit>)
 #include <bit>
 #endif
@@ -371,6 +373,17 @@ struct location_20 {
 		assert(buff.str().length());
 	}
 } location_20;
+
+/**
+ [functional](https://en.cppreference.com/w/cpp/header/functional)
+ */
+
+void functional_20()
+{
+	/// [bind_front](https://en.cppreference.com/w/cpp/utility/functional/bind_front)
+	auto constexpr plus_one = std::bind_front(std::plus<int>(), 1);
+	static_assert(plus_one(2) == 3);
+}
 
 /// @} other20
 
