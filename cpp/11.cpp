@@ -14,11 +14,13 @@
 static_assert(__cplusplus == 201103, "");
 
 #include <utility>
+#include <vector>
 #include <iostream>
 #include <cassert>
 #include <functional>
 #include <algorithm>
 #include <array>
+#include <forward_list>
 #include <memory>
 #include <chrono>
 #include <thread>
@@ -356,6 +358,29 @@ static void lambda_capture(void)
 	assert(inc_global() == 2);
 }
 
+/// [container](https://en.cppreference.com/w/cpp/container)
+
+void container_11()
+{
+	// [list_initialization](https://en.cppreference.com/w/cpp/language/list_initialization)
+	vector<int> v = {1, 2, 3};
+	assert(v.data()[2] == 3);
+
+	v.shrink_to_fit();
+
+	v.emplace(v.cbegin(), 0);
+	assert(v.front() == 0);
+
+	v.emplace_back(4);
+	assert(v.back() == 4);
+
+	array<int, 1> a1, a2;
+	swap(a1, a2);
+
+	/// [forward_list](https://en.cppreference.com/w/cpp/container/forward_list)
+	forward_list<int> fl;
+}
+
 /// Compare with @ref sort_03
 
 void sort_11()
@@ -489,6 +514,7 @@ int main(void)
 	lambda_capture();
 	lambda_complex();
 	func_11();
+	container_11();
 	sort_11();
 	dynamic_memory_11();
 	static_assert(constexpr_factorial(4), "");
