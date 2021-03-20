@@ -385,7 +385,8 @@ void container_11()
 
 void sort_11()
 {
-	array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	/// [array](https://en.cppreference.com/w/cpp/container/array)
+	array<int, 10> s {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
 	sort(s.begin(), s.end(),
 		  // sort using a lambda expression
 		  [](int a, int b)
@@ -402,7 +403,7 @@ void sort_11()
 
 /// @cond
 
-/// https://en.cppreference.com/w/cpp/utility/functional/function
+/// [function](https://en.cppreference.com/w/cpp/utility/functional/function)
 
 // int use_lambda(int a; int (func*)(int))
 static int use_lambda(int a, function<int(int)> f)
