@@ -24,6 +24,7 @@ static_assert(__cplusplus == 201103, "");
 #include <memory>
 #include <chrono>
 #include <thread>
+#include <mutex>
 #include <future>
 
 #if __has_include (<version>)
@@ -448,6 +449,17 @@ static void lambda_complex(void)
  @{
   */
 
+/// @cond
+
+// just function with delay for demonstration
+int lento(int a = 0)
+{
+	this_thread::yield();
+	this_thread::sleep_for(chrono::milliseconds(20));
+	return a;
+}
+/// @endcond
+
 void threads_11()
 {
 	this_thread::yield();
@@ -461,6 +473,32 @@ void threads_11()
 	assert(f.get() == 2);
 	assert(v == 3);
 	t.join();
+}
+
+void mutex_11()
+{
+	int unguarded = 0, guarded = 0;
+	mutex m;
+
+	thread t1([&unguarded, &guarded, &m]{
+		  unguarded = lento(unguarded) + 1;
+
+		  lock_guard<mutex> guard(m);
+		  guarded = lento(guarded) + 1;
+		  });
+	thread t2([&unguarded, &guarded, &m]{
+		  unguarded = lento(unguarded) + 1;
+
+		  lock_guard<mutex> guard(m);
+		  guarded = lento(guarded) + 1;
+		  });
+
+	assert(unguarded == 0);
+	assert(guarded == 0);
+	t1.join();
+	t2.join();
+	assert(unguarded == 1);
+	assert(guarded == 2);
 }
 /// @} threads11
 
@@ -522,6 +560,8 @@ int main(void)
 
 	types_11();
 	threads_11();
+	mutex_11();
+
 	return 0;
 }
 
