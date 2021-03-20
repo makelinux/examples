@@ -137,24 +137,23 @@ struct _ {
 
 void sort_03()
 {
-	int a[] =  {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
-	std::vector<int> v (a, a + sizeof(a) / sizeof(a[0]));
+	int a[] = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	vector<int> v (a, a + sizeof a / sizeof a[0]);
 
 	// using default comparison (operator <):
-	std::sort (v.begin(), v.begin()+4);
+	sort(v.begin(), v.begin()+4);
 
 	// using function as comp
-	sort (v.begin() + 4, v.end(), func);
+	sort(v.begin() + 4, v.end(), func);
 
 	// sort using a standard library compare function object
-	std::sort(v.begin(), v.end(), std::greater<int>());
+	sort(v.begin(), v.end(), greater<int>());
 
 	// using object as comp
-
-	std::sort (v.begin(), v.end(), functor);
+	sort (v.begin(), v.end(), functor);
 
 	int prev = -1;
-	for (std::vector<int>::iterator i=v.begin(); i != v.end(); ++i) {
+	for (vector<int>::iterator i=v.begin(); i != v.end(); ++i) {
 		assert(*i >= prev);
 		prev = *i;
 	}
@@ -165,8 +164,8 @@ int& a_ref(int &a) { return a; }
 
 struct Common
 {
-    int n;
-    Common(int x) : n(x) {}
+	int n;
+	Common(int x) : n(x) {}
 };
 
 /// [ref](https://en.cppreference.com/w/cpp/language/virtual)
