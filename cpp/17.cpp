@@ -9,8 +9,6 @@
 
  https://en.cppreference.com/w/cpp/language/history/17
 
- https://en.cppreference.com/w/cpp/language/range-for
-
  @{
 */
 
@@ -532,6 +530,11 @@ int main()
 	string_view_demo();
 	// for (auto&& [first,second] : mymap) { }
 	types_17();
+	/// https://en.cppreference.com/w/cpp/language/range-for
+	map<int, int> mymap;
+	for (auto&& [first, second] : mymap) {
+		// use first and second
+	}
 }
 
 /// @} CPP17
