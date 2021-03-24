@@ -75,6 +75,7 @@ static_assert(deducted_pair.second == 2.3);
 constexpr tuple deducted_tuple(4, 2, 2.5);
 static_assert(get<2>(deducted_tuple) == 2.5);
 
+/// @brief template with type float by default
 template <typename T = float>
 struct template_struct {
 	T val;
@@ -82,17 +83,43 @@ struct template_struct {
 	template_struct(T val) : val(val) {}
 };
 
-/// @brief deducted <int>
+/// @brief deducted \<int\>
 template_struct template_arg_deduction {1};
 
 #if __cpp_deduction_guides > 201611
 
-/// @brief deducted <float>
+/// @brief deducted \<float\>
 template_struct template_default_arg_deduction;
 
 #endif
 
+vector<int> int_vector = {1, 2, 3, 4};
+
+/// [deduction_guides](https://en.cppreference.com/w/cpp/container/deque/deduction_guides)
+
+/// @brief deduced deque\<int\>
+deque deduction_guide1_queue(int_vector.begin(), int_vector.end());
+
+/// @brief deduced deque\<vector\<int> :: iterator\>
+deque deduction_guide2_queue {int_vector.cbegin(), int_vector.cend()};
+
+/// [deduction_guides](https://en.cppreference.com/w/cpp/container/array/deduction_guides)
+array deduction_guide_array {1, 2, 3, 4};
+
+/// [deduction_guides](https://en.cppreference.com/w/cpp/container/vector/deduction_guides)
+/// @brief deduced vector\<int\>
+vector deduction_guide1_vector(int_vector.begin(), int_vector.end());
+/// @brief deduced vector\<vector\<int\> :: iterator\>
+vector deduction_guide2_vector {int_vector.begin(), int_vector.end()};
 /// @}
+void deduction_guides_17()
+{
+	assert(deduction_guide1_queue[0] == 1);
+	assert(*deduction_guide2_queue[0] == 1);
+	assert(deduction_guide1_vector[0] == 1);
+	assert(*deduction_guide2_vector[0] == 1);
+}
+
 #else
 #pragma message("undefined __cpp_deduction_guides")
 #endif
@@ -521,6 +548,7 @@ inline int inline_var;
 int main()
 {
 	references_17();
+	deduction_guides_17();
 	folding_demo();
 	lambda_17();
 	variant_demo();
