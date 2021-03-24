@@ -61,9 +61,9 @@ void references_17()
 /**
  @defgroup template_argument_deduction Template argument deduction
 
- https://en.cppreference.com/w/cpp/language/template_argument_deduction
+ [template_argument_deduction](https://en.cppreference.com/w/cpp/language/template_argument_deduction)
 
- https://en.cppreference.com/w/cpp/language/class_template_argument_deduction
+ [class_template_argument_deduction](https://en.cppreference.com/w/cpp/language/class_template_argument_deduction)
 
  @{
  */
@@ -103,9 +103,11 @@ less less;
 #endif
 
 /**
- @defgroup template_parameters Template parameters
- https://en.cppreference.com/w/cpp/language/template_parameters
- @{
+  @defgroup template_parameters Template parameters
+
+  [template_parameters](https://en.cppreference.com/w/cpp/language/template_parameters)
+
+  @{
  */
 
 template<auto n> struct B { /* ... */ };
@@ -141,8 +143,10 @@ auto seq = my_integer_sequence<0, 1, 2>();
 
 /**
  @defgroup constexpr_lambda Constexpr lambda
- https://en.cppreference.com/w/cpp/language/lambda
- https://docs.microsoft.com/en-us/cpp/cpp/lambda-expressions-constexpr
+
+ [lambda](https://en.cppreference.com/w/cpp/language/lambda)
+
+ [lambda-expressions-constexpr](https://docs.microsoft.com/en-us/cpp/cpp/lambda-expressions-constexpr)
 
  @{
  */
@@ -181,7 +185,9 @@ static_assert(const_inc(1) == 2);
 
 /**
  @defgroup lcbv Lambda capture this by value
- https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
+
+ [Lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)
+
  @{
  */
 
@@ -217,7 +223,7 @@ void lambda_17()
  @defgroup land17 Language
  @{
 
- https://en.cppreference.com/w/cpp/language
+ [language](https://en.cppreference.com/w/cpp/language)
 
  @defgroup folding Folding
  @{
@@ -256,7 +262,7 @@ namespace outer_namespace::qualified_nested_namespace {
  @} nn
  @defgroup sb Structured bindings
 
- https://en.cppreference.com/w/cpp/language/structured_binding
+ [structured binding](https://en.cppreference.com/w/cpp/language/structured_binding)
  @{
  */
 
@@ -290,11 +296,12 @@ void structured_bindings()
 
 /**
  @} sb
+
  @defgroup iscs Variable declaration in conditionals
 
- https://en.cppreference.com/w/cpp/language/if
+ [if](https://en.cppreference.com/w/cpp/language/if)
 
- https://en.cppreference.com/w/cpp/language/switch
+ [switch](https://en.cppreference.com/w/cpp/language/switch)
 
  @{
  */
@@ -310,13 +317,14 @@ void conditional_with_init()
 
 /**
  @}
+
  @defgroup attr New attributes 'fallthrough', 'nodiscard' and 'maybe_unused'
 
- https://en.cppreference.com/w/cpp/language/attributes/fallthrough
+ [fallthrough](https://en.cppreference.com/w/cpp/language/attributes/fallthrough)
 
- https://en.cppreference.com/w/cpp/language/attributes/nodiscard
+ [nodiscard](https://en.cppreference.com/w/cpp/language/attributes/nodiscard)
 
- https://en.cppreference.com/w/cpp/language/attributes/maybe_unused
+ [maybe_unused](https://en.cppreference.com/w/cpp/language/attributes/maybe_unused)
 
  @{
  */
@@ -340,8 +348,11 @@ void test_attr()
 
 /**
  @}
+
  @defgroup constif Compile time constexpr if
- https://en.cppreference.com/w/cpp/language/if
+
+ [if](https://en.cppreference.com/w/cpp/language/if)
+
  @{
  */
 void constif()
@@ -352,8 +363,11 @@ void constif()
 
 /**
  @}
+
  @defgroup lit Character literal
- https://en.cppreference.com/w/cpp/language/character_literal
+
+ [character_literal](https://en.cppreference.com/w/cpp/language/character_literal)
+
  @{
  */
 
@@ -361,9 +375,13 @@ static char char_u8 = u8'x';
 
 /**
  @}
+
  @defgroup enum Direct list initialization of enums
- https://en.cppreference.com/w/cpp/language/character_literal
- https://en.cppreference.com/w/cpp/language/enum
+
+ [character_literal](https://en.cppreference.com/w/cpp/language/character_literal)
+
+ [enum](https://en.cppreference.com/w/cpp/language/enum)
+
  @{
  */
 enum byte_e : unsigned char {};
@@ -416,7 +434,7 @@ void map_demo()
 	// dst == { 1, 2, 3, 4, 5 }
 }
 
-/// https://en.cppreference.com/w/cpp/utility/variant
+/// [variant](https://en.cppreference.com/w/cpp/utility/variant)
 void variant_demo()
 {
 	variant<int, float> v, w;
@@ -497,7 +515,7 @@ void string_view_demo()
 
  */
 
-/// https://en.cppreference.com/w/cpp/language/inline
+/// [inline](https://en.cppreference.com/w/cpp/language/inline)
 
 inline int inline_var;
 
