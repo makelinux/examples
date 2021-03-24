@@ -468,11 +468,37 @@ void threads_11()
 	promise<int> p;
 	future<int> f = p.get_future();
 	int v = 0;
-	thread t([&p, &v]{ this_thread::sleep_for(chrono::milliseconds(1)); p.set_value(2); v = 3; });
+	thread t([&p, &v]{
+		 lento();
+		 p.set_value(2);
+		 v = 3;
+		 });
 	assert(v == 0);
 	assert(f.get() == 2);
+	lento();
 	assert(v == 3);
-	t.join();
+	thread t2;
+	t2.swap(t);
+	assert(!t.joinable());
+	assert(t2.joinable());
+	t2.join();
+	try {
+		t2.join();
+		t2.detach();
+	} catch(const std::system_error& e) {
+		assert(e.code().value() == 22);
+	}
+	assert(!t2.joinable());
+
+	// detach demo
+	{
+		thread t3([&p, &v]{
+			  v = 4;
+			  });
+		t3.detach();
+	}
+	lento();
+	assert(v == 4);
 }
 
 void mutex_11()
