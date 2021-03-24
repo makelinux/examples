@@ -22,7 +22,6 @@ static_assert(__cplusplus >= 201707);
 #include <vector>
 #include <cmath>
 #include <cassert>
-#include <vector>
 #include <map>
 #include <memory>
 #include <thread>
@@ -121,11 +120,10 @@ void dynamic_memory_20()
 namespace lambda {
 
 #if __cpp_template_template_args && __GNUG__ > 8
-/// Lambda capture of parameter pack
+/// [Lambda capture of parameter pack](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)
 template <typename ... Args>
 auto make_lambda_with_parameter_pack_capture(Args&& ... args)
 {
-	// parameter pack capture:
 	return [... args = forward<Args>(args)] {
 		return (... + args);
 	};
@@ -332,8 +330,6 @@ void coroutine_demo() {}
 
   [range-for](https://en.cppreference.com/w/cpp/language/range-for)
 
-  [constinit](https://en.cppreference.com/w/cpp/language/constinit)
-
  */
 
 #if __cpp_lib_ranges
@@ -397,6 +393,7 @@ int main()
 	jthread t([]{ });
 #endif
 	coroutine_demo();
+	functional_20();
 }
 /// @}
 
