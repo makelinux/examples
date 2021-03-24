@@ -17,9 +17,7 @@ static_assert(__cplusplus == 201703);
 #include <utility>
 #include <tuple>
 #include <unordered_map>
-#include <variant>
 #include <string>
-#include <string_view>
 #include <cassert>
 #include <algorithm>
 #include <map>
@@ -31,19 +29,22 @@ static_assert(__cplusplus == 201703);
 #include <functional> //11
 #include <utility>
 #include <valarray>
+// New headers
 //#include <execution>
+#include <variant>
+#include <string_view>
 
 using namespace std;
 
 void references_17()
 {
-	static_assert(std::is_reference_v<int&>);
+	static_assert(is_reference_v<int&>);
 
 	// L-value:
-	static_assert(std::is_lvalue_reference_v<int&>);
+	static_assert(is_lvalue_reference_v<int&>);
 
 	// R-value
-	static_assert(std::is_rvalue_reference_v<int&&>);
+	static_assert(is_rvalue_reference_v<int&&>);
 }
 
 /**
@@ -67,31 +68,27 @@ void references_17()
  */
 
 /// @brief pair<int, double> p(1, 2.3);
-constexpr pair p(1, 2.3);
-static_assert(p.second == 2.3);
+constexpr pair deducted_pair(1, 2.3);
+static_assert(deducted_pair.second == 2.3);
 
 /// @brief auto t = make_tuple(4, 3, 2.5);
-constexpr tuple t(4, 2, 2.5);
-
-static_assert(std::get<2>(t) == 2.5);
+constexpr tuple deducted_tuple(4, 2, 2.5);
+static_assert(get<2>(deducted_tuple) == 2.5);
 
 template <typename T = float>
-struct arg_deduction {
+struct template_struct {
 	T val;
-	arg_deduction() : val() {}
-	arg_deduction(T val) : val(val) {}
+	template_struct() : val() {}
+	template_struct(T val) : val(val) {}
 };
 
-/// @brief before_arg_deduction<int>
-arg_deduction c1 {1};
+/// @brief deducted <int>
+template_struct template_arg_deduction {1};
 
 #if __cpp_deduction_guides > 201611
 
-/// @brief before_arg_deduction<float>
-arg_deduction c2;
-
-/// @brief less<void> l;
-less less;
+/// @brief deducted <float>
+template_struct template_default_arg_deduction;
 
 #endif
 
@@ -410,7 +407,9 @@ void types_17()
 
 /**
  @}
+
  @defgroup lib17 Library
+
  @{
  */
 
