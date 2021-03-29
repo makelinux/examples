@@ -105,6 +105,17 @@ void dynamic_memory_11()
 	s2.reset();
 	assert(s1.use_count() == 1);
 	assert(!s2.use_count());
+
+	// https://en.cppreference.com/w/cpp/memory/new/operator_new
+	// https://en.cppreference.com/w/cpp/memory/new/operator_delete
+
+	auto a = new int[3] {1,2,3};
+	assert(a[2] == 3);
+	delete a;
+
+	auto as = new string[3] {"1", "2", "3"};
+	assert(as[2] == "3");
+	delete[] as; // calls destructors for all members
 }
 
 /// func_type - overloaded functions
