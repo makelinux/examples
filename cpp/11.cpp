@@ -393,6 +393,15 @@ void container_11()
 	forward_list<int> fl;
 }
 
+/// [algorithm](https://en.cppreference.com/w/cpp/algorithm)
+
+void algorithm_11()
+{
+	vector<int> v = {1, 2, 3};
+	assert(find(begin(v), end(v), 0) == end(v));
+	assert(find(begin(v), end(v), 1) != end(v));
+}
+
 /// Compare with @ref sort_03
 
 void sort_11()
@@ -591,6 +600,7 @@ int main(void)
 	lambda_complex();
 	func_11();
 	container_11();
+	algorithm_11();
 	sort_11();
 	dynamic_memory_11();
 	static_assert(constexpr_factorial(4), "");
