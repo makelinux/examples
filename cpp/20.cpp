@@ -337,6 +337,18 @@ void coroutine_demo() {}
 #include <ranges>
 
 /// [ranges](https://en.cppreference.com/w/cpp/ranges)
+/// [range algorithms](https://en.cppreference.com/w/cpp/algorithm/ranges)
+/// [sort](https://en.cppreference.com/w/cpp/algorithm/ranges/sort)
+/// [distance](https://en.cppreference.com/w/cpp/iterator/ranges/distance)
+
+void sort_20()
+{
+	vector<int> v = {5, 7, 4, 2, 8, 6, 1, 9, 1, 3};
+	ranges::sort(v);
+	assert(v.front() <= v.back());
+	assert(ranges::distance(v));
+	assert(!ranges::distance(v.begin(), v.begin()));
+}
 
 struct ranges_20 {
 	ranges_20() {
@@ -394,6 +406,7 @@ int main()
 #endif
 	coroutine_demo();
 	functional_20();
+	sort_20();
 }
 /// @}
 
