@@ -458,7 +458,12 @@ void map_demo()
 	// dst == { 1, 2, 3, 4, 5 }
 }
 
-/// [variant](https://en.cppreference.com/w/cpp/utility/variant)
+/**
+  [variant](https://en.cppreference.com/w/cpp/utility/variant)
+
+  [visit](https://en.cppreference.com/w/cpp/utility/variant/visit)
+  */
+
 void variant_demo()
 {
 	variant<int, float> v, w;
@@ -488,6 +493,9 @@ void variant_demo()
 	assert(holds_alternative<void const*>(y));
 	y = "xyz"s;
 	assert(holds_alternative<string>(y));
+
+	auto inc = [](int a) -> int { return a + 1; };
+	assert(visit(inc, (variant<int>)1) == 2);
 }
 
 void clamp_demo()
