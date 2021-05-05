@@ -199,6 +199,13 @@ int main(void)
 	container_03();
 	sort_03();
 	types_03();
+	assert(min(1,2) == 1);
+	assert(max(1,2) == 2);
+	pair<int, char> p(1, 'a');
+	assert(p.first == 1);
+	assert(p.second == 'a');
+	p = std::make_pair('b', 2);
+	assert(p.first == 'b');
 }
 
 /// @}
