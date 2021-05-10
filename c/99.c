@@ -8,14 +8,12 @@ int main()
 {
 	assert(__STDC_VERSION__ > 199900);
 	struct xy { int x, y; };
-	struct ab { struct xy a, b; };
+	struct nest { struct xy nested; };
 
-	struct xy a1 = { .y = 1, .x = 2 };
-
-	int arr[3] = { [1] = 5 };
-
-	struct ab b = { .a.x = 0 };
-	struct xy a2 = { .x = 1, 2 };
+	struct nest n = {.nested.x = 0 };
+	struct xy out_of_order = {.y = 1, .x = 2 };
+	struct xy mixed = {.x = 1, 2 };
+	int array[3] = {[1] = 5 };
 
 	{ }
 	int declaration_after_statement;
