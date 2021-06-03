@@ -519,6 +519,19 @@ void threads_11()
 	}
 	lento();
 	assert(v == 4);
+
+	condition_variable cv;
+	mutex m;
+	thread waker([&cv, &m] {
+		lento();
+		{
+			lock_guard<mutex> lk(m);
+		}
+		cv.notify_one();
+	});
+	unique_lock<mutex> lk(m);
+	cv.wait(lk);
+	waker.join();
 }
 
 void mutex_11()
