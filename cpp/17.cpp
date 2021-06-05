@@ -33,6 +33,9 @@ static_assert(__cplusplus == 201703);
 //#include <execution>
 #include <variant>
 #include <string_view>
+#include <thread>
+#include <mutex>
+#include <shared_mutex>
 
 using namespace std;
 
@@ -240,6 +243,39 @@ void lambda_17()
 /// @} lcbv
 
 /// @} lambda17
+
+/**
+ @defgroup threads17 Threads
+ [threads](https://en.cppreference.com/w/cpp/thread)
+ @{
+  */
+
+/**
+  [shared_lock](https://en.cppreference.com/w/cpp/thread/shared_lock)
+
+  [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
+
+  [scoped_lock](https://en.cppreference.com/w/cpp/thread/scoped_lock)
+  */
+
+void threads_17()
+{
+	shared_mutex m;
+	shared_lock lock(m);
+
+	mutex mt[2];
+	thread t2;
+	{
+		scoped_lock l1(mt[0], mt[1]);
+		t2 = thread([&mt]{
+			scoped_lock l2(mt[0], mt[1]);
+		});
+	}
+	t2.join();
+
+}
+
+/// @} threads17
 
 /**
  @defgroup land17 Language
@@ -559,6 +595,7 @@ int main()
 	deduction_guides_17();
 	folding_demo();
 	lambda_17();
+	threads_17();
 	variant_demo();
 	clamp_demo();
 	dynamic_memory_17();
