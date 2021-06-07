@@ -436,9 +436,13 @@ static char char_u8 = u8'x';
 
 void types_17()
 {
+	enum byte_e : unsigned char {};
+	static byte_e b { 123 };
+
+floating_literal:
 	static_assert(is_integral_v<int>);
 	static_assert(__cpp_hex_float);
-	double hex_double = 0x1.2p3; // https://en.cppreference.com/w/cpp/language/floating_literal
+	double hex_double = 0x1.2p3;
 	assert(hex_double == 9.0);
 
 	static_assert(is_invocable<decltype(types_17)>::value);
@@ -450,7 +454,6 @@ void types_17()
 	auto inc = [](int a) -> int { return a + 1; };
 	static_assert(is_invocable_r<int, decltype(inc), int>::value);
 	static_assert(__cpp_lib_invoke);
-	// https://en.cppreference.com/w/cpp/utility/functional/invoke
 	assert(invoke(inc, 2) == 3);
 }
 
