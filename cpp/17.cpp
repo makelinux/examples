@@ -279,11 +279,11 @@ void threads_17()
 
 /**
  @defgroup land17 Language
+ @brief [language](https://en.cppreference.com/w/cpp/language)
  @{
 
- [language](https://en.cppreference.com/w/cpp/language)
-
  @defgroup folding Folding
+ @brief [fold](https://en.cppreference.com/w/cpp/language/fold)
  @{
  */
 
@@ -302,19 +302,19 @@ void folding_demo()
 /**
  @} folding
  @defgroup nn Qualified nested namespace
-
- https://en.cppreference.com/w/cpp/language/namespace
+ @brief [namespace](https://en.cppreference.com/w/cpp/language/namespace)
 
  http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4026.html
 
  @{
  */
 
-/// Before: namespace other { namespace other2 {
-namespace outer_namespace::qualified_nested_namespace {
-	int in_qualified_nested_namespace;
+/// Before: namespace outer_namespace { namespace nested_namespace { } }
+
+namespace outer_namespace::qualified_nested_namespace
+{
+int in_qualified_nested_namespace;
 }
-// } } - just for symmetry 
 
 /**
  @} nn
@@ -352,16 +352,15 @@ void structured_bindings()
 	//const auto& [a,b,c] = tpl;
 }
 
+
+/// @} sb
 /**
- @} sb
+  Variable declaration in conditionals
 
- @defgroup iscs Variable declaration in conditionals
+  Specs:
+  [if](https://en.cppreference.com/w/cpp/language/if),
+  [switch](https://en.cppreference.com/w/cpp/language/switch)
 
- [if](https://en.cppreference.com/w/cpp/language/if)
-
- [switch](https://en.cppreference.com/w/cpp/language/switch)
-
- @{
  */
 
 void conditional_with_init()
@@ -374,14 +373,10 @@ void conditional_with_init()
 }
 
 /**
- @}
-
- @defgroup attr New attributes 'fallthrough', 'nodiscard' and 'maybe_unused'
-
- [fallthrough](https://en.cppreference.com/w/cpp/language/attributes/fallthrough)
-
- [nodiscard](https://en.cppreference.com/w/cpp/language/attributes/nodiscard)
-
+ @defgroup attr New attributes
+ @brief
+ [fallthrough](https://en.cppreference.com/w/cpp/language/attributes/fallthrough),
+ [nodiscard](https://en.cppreference.com/w/cpp/language/attributes/nodiscard),
  [maybe_unused](https://en.cppreference.com/w/cpp/language/attributes/maybe_unused)
 
  @{
@@ -404,48 +399,36 @@ void test_attr()
 	}
 }
 
+/// @}
+
 /**
- @}
-
- @defgroup constif Compile time constexpr if
-
+ @brief
  [if](https://en.cppreference.com/w/cpp/language/if)
-
- @{
  */
-void constif()
+
+constexpr int const_if()
 {
 	if constexpr(true)
-		printf("1\n");
+		return 1;
 }
 
+static_assert(const_if());
+
 /**
- @}
-
- @defgroup lit Character literal
-
+ Character literal
+ @brief
  [character_literal](https://en.cppreference.com/w/cpp/language/character_literal)
-
- @{
  */
 
 static char char_u8 = u8'x';
 
 /**
- @}
+  Direct list initialization of [enum](https://en.cppreference.com/w/cpp/language/enum)s
 
- @defgroup enum Direct list initialization of enums
+  [floating_literal](https://en.cppreference.com/w/cpp/language/floating_literal)
 
- [character_literal](https://en.cppreference.com/w/cpp/language/character_literal)
-
- [enum](https://en.cppreference.com/w/cpp/language/enum)
-
- @{
+  [invoke](https://en.cppreference.com/w/cpp/utility/functional/invoke)
  */
-enum byte_e : unsigned char {};
-static byte_e b { 123 };
-
-/// @}
 
 void types_17()
 {
@@ -469,7 +452,7 @@ void types_17()
 
 
 /**
- @}
+ @} land17
 
  @defgroup lib17 Library
 
