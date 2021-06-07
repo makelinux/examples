@@ -111,7 +111,7 @@ void dynamic_memory_11()
 
 	auto a = new int[3] {1,2,3};
 	assert(a[2] == 3);
-	delete a;
+	delete[] a;
 
 	auto as = new string[3] {"1", "2", "3"};
 	assert(as[2] == "3");
@@ -179,14 +179,14 @@ void init_11()
 	// https://en.cppreference.com/w/cpp/language/list_initialization
 
 	class C { public: int a, b, c; };
-	auto o2 = C{1, 2, 3};
-	C o3{1, 2, 3};
+	auto o2 = C {1, 2, 3};
+	C o3 {1, 2, 3};
 	(void) o3;
 
 	// https://en.cppreference.com/w/cpp/language/zero_initialization
 	auto z1 = C();
 	C z2 = {};
-	auto z3 = C{};
+	auto z3 = C {};
 
 	assert(!z1.a);
 	assert(!z2.a);
@@ -505,7 +505,7 @@ void threads_11()
 	try {
 		t2.join();
 		t2.detach();
-	} catch(const std::system_error& e) {
+	} catch(const system_error& e) {
 		assert(e.code().value() == 22);
 	}
 	assert(!t2.joinable());
@@ -522,7 +522,7 @@ void threads_11()
 
 	condition_variable cv;
 	mutex m;
-	thread waker([&cv, &m] {
+	thread initiator([&cv, &m] {
 		lento();
 		{
 			lock_guard<mutex> lk(m);
@@ -531,7 +531,7 @@ void threads_11()
 	});
 	unique_lock<mutex> lk(m);
 	cv.wait(lk);
-	waker.join();
+	initiator.join();
 }
 
 void mutex_11()
