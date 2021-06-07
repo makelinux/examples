@@ -350,6 +350,10 @@ void structured_bindings()
 	}
 	//tuple<float&,char&&,int> tpl(x,move(y),z);
 	//const auto& [a,b,c] = tpl;
+	// https://en.cppreference.com/w/cpp/language/structured_binding
+	auto [min, max] = minmax({3, 2, 1});
+	assert(min == 1);
+	assert(max == 3);
 }
 
 
