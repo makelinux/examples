@@ -117,7 +117,24 @@ void container_03()
 	test_vector_container(d);
 
 	stack<int> s;
+	s.push(1);
+	assert(s.top() == 1);
+	s.push(2);
+	assert(s.top() == 2);
+	s.pop();
+	assert(s.top() == 1);
+	s.pop();
+	assert(s.empty());
+
 	queue<int> q;
+	q.push(1);
+	q.push(2);
+	assert(q.front() == 1);
+	assert(q.back() == 2);
+	q.pop();
+	assert(q.front() == 2);
+	q.pop();
+	assert(q.empty());
 }
 
 /**
