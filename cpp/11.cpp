@@ -480,6 +480,28 @@ int lento(int a = 0)
 }
 /// @endcond
 
+/**
+  https://en.cppreference.com/w/cpp/thread/condition_variable
+  */
+
+void condition_variable_11()
+{
+	mutex m;
+	bool ready;
+	condition_variable cv;
+	thread initiator([&m, &ready, &cv] {
+		unique_lock<mutex> lk(m);
+		lento();
+		lk.unlock();
+		ready = true;
+		cv.notify_one();
+	});
+	lento();
+	unique_lock<mutex> lk(m);
+	cv.wait(lk, [&ready]{return ready;});
+	initiator.join();
+}
+
 void threads_11()
 {
 	this_thread::yield();
@@ -520,18 +542,7 @@ void threads_11()
 	lento();
 	assert(v == 4);
 
-	condition_variable cv;
-	mutex m;
-	thread initiator([&cv, &m] {
-		lento();
-		{
-			lock_guard<mutex> lk(m);
-		}
-		cv.notify_one();
-	});
-	unique_lock<mutex> lk(m);
-	cv.wait(lk);
-	initiator.join();
+	condition_variable_11();
 }
 
 void mutex_11()
