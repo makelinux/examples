@@ -13,6 +13,8 @@
 
 static_assert(__cplusplus == 201103, "");
 
+#include <signal.h>
+#include <unistd.h>
 #include <utility>
 #include <vector>
 #include <iostream>
@@ -613,8 +615,15 @@ void mutex_11()
  @}
  */
 
+void sig(int)
+{
+	abort();
+}
+
 int main(void)
 {
+	signal(SIGALRM, sig);
+	alarm(1);
 	references_11();
 	init_11();
 	auto r = trailing_return_type(1);
