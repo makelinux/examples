@@ -350,20 +350,24 @@ void sort_20()
 	assert(!ranges::distance(v.begin(), v.begin()));
 }
 
-struct ranges_20 {
-	ranges_20() {
-		auto data = {0, 1, 2, 3};
-		/// [reverse_view](https://en.cppreference.com/w/cpp/ranges/reverse_view)
+void ranges_20()
+{
+	auto data = {0, 1, 2, 3};
+	/// [reverse_view](https://en.cppreference.com/w/cpp/ranges/reverse_view)
 #if __clang_major__ != 10
-		ranges::reverse_view rv {data};
-		auto r = data | views::reverse;
-		// r is kind of transform_view
-		vector result(r.begin(), r.end());
-		assert(vector(rv.begin(), rv.end()) == result);
-		assert((result == vector{3, 2, 1, 0}));
+	ranges::reverse_view rv {data};
+	auto r = data | views::reverse;
+	// r is kind of transform_view
+	vector result(r.begin(), r.end());
+	assert(vector(rv.begin(), rv.end()) == result);
+	assert((result == vector{3, 2, 1, 0}));
 #endif
-	}
-} ranges_20;
+	auto [min, max] = ranges::minmax({3, 2, 1});
+	auto a = ranges::minmax({3, 2, 1});
+	assert(min == 1);
+	assert(max == 3);
+	assert(!in_range<std::size_t>(-1));
+}
 
 #else
 #pragma message("undefined __cpp_lib_ranges")
@@ -407,6 +411,7 @@ int main()
 	coroutine_demo();
 	functional_20();
 	sort_20();
+	ranges_20();
 }
 /// @}
 
