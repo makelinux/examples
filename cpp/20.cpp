@@ -377,14 +377,13 @@ void ranges_20()
 
 /// [source_location](https://en.cppreference.com/w/cpp/utility/source_location)
 
-struct location_20 {
-	location_20() {
-		auto l = experimental::source_location::current();
-		basic_stringstream<char> buff;
-		buff << l.file_name() << ":" << l.line() << ":" << l.column() << l.function_name();
-		assert(buff.str().length());
-	}
-} location_20;
+void location_20()
+{
+	auto l = experimental::source_location::current();
+	basic_stringstream<char> buff;
+	buff << l.file_name() << ":" << l.line() << ":" << l.column() << l.function_name();
+	assert(buff.str().length());
+}
 
 /**
  [functional](https://en.cppreference.com/w/cpp/header/functional)
@@ -412,6 +411,7 @@ int main()
 	functional_20();
 	sort_20();
 	ranges_20();
+	location_20();
 }
 /// @}
 
