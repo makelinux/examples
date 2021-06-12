@@ -18,7 +18,6 @@ static_assert(__cplusplus == 201703);
 #include <tuple>
 #include <unordered_map>
 #include <string>
-#include <cassert>
 #include <algorithm>
 #include <map>
 #include <set>

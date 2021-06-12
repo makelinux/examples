@@ -386,12 +386,12 @@ void location_20()
 }
 
 /**
- [functional](https://en.cppreference.com/w/cpp/header/functional)
+  [functional](https://en.cppreference.com/w/cpp/header/functional)
+  [bind_front](https://en.cppreference.com/w/cpp/utility/functional/bind_front)
  */
 
 void functional_20()
 {
-	/// [bind_front](https://en.cppreference.com/w/cpp/utility/functional/bind_front)
 	auto constexpr plus_one = std::bind_front(std::plus<int>(), 1);
 	static_assert(plus_one(2) == 3);
 }
@@ -408,10 +408,10 @@ int main()
 	jthread t([]{ });
 #endif
 	coroutine_demo();
-	functional_20();
 	sort_20();
 	ranges_20();
 	location_20();
+	functional_20();
 }
 /// @}
 
