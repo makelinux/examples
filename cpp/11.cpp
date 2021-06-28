@@ -61,6 +61,19 @@ void types_11()
 	assert(sizeof (long long) >= 8);
 }
 
+/// [weak_ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr)
+
+void weak_pointer()
+{
+	std::weak_ptr<int> wp;
+
+	assert(!wp.lock());
+	assert(!wp.use_count());
+	auto sp = std::make_shared<int>(1);
+	wp = sp;
+	assert(*wp.lock() == 1);
+}
+
 void dynamic_memory_11()
 {
 	int d = 0;
@@ -118,6 +131,8 @@ void dynamic_memory_11()
 	auto as = new string[3] {"1", "2", "3"};
 	assert(as[2] == "3");
 	delete[] as; // calls destructors for all members
+
+	weak_pointer();
 }
 
 /// func_type - overloaded functions
