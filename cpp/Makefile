@@ -1,11 +1,13 @@
 default: build check
 
-t=20 17 14 11 03 features.csv
+e=20 17 14 11 03
+e+=patterns
+t=features.csv
 
-build: $t
+build: $e $t
 
 clean:
-	rm -f $t
+	rm -f $e $t
 
 CXXFLAGS+=-Wall -Wno-unused
 CXXFLAGS+=-Wextra -Wno-missing-field-initializers
@@ -32,7 +34,7 @@ endif
 03: CXXFLAGS+=-std=c++03
 
 check:
-	./03 && ./11 && ./14 && ./17 && ./20
+	for a in $e; do ./$$a || exit; done
 
 features.csv:
 	#./03 && ./11 && ./14 && ./17 && ./20
