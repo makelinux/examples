@@ -61,23 +61,12 @@ void types_11()
 	assert(sizeof (long long) >= 8);
 }
 
-/// [weak_ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr)
+/// [unique_ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr)
 
-void weak_pointer()
-{
-	std::weak_ptr<int> wp;
-
-	assert(!wp.lock());
-	assert(!wp.use_count());
-	auto sp = std::make_shared<int>(1);
-	wp = sp;
-	assert(*wp.lock() == 1);
-}
-
-void dynamic_memory_11()
+void unique_pounter()
 {
 	int d = 0;
-	unique_ptr<int> u1; // https://en.cppreference.com/w/cpp/memory/unique_ptr
+	unique_ptr<int> u1;
 	assert(!u1);
 	u1.reset(&d);
 	assert(u1);
@@ -85,10 +74,10 @@ void dynamic_memory_11()
 	assert(d == 1);
 
 	unique_ptr<int> u2;
-        // u2 = u1; - prohibited
+	// u2 = u1; - prohibited
 
 	int * p1 = u1.get();
-        u2 = move(u1); // https://en.cppreference.com/w/cpp/utility/move
+	u2 = move(u1); // [move](https://en.cppreference.com/w/cpp/utility/move)
 	assert(u2.get() == p1);
 	assert(u2);
 	assert(!u1);
@@ -99,10 +88,15 @@ void dynamic_memory_11()
 	assert(*u2 == 10);
 
 	u2.reset(); // deletes int(10)
-	assert(u2 == nullptr); // https://en.cppreference.com/w/cpp/language/nullptr
+	assert(u2 == nullptr); // [nullptr](https://en.cppreference.com/w/cpp/language/nullptr)
 
 	assert(!u2);
+}
 
+/// [shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)
+
+void shared_pointer()
+{
 	shared_ptr<int> s1;
 	assert(!s1);
 	assert(!s1.use_count());
@@ -117,20 +111,43 @@ void dynamic_memory_11()
 	assert(*s1 == *s1.get());
 	assert(*s2 == 2);
 
-	s2.reset();
+	s2 = nullptr; // like s2.reset();
 	assert(s1.use_count() == 1);
 	assert(!s2.use_count());
+}
 
-	// https://en.cppreference.com/w/cpp/memory/new/operator_new
-	// https://en.cppreference.com/w/cpp/memory/new/operator_delete
+/// [weak_ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr)
 
-	auto a = new int[3] {1,2,3};
+void weak_pointer()
+{
+	std::weak_ptr<int> wp;
+
+	assert(!wp.lock());
+	assert(!wp.use_count());
+	auto sp = std::make_shared<int>(1);
+	wp = sp;
+	assert(*wp.lock() == 1);
+}
+
+/**
+  [new](https://en.cppreference.com/w/cpp/memory/new/operator_new),
+
+  [delete](https://en.cppreference.com/w/cpp/memory/new/operator_delete)
+ */
+
+void dynamic_memory_11()
+{
+	auto a = new int[3] {1, 2, 3};
 	assert(a[2] == 3);
 	delete[] a;
 
 	auto as = new string[3] {"1", "2", "3"};
 	assert(as[2] == "3");
 	delete[] as; // calls destructors for all members
+
+	unique_pounter();
+
+	shared_pointer();
 
 	weak_pointer();
 }
