@@ -207,11 +207,19 @@ void references_11()
 	assert(func_type_template(1) == 'R');
 }
 
+/**
+  [direct_initialization](https://en.cppreference.com/w/cpp/language/direct_initialization)
+
+  [list_initialization](https://en.cppreference.com/w/cpp/language/list_initialization)
+
+  [Member_initialization](https://en.cppreference.com/w/cpp/language/data_members#Member_initialization)
+
+  [aggregate_initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization)
+
+  */
+
 void init_11()
 {
-	// https://en.cppreference.com/w/cpp/language/direct_initialization
-	// https://en.cppreference.com/w/cpp/language/list_initialization
-
 	class C { public: int a, b, c; };
 	auto o2 = C {1, 2, 3};
 	C o3 {1, 2, 3};
@@ -225,6 +233,7 @@ void init_11()
 	assert(!z1.a);
 	assert(!z2.a);
 	assert(!z3.a);
+	array<int, 3> a {1, 2};
 }
 
 /**
