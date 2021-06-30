@@ -461,6 +461,7 @@ void algorithm_11()
 void sort_11()
 {
 	/// [array](https://en.cppreference.com/w/cpp/container/array)
+
 	array<int, 10> s {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
 	sort(s.begin(), s.end(),
 		  // sort using a lambda expression
@@ -554,9 +555,8 @@ void condition_variable_11()
 		ready = true;
 		cv.notify_one();
 	});
-	lento();
 	unique_lock<mutex> lk(m);
-	cv.wait(lk, [&ready]{return ready;});
+	cv.wait(lk, [&ready] {return ready;});
 	initiator.join();
 }
 
@@ -640,8 +640,6 @@ void mutex_11()
 
   https://en.cppreference.com/w/cpp/language/move_assignment
 
-  https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
-
   https://en.cppreference.com/w/cpp/language/attributes
 
   https://en.cppreference.com/w/cpp/language/string_literal
@@ -649,8 +647,6 @@ void mutex_11()
   https://en.cppreference.com/w/cpp/language/character_literal
 
   https://en.cppreference.com/w/cpp/language/user_literal
-
-  https://en.cppreference.com/w/cpp/language/aggregate_initialization
 
   https://en.cppreference.com/w/cpp/language/initializer_list
 
