@@ -324,7 +324,7 @@ struct Derived11 : Base11
 static void lambda_basics(void)
 {
 	auto annotated_named_lambda_expression =  // optional name
-		[ ] // capture
+		[ ] // capture clause
 		( ) // optional list of arguments
 		{ }; // body
 
@@ -362,8 +362,8 @@ static void lambda_basics(void)
 	// annotated expanded sample inline lambda call:
 	c = // result
 	[c] // capture
-	(int a) // optional list of arguments
-	-> int // optional return value
+	(int a) // an argument
+	-> int // return value
 	{ return c + a; } // body
 	(1); // call with argument
 	assert(c == 4);
