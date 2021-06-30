@@ -19,6 +19,7 @@
 #include <list>
 #include <queue>
 #include <stack>
+#include <map>
 #include <typeinfo>
 
 using namespace std;
@@ -98,6 +99,34 @@ void test_vector_container(V & v)
 
 }
 
+/**
+  [map](https://en.cppreference.com/w/cpp/container/map)
+
+  [multimap](https://en.cppreference.com/w/cpp/container/multimap)
+  */
+
+void maps_03()
+{
+	map <char, int> m;
+	m['a'] = 1;
+	m.insert(make_pair('b', 2));
+	++ m['a'];
+	assert(m['a'] == 2);
+
+	multimap <char, int> mm;
+	mm.insert(make_pair('c', 1));
+	mm.insert(make_pair('b', 2));
+	mm.insert(make_pair('a', 3));
+	mm.insert(make_pair('a', 4));
+	std::multimap<char,int>::iterator i = mm.find('a');
+	assert(i->second == 3);
+	i++;
+	assert(i->second == 4);
+	i++;
+	assert(i->first == 'b');
+	assert(i->second == 2);
+}
+
 /// [container](https://en.cppreference.com/w/cpp/container)
 
 void container_03()
@@ -135,6 +164,8 @@ void container_03()
 	assert(q.front() == 2);
 	q.pop();
 	assert(q.empty());
+
+	maps_03();
 }
 
 /**
