@@ -434,6 +434,17 @@ void container_11()
 
 	/// [forward_list](https://en.cppreference.com/w/cpp/container/forward_list)
 	forward_list<int> fl;
+
+	fl.push_front(1);
+	assert(fl.front() == 1);
+	fl.emplace_front(2);
+	assert(fl.front() == 2);
+	fl.insert_after(fl.cbegin(), 3);
+	assert(fl.front() + 1 == 3);
+	assert(fl.front() == 2);
+	fl.erase_after(fl.cbefore_begin()); // like fl.pop_front();
+	assert(fl.front() == 3);
+	fl.pop_front();
 }
 
 /// [algorithm](https://en.cppreference.com/w/cpp/algorithm)
