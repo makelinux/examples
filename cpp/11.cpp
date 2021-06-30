@@ -513,6 +513,10 @@ static void lambda_complex(void)
 
 	// inline lambda as argument
 	assert(use_lambda(1, [](int a) {return a + 1;}) == 2);
+
+	int x = 0;
+	[x] () mutable { assert(++x);}();
+	assert(x == 0);
 }
 
 /// @} lambda11_complex
