@@ -210,7 +210,11 @@ void references_11()
 /**
   [direct_initialization](https://en.cppreference.com/w/cpp/language/direct_initialization)
 
+  [zero_initialization](https://en.cppreference.com/w/cpp/language/zero_initialization)
+
   [list_initialization](https://en.cppreference.com/w/cpp/language/list_initialization)
+
+  [initializer_list](https://en.cppreference.com/w/cpp/utility/initializer_list)
 
   [Member_initialization](https://en.cppreference.com/w/cpp/language/data_members#Member_initialization)
 
@@ -220,12 +224,17 @@ void references_11()
 
 void init_11()
 {
-	class C { public: int a, b, c; };
+	struct C { int a, b, c; };
 	auto o2 = C {1, 2, 3};
 	C o3 {1, 2, 3};
 	(void) o3;
 
-	// https://en.cppreference.com/w/cpp/language/zero_initialization
+	auto uses_il = [](initializer_list<int> il) {
+		assert(*il.begin() == 3);
+		assert(il.size() == 4);
+	};
+	uses_il({3, 2, 1, 0});
+
 	auto z1 = C();
 	C z2 = {};
 	auto z3 = C {};
