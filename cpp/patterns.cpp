@@ -64,10 +64,24 @@ void visitor_demo()
 	assert(client_visit(components, v) ==
 		"client_visit > component_accept > visit > component_method");
 }
+
+struct Abstract {
+	virtual shared_ptr<int> factory_method() = 0;
+	int client() { return *factory_method(); };
+};
+
+struct Implementation : Abstract {
+	virtual shared_ptr<int> factory_method() {return make_shared<int>(1); }
+};
+
+void factory_method_demo()
+{
+	Implementation I;
+	assert(I.client() == 1);
 }
 
 int main()
 {
-	trace(" > ");
 	visitor_demo();
+	factory_method_demo();
 }
