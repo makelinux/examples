@@ -82,8 +82,24 @@ void factory_method_demo()
 	assert(I.client() == 1);
 }
 
+struct Abstract_factory {
+	virtual shared_ptr<int> create() = 0;
+};
+
+struct Sample_factory : Abstract_factory {
+	virtual shared_ptr<int> create() {return make_shared<int>(1); }
+};
+
+void abstract_factory_demo()
+{
+	Abstract_factory* factory = new Sample_factory();
+	auto product = factory->create();
+	assert(*product == 1);
+}
+
 int main()
 {
 	visitor_demo();
 	factory_method_demo();
+	abstract_factory_demo();
 }
