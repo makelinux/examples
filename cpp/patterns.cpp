@@ -5,10 +5,12 @@
   @file
 */
 
-struct A_component;
+
+/// Components implementations have to predeclared
+struct Sample_component;
 
 struct Visitor {
-	virtual string visit(const A_component&) const = 0;
+	virtual string visit(const Sample_component&) const = 0;
 };
 
 struct Component {
@@ -29,7 +31,7 @@ string client_visit(const list<unique_ptr<Component>>& components,
 }
 
 /// @brief one of many components
-struct A_component : public Component {
+struct Sample_component : public Component {
 	string component_accept(Visitor& visitor) const override {
 		return string(__func__) + " > " + visitor.visit(*this);
 	}
@@ -52,15 +54,15 @@ struct A_component : public Component {
 void visitor_demo()
 {
 	/// @brief one of many visitors
-	struct A_visitor : public Visitor {
-		string visit(const A_component& c) const override {
+	struct Sample_visitor : public Visitor {
+		string visit(const Sample_component& c) const override {
 			return string(__func__) + " > " + c.component_method();
 		}
 	};
 
 	list<unique_ptr<Component>> components;
-	components.emplace_back(new A_component);
-	A_visitor v;
+	components.emplace_back(new Sample_component);
+	Sample_visitor v;
 	assert(client_visit(components, v) ==
 		"client_visit > component_accept > visit > component_method");
 }
