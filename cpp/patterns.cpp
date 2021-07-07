@@ -67,34 +67,57 @@ void visitor_demo()
 		"client_visit > component_accept > visit > component_method");
 }
 
-struct Abstract {
-	virtual shared_ptr<int> factory_method() = 0;
-	int client() { return *factory_method(); };
+struct Abstract_product
+{
+	virtual int num() { return 0; }
 };
 
-struct Implementation : Abstract {
-	virtual shared_ptr<int> factory_method() {return make_shared<int>(1); }
+struct Generic_client
+{
+	virtual shared_ptr<Abstract_product> factory_method() = 0;
+	int client() {
+		auto p(factory_method());
+		return p->num();
+	};
+};
+
+struct Sample_product :
+	Abstract_product
+{
+	int num() override { return 1; }
+};
+
+struct Sample_client :
+	Generic_client
+{
+	shared_ptr<Abstract_product> factory_method() override {
+		return make_shared<Sample_product>();
+	}
 };
 
 void factory_method_demo()
 {
-	Implementation I;
-	assert(I.client() == 1);
+	Sample_client C;
+	assert(C.client() == 1);
 }
 
-struct Abstract_factory {
-	virtual shared_ptr<int> create() = 0;
+struct Abstract_factory
+{
+	virtual shared_ptr<Abstract_product> create() = 0;
 };
 
-struct Sample_factory : Abstract_factory {
-	virtual shared_ptr<int> create() {return make_shared<int>(1); }
+struct Sample_factory
+	: Abstract_factory
+{
+	virtual shared_ptr<Abstract_product> create() {
+		return make_shared<Sample_product>();
+	}
 };
 
 void abstract_factory_demo()
 {
-	Abstract_factory* factory = new Sample_factory();
+	unique_ptr<Abstract_factory> factory(new Sample_factory());
 	auto product = factory->create();
-	assert(*product == 1);
 }
 
 int main()
