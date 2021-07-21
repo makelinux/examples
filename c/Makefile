@@ -1,4 +1,4 @@
-all: tr ansi 99 libc 11
+all: tr ansi 99 libc 11 tricks
 
 CFLAGS+=-Wpedantic
 CFLAGS+=-Wextra -Wno-missing-field-initializers
