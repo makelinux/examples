@@ -19,7 +19,7 @@ struct Component {
 
 /// @brief knows only abstract visitor and component
 string client_visit(const list<unique_ptr<Component>>& components,
-		Visitor& visitor)
+		    Visitor& visitor)
 {
 	string res;
 	for (auto&& comp : components) {
@@ -31,7 +31,7 @@ string client_visit(const list<unique_ptr<Component>>& components,
 }
 
 /// @brief one of many components
-struct Sample_component : public Component {
+struct Sample_component: public Component {
 	string component_accept(Visitor& visitor) const override {
 		return string(__func__) + " > " + visitor.visit(*this);
 	}
@@ -64,7 +64,7 @@ void visitor_demo()
 	components.emplace_back(new Sample_component);
 	Sample_visitor v;
 	assert(client_visit(components, v) ==
-		"client_visit > component_accept > visit > component_method");
+	       "client_visit > component_accept > visit > component_method");
 }
 
 struct Abstract_product
@@ -75,6 +75,7 @@ struct Abstract_product
 struct Generic_client
 {
 	virtual shared_ptr<Abstract_product> factory_method() = 0;
+
 	int client() {
 		auto p(factory_method());
 		return p->num();
