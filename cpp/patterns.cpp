@@ -4,6 +4,29 @@
   @file
 */
 
+/**
+  The singleton will be automatically safely instantiated on the first call.
+  define constructor body after the define */
+
+#define SINGLETON(Singleton)	\
+public:				\
+	/* Meyers Singleton realization */ \
+	static Singleton& get() {	   \
+		static Singleton me; 	\
+		return me; 		\
+	}				\
+	Singleton(const Singleton&) = delete; 			\
+	Singleton& operator=(const Singleton&) = delete; 	\
+	Singleton(Singleton&&) = delete;			\
+	Singleton& operator=(Singleton&&) = delete;		\
+private: \
+	Singleton_demo()
+
+struct Singleton_demo
+{
+	SINGLETON(Singleton_demo) { };
+};
+
 
 /// Components implementations have to predeclared
 struct Sample_component;
@@ -122,6 +145,7 @@ void abstract_factory_demo()
 
 int main()
 {
+	Singleton_demo& singe = Singleton_demo::get();
 	visitor_demo();
 	factory_method_demo();
 	abstract_factory_demo();
