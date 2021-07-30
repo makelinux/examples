@@ -27,6 +27,32 @@ struct Singleton_demo
 	SINGLETON(Singleton_demo) { };
 };
 
+/**
+  Credit: [observer](https://cpppatterns.com/patterns/observer.html)
+*/
+
+struct Observer {
+	virtual void notify() = 0;
+};
+
+struct Concrete_observer: public Observer {
+	void notify() override {
+		trace();
+	}
+};
+
+class Subject
+{
+public:
+	void register_observer(Observer& o) {
+		observers.push_front(&o);
+	}
+	void notify_observers() {
+		for (Observer* o : observers) o->notify();
+	}
+private:
+	std::forward_list<Observer*> observers;
+};
 
 /// Components implementations have to predeclared
 struct Sample_component;
@@ -146,6 +172,10 @@ void abstract_factory_demo()
 int main()
 {
 	Singleton_demo& singe = Singleton_demo::get();
+	Concrete_observer ob;
+	Subject subj;
+	subj.register_observer(ob);
+	subj.notify_observers();
 	visitor_demo();
 	factory_method_demo();
 	abstract_factory_demo();
