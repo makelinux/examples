@@ -1,5 +1,4 @@
-#include <memory>
-#include <list>
+#include <bits/stdc++.h>
 
 /**
   @file
