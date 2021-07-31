@@ -89,6 +89,30 @@ struct Sample_component: public Component {
 	}
 };
 
+struct Interface
+{
+	virtual int method() = 0;
+};
+
+struct Adaptee
+{
+	float original_method() const {
+		trace();
+		return 0.0;
+	}
+};
+
+struct Adapter:
+	public Interface
+{
+	Adapter(Adaptee& adaptee): adaptee(adaptee) {}
+	int method() override {
+		return this->adaptee.original_method();
+	}
+private:
+	Adaptee& adaptee;
+};
+
 /**
   Call hierarchy:
 
@@ -176,6 +200,9 @@ int main()
 	Subject subj;
 	subj.register_observer(ob);
 	subj.notify_observers();
+	Adaptee a;
+	Adapter ad(a);
+	ad.method();
 	visitor_demo();
 	factory_method_demo();
 	abstract_factory_demo();
