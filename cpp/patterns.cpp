@@ -6,12 +6,13 @@
 
 /**
   The singleton will be automatically safely instantiated on the first call.
-  define constructor body after the define */
+
+  Define constructor body after the define */
 
 #define SINGLETON(Singleton)	\
 public:				\
 	/* Meyers Singleton realization */ \
-	static Singleton& get() {	   \
+	static Singleton& get() {	\
 		static Singleton me; 	\
 		return me; 		\
 	}				\
@@ -35,15 +36,16 @@ struct Observer {
 	virtual void notify() = 0;
 };
 
-struct Concrete_observer: public Observer {
+struct Concrete_observer
+	: public Observer
+{
 	void notify() override {
 		trace();
 	}
 };
 
-class Subject
+struct Subject
 {
-public:
 	void register_observer(Observer& o) {
 		observers.push_front(&o);
 	}
@@ -79,7 +81,9 @@ string client_visit(const list<unique_ptr<Component>>& components,
 }
 
 /// @brief one of many components
-struct Sample_component: public Component {
+struct Sample_component
+	: public Component
+{
 	string component_accept(Visitor& visitor) const override {
 		return string(__func__) + " > " + visitor.visit(*this);
 	}
@@ -102,8 +106,9 @@ struct Adaptee
 	}
 };
 
-struct Adapter:
-	public Interface
+/// @brief or Bridge, uses different interfaces
+struct Adapter
+	: public Interface
 {
 	Adapter(Adaptee& adaptee): adaptee(adaptee) {}
 	int method() override {
@@ -126,7 +131,8 @@ private:
 void visitor_demo()
 {
 	/// @brief one of many visitors
-	struct Sample_visitor : public Visitor {
+	struct Sample_visitor
+		: public Visitor {
 		string visit(const Sample_component& c) const override {
 			return string(__func__) + " > " + c.component_method();
 		}
@@ -154,14 +160,14 @@ struct Generic_client
 	};
 };
 
-struct Sample_product :
-	Abstract_product
+struct Sample_product
+	: Abstract_product
 {
 	int num() override { return 1; }
 };
 
-struct Sample_client :
-	Generic_client
+struct Sample_client
+	: Generic_client
 {
 	shared_ptr<Abstract_product> factory_method() override {
 		return make_shared<Sample_product>();
