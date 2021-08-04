@@ -118,6 +118,18 @@ private:
 	Adaptee& adaptee;
 };
 
+/// uses same Interface
+struct Proxy
+	: public Interface
+{
+	Proxy(Interface& o): orig(o) {}
+	int method() override {
+		return this->orig.method();
+	}
+private:
+	Interface& orig;
+};
+
 /**
   Call hierarchy:
 
@@ -209,6 +221,8 @@ int main()
 	Adaptee a;
 	Adapter ad(a);
 	ad.method();
+	Proxy p(ad);
+	p.method();
 	visitor_demo();
 	factory_method_demo();
 	abstract_factory_demo();
