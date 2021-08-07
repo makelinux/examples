@@ -39,9 +39,7 @@ struct Observer {
 struct Concrete_observer
 	: public Observer
 {
-	void notify() override {
-		trace();
-	}
+	void notify() override { }
 };
 
 struct Subject
@@ -101,7 +99,6 @@ struct Interface
 struct Adaptee
 {
 	float original_method() const {
-		trace();
 		return 0.0;
 	}
 };
