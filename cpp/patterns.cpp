@@ -34,6 +34,7 @@ struct Singleton_demo
 
 struct Observer {
 	virtual void notify() = 0;
+	virtual ~Observer() = default;
 };
 
 struct Concrete_observer
@@ -59,10 +60,12 @@ struct Sample_component;
 
 struct Visitor {
 	virtual string visit(const Sample_component&) const = 0;
+	virtual ~Visitor() = default;
 };
 
 struct Component {
 	virtual string component_accept(Visitor&) const = 0;
+	virtual ~Component() = default;
 };
 
 /// @brief knows only abstract visitor and component
@@ -94,6 +97,7 @@ struct Sample_component
 struct Interface
 {
 	virtual int method() = 0;
+	virtual ~Interface() = default;
 };
 
 struct Adaptee
