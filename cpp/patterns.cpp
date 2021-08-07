@@ -131,6 +131,20 @@ private:
 	Interface& orig;
 };
 
+struct Composite
+	: public Interface
+{
+	void add(Interface& o) {
+		children.push_front(&o);
+	}
+	int method() override {
+		for (Interface* i : children) i->method();
+		return 0;
+	}
+private:
+	std::forward_list<Interface*> children;
+};
+
 /**
   Call hierarchy:
 
@@ -224,6 +238,9 @@ int main()
 	ad.method();
 	Proxy p(ad);
 	p.method();
+	Composite comp;
+	comp.add(p);
+	comp.method();
 	visitor_demo();
 	factory_method_demo();
 	abstract_factory_demo();
