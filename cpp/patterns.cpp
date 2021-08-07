@@ -5,6 +5,11 @@
 */
 
 /**
+  @defgroup DP Design patterns examples
+  @{
+  */
+
+/**
   The singleton will be automatically safely instantiated on the first call.
 
   Define constructor body after the define */
@@ -235,6 +240,7 @@ void abstract_factory_demo()
 	unique_ptr<Abstract_factory> factory(new Sample_factory());
 	auto product = factory->create();
 }
+// @}
 
 int main()
 {
