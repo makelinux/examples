@@ -37,13 +37,15 @@ struct Observer {
 	virtual ~Observer() = default;
 };
 
-struct Concrete_observer
+/// @brief concrete Observer
+
+struct View
 	: public Observer
 {
 	void notify() override { }
 };
 
-struct Subject
+struct Model
 {
 	void register_observer(Observer& o) {
 		observers.push_front(&o);
@@ -53,6 +55,14 @@ struct Subject
 	}
 private:
 	std::forward_list<Observer*> observers;
+};
+
+/// Part of MVC: Model, View, Controller
+
+struct Controller
+{
+	Model mod;
+	Controller(Model& s) : mod(s) { };
 };
 
 /// Components implementations have to predeclared
@@ -229,10 +239,11 @@ void abstract_factory_demo()
 int main()
 {
 	Singleton_demo& singe = Singleton_demo::get();
-	Concrete_observer ob;
-	Subject subj;
-	subj.register_observer(ob);
-	subj.notify_observers();
+	View ob;
+	Model mod;
+	mod.register_observer(ob);
+	mod.notify_observers();
+	Controller ctrl(mod);
 	Adaptee a;
 	Adapter ad(a);
 	ad.method();
