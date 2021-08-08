@@ -121,29 +121,34 @@ struct Sample_component
 	}
 };
 
+struct Standalone
+/** @brief is wrapped by Bridge. Aka adaptee of Adapter
+
+  It could be a legacy interface playing adaptee role in Adapter pattern
+  */
+{
+	float standalone_method() const {
+		return 0.0;
+	}
+};
+
 struct Interface
+/// @brief is a common pure virtual interface
 {
 	virtual int method() = 0;
 	virtual ~Interface() = default;
 };
 
-struct Adaptee
-{
-	float original_method() const {
-		return 0.0;
-	}
-};
-
-/// @brief or Bridge, uses different interfaces
-struct Adapter
+struct Bridge
+/// @brief is a wrapper using different from Standalone interface. Aka Adapter
 	: public Interface
 {
-	Adapter(Adaptee& adaptee): adaptee(adaptee) {}
+	Bridge(Standalone& s): standalone(s) {}
 	int method() override {
-		return this->adaptee.original_method();
+		return this->standalone.standalone_method();
 	}
 private:
-	Adaptee& adaptee;
+	Standalone& standalone;
 };
 
 /// uses same Interface
@@ -265,10 +270,10 @@ int main()
 	ctrl.command(Command());
 	Command cmnd;
 	ctrl.command(cmnd);
-	Adaptee a;
-	Adapter ad(a);
-	ad.method();
-	Proxy p(ad);
+	Standalone sa;
+	Bridge br(sa);
+	br.method();
+	Proxy p(br);
 	p.method();
 	Composite comp;
 	comp.add(p);
