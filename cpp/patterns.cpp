@@ -215,31 +215,26 @@ void visitor_demo()
   @{
   */
 
-struct Abstract_product
-{
-	virtual int num() { return 0; }
-};
-
 struct Generic_client
 {
-	virtual shared_ptr<Abstract_product> factory_method() = 0;
+	virtual shared_ptr<Interface> factory_method() = 0;
 
 	int client() {
 		auto p(factory_method());
-		return p->num();
+		return p->method();
 	};
 };
 
 struct Sample_product
-	: Abstract_product
+	: Interface
 {
-	int num() override { return 1; }
+	int method() override { return 1; }
 };
 
 struct Sample_client
 	: Generic_client
 {
-	shared_ptr<Abstract_product> factory_method() override {
+	shared_ptr<Interface> factory_method() override {
 		return make_shared<Sample_product>();
 	}
 };
@@ -252,13 +247,13 @@ void factory_method_demo()
 
 struct Abstract_factory
 {
-	virtual shared_ptr<Abstract_product> create() = 0;
+	virtual shared_ptr<Interface> create() = 0;
 };
 
 struct Sample_factory
 	: Abstract_factory
 {
-	virtual shared_ptr<Abstract_product> create() {
+	virtual shared_ptr<Interface> create() {
 		return make_shared<Sample_product>();
 	}
 };
