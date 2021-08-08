@@ -67,7 +67,7 @@ struct Model
 	int command(const Command& cmnd) { return 0; }
 	int command(Command&& cmnd) { return 0; }
 private:
-	std::forward_list<Observer*> observers;
+	forward_list<Observer*> observers;
 };
 
 struct Controller
@@ -101,7 +101,7 @@ struct Component
 };
 
 /// @brief knows only abstract visitor and component
-string client_visit(const list<unique_ptr<Component>>& components,
+string client_visit(const forward_list<unique_ptr<Component>>& components,
 		    Visitor& visitor)
 {
 	string res;
@@ -179,7 +179,7 @@ struct Composite
 		return 0;
 	}
 private:
-	std::forward_list<Interface*> children;
+	forward_list<Interface*> children;
 };
 
 /**
@@ -202,8 +202,8 @@ void visitor_demo()
 		}
 	};
 
-	list<unique_ptr<Component>> components;
-	components.emplace_back(new Sample_component);
+	forward_list<unique_ptr<Component>> components;
+	components.emplace_front(new Sample_component);
 	Sample_visitor v;
 	assert(client_visit(components, v) ==
 	       "client_visit > component_accept > visit > component_method");
