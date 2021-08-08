@@ -37,24 +37,26 @@ struct Singleton_demo
   Credit: [observer](https://cpppatterns.com/patterns/observer.html)
 */
 
-struct Observer {
+struct Observer
+/// @brief is pure virtual notification observer of a Model
+{
 	virtual void notify() = 0;
 	virtual ~Observer() = default;
 };
 
-/// @brief concrete Observer
-
 struct View
+/// @brief is concrete Observer
 	: public Observer
 {
 	void notify() override { }
 };
 
 struct Command
-/// @brief is incapslated arguments. Aka Intent, operation.
+/// @brief encapsulates arguments. Aka Intent, operation.
 {};
 
 struct Model
+/// @brief is part of MVC with View and Controller
 {
 	void register_observer(Observer& o) {
 		observers.push_front(&o);
@@ -68,9 +70,8 @@ private:
 	std::forward_list<Observer*> observers;
 };
 
-/// Part of MVC: Model, View, Controller
-
 struct Controller
+/// @brief is part of MVC with Model and View
 {
 	Model mod;
 	Controller(Model& s) : mod(s) { };
@@ -85,12 +86,16 @@ struct Controller
 /// Components implementations have to predeclared
 struct Sample_component;
 
-struct Visitor {
+struct Visitor
+/// @brief is pure virtual a visitor of Sample_component
+{
 	virtual string visit(const Sample_component&) const = 0;
 	virtual ~Visitor() = default;
 };
 
-struct Component {
+struct Component
+/// @brief is pure virtual a Visitor acceptor
+{
 	virtual string component_accept(Visitor&) const = 0;
 	virtual ~Component() = default;
 };
@@ -151,8 +156,8 @@ private:
 	Standalone& standalone;
 };
 
-/// uses same Interface
 struct Proxy
+/// @brief is a wrapper using same as wrapped object Interface
 	: public Interface
 {
 	Proxy(Interface& o): orig(o) {}
@@ -203,6 +208,12 @@ void visitor_demo()
 	assert(client_visit(components, v) ==
 	       "client_visit > component_accept > visit > component_method");
 }
+
+/**
+  @defgroup factories Factories
+
+  @{
+  */
 
 struct Abstract_product
 {
@@ -257,7 +268,9 @@ void abstract_factory_demo()
 	unique_ptr<Abstract_factory> factory(new Sample_factory());
 	auto product = factory->create();
 }
-// @}
+
+/// @}
+/// @}
 
 int main()
 {
