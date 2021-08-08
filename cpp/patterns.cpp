@@ -50,6 +50,10 @@ struct View
 	void notify() override { }
 };
 
+struct Command
+/// @brief is incapslated arguments. Aka Intent, operation.
+{};
+
 struct Model
 {
 	void register_observer(Observer& o) {
@@ -58,6 +62,8 @@ struct Model
 	void notify_observers() {
 		for (Observer* o : observers) o->notify();
 	}
+	int command(const Command& cmnd) { return 0; }
+	int command(Command&& cmnd) { return 0; }
 private:
 	std::forward_list<Observer*> observers;
 };
@@ -68,6 +74,12 @@ struct Controller
 {
 	Model mod;
 	Controller(Model& s) : mod(s) { };
+	int command(const Command& cmnd) {
+		return mod.command(cmnd);
+	}
+	int command(Command&& cmnd) {
+		return mod.command(cmnd);
+	}
 };
 
 /// Components implementations have to predeclared
@@ -250,6 +262,9 @@ int main()
 	mod.register_observer(ob);
 	mod.notify_observers();
 	Controller ctrl(mod);
+	ctrl.command(Command());
+	Command cmnd;
+	ctrl.command(cmnd);
 	Adaptee a;
 	Adapter ad(a);
 	ad.method();
