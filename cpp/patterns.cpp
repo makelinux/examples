@@ -52,8 +52,13 @@ struct View
 };
 
 struct Command
-/// @brief encapsulates arguments. Aka Intent, operation.
-{};
+/** @brief encapsulates arguments. Aka Intent, operation.
+
+  [Command pattern](https://en.wikipedia.org/wiki/Command_pattern)
+
+  https://refactoring.guru/design-patterns/command
+ */
+{ };
 
 struct Model
 /// @brief is part of MVC with View and Controller
@@ -265,7 +270,6 @@ void abstract_factory_demo()
 }
 
 /// @}
-/// @}
 
 int main()
 {
@@ -290,3 +294,5 @@ int main()
 	factory_method_demo();
 	abstract_factory_demo();
 }
+
+/// @}
