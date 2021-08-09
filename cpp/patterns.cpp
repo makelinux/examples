@@ -59,15 +59,15 @@ struct Model
 /// @brief is part of MVC with View and Controller
 {
 	void register_observer(Observer& o) {
-		observers.push_front(&o);
+		observers.push_front(o);
 	}
 	void notify_observers() {
-		for (Observer* o : observers) o->notify();
+		for (Observer& o : observers) o.notify();
 	}
 	int command(const Command& cmnd) { return 0; }
 	int command(Command&& cmnd) { return 0; }
 private:
-	forward_list<Observer*> observers;
+	forward_list<reference_wrapper<Observer>> observers;
 };
 
 struct Controller
