@@ -177,14 +177,14 @@ struct Composite
 	: public Interface
 {
 	void add(Interface& o) {
-		children.push_front(&o);
+		children.push_front(o);
 	}
 	int method() override {
-		for (Interface* i : children) i->method();
+		for (Interface& i : children) i.method();
 		return 0;
 	}
 private:
-	forward_list<Interface*> children;
+	forward_list<reference_wrapper<Interface>> children;
 };
 
 /**
