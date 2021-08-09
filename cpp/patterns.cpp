@@ -271,6 +271,41 @@ void abstract_factory_demo()
 
 /// @}
 
+struct Handler
+/// @brief is a virtual command handler of Chain_of_responsibility
+{
+	/// Specific handler can process a command and return non-negative
+	virtual int handle(Command) { return -1; };
+	virtual ~Handler() = default;
+};
+
+struct Chain_of_responsibility
+	: Handler
+/** @brief list based implementation without recursion
+
+  [Chain-of-responsibility pattern](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern)
+
+  https://refactoring.guru/design-patterns/chain-of-responsibility
+
+ */
+{
+	void register_handler(Handler&& h, bool front = false) {
+		if (front)
+			handlers.push_front(h);
+		else
+			handlers.push_back(h);
+	}
+	int handle(Command arg) override {
+		int rc = -1;
+		for (Handler& h : handlers)
+			if ((rc = h.handle(arg)) >= 0)
+				return rc;
+		return rc;
+	}
+private:
+	list<reference_wrapper<Handler>> handlers;
+};
+
 int main()
 {
 	Singleton_demo& singe = Singleton_demo::get();
@@ -282,6 +317,11 @@ int main()
 	ctrl.command(Command());
 	Command cmnd;
 	ctrl.command(cmnd);
+
+	Chain_of_responsibility chain;
+	chain.register_handler(Handler());
+	chain.handle(cmnd);
+
 	Standalone sa;
 	Bridge br(sa);
 	br.method();
