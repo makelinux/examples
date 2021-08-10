@@ -88,26 +88,29 @@ struct Controller
 	}
 };
 
-/// Components implementations have to predeclared
-struct Sample_component;
+/**
+  @defgroup visitor Visitor
+  @{
+  */
 
 struct Visitor
-/// @brief is pure virtual a visitor of Sample_component
+/// @brief is a pure virtual visitor of Sample_component and other specific components
 {
+	struct Sample_component;
 	virtual string visit(const Sample_component&) const = 0;
 	virtual ~Visitor() = default;
 };
 
 struct Component
-/// @brief is pure virtual a Visitor acceptor
+/// @brief accepts a pure virtual Visitor
 {
 	virtual string component_accept(Visitor&) const = 0;
 	virtual ~Component() = default;
 };
 
-/// @brief knows only abstract visitor and component
 string client_visit(const forward_list<unique_ptr<Component>>& components,
 		    Visitor& visitor)
+/// @brief knows only virtual visitor and component
 {
 	string res;
 	for (auto&& comp : components) {
@@ -118,9 +121,9 @@ string client_visit(const forward_list<unique_ptr<Component>>& components,
 	return res;
 }
 
-/// @brief one of many components
-struct Sample_component
+struct Visitor::Sample_component
 	: public Component
+/// @brief one of many components
 {
 	string component_accept(Visitor& visitor) const override {
 		return string(__func__) + " > " + visitor.visit(*this);
@@ -130,6 +133,35 @@ struct Sample_component
 		return __func__;
 	}
 };
+
+/**
+  Call hierarchy:
+
+	visitor_demo
+		client_visit
+			component_accept
+				visit
+					component_method
+*/
+
+void visitor_demo()
+{
+	/// @brief is one of many specific visitors with custom method visit
+	struct Sample_visitor
+		: public Visitor {
+		string visit(const Visitor::Sample_component& c) const override {
+			return string(__func__) + " > " + c.component_method();
+		}
+	};
+
+	forward_list<unique_ptr<Component>> components;
+	components.emplace_front(new Visitor::Sample_component);
+	Sample_visitor v;
+	assert(client_visit(components, v) ==
+	       "client_visit > component_accept > visit > component_method");
+}
+
+/// @} visitor
 
 struct Standalone
 /** @brief is wrapped by Bridge. Aka adaptee of Adapter
@@ -186,33 +218,6 @@ struct Composite
 private:
 	forward_list<reference_wrapper<Interface>> children;
 };
-
-/**
-  Call hierarchy:
-
-	visitor_demo
-		client_visit
-			component_accept
-				visit
-					component_method
-*/
-
-void visitor_demo()
-{
-	/// @brief one of many visitors
-	struct Sample_visitor
-		: public Visitor {
-		string visit(const Sample_component& c) const override {
-			return string(__func__) + " > " + c.component_method();
-		}
-	};
-
-	forward_list<unique_ptr<Component>> components;
-	components.emplace_front(new Sample_component);
-	Sample_visitor v;
-	assert(client_visit(components, v) ==
-	       "client_visit > component_accept > visit > component_method");
-}
 
 /**
   @defgroup factories Factories
@@ -330,6 +335,7 @@ int main()
 	Composite comp;
 	comp.add(p);
 	comp.method();
+
 	visitor_demo();
 	factory_method_demo();
 	abstract_factory_demo();
