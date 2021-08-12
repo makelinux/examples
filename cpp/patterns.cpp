@@ -122,6 +122,81 @@ void crational_patterns_demo()
 /// @} CP
 
 /**
+  @defgroup SP Structural
+  @brief [Structural patterns](https://en.wikipedia.org/wiki/Structural_pattern)
+
+  https://refactoring.guru/design-patterns/creational-patterns
+
+  @{
+  */
+
+struct Standalone
+/** @brief is wrapped by Bridge. AKA adaptee of Adapter
+
+  It could be a legacy interface playing adaptee role in Adapter pattern
+  */
+{
+	float standalone_method() const {
+		return 0.0;
+	}
+};
+
+struct Bridge
+/// @brief is a wrapper using different from Standalone interface. AKA Adapter
+	: public Interface
+{
+	Bridge(Standalone& s): standalone(s) {
+		trace(typeid(*this).name());
+	}
+	int method() override {
+		return this->standalone.standalone_method();
+	}
+private:
+	Standalone& standalone;
+};
+
+struct Proxy
+/// @brief is a wrapper using same as wrapped object Interface
+	: public Interface
+{
+	Proxy(Interface& o): orig(o) {}
+	int method() override {
+		return this->orig.method();
+	}
+private:
+	Interface& orig;
+};
+
+struct Composite
+	: public Interface
+{
+	void add(Interface& o) {
+		children.push_front(o);
+	}
+	int method() override {
+		//trace();
+		for (Interface& i : children) i.method();
+		return 0;
+	}
+private:
+	forward_list<reference_wrapper<Interface>> children;
+};
+
+void structural_patterns_demo()
+{
+	Standalone sa;
+	Bridge br(sa);
+	br.method();
+	Proxy p(br);
+	p.method();
+	Composite comp;
+	comp.add(p);
+	comp.method();
+}
+
+/// @} SP
+
+/**
   Credit: [observer](https://cpppatterns.com/patterns/observer.html)
 */
 
@@ -251,55 +326,6 @@ void visitor_demo()
 
 /// @} visitor
 
-struct Standalone
-/** @brief is wrapped by Bridge. Aka adaptee of Adapter
-
-  It could be a legacy interface playing adaptee role in Adapter pattern
-  */
-{
-	float standalone_method() const {
-		return 0.0;
-	}
-};
-
-struct Bridge
-/// @brief is a wrapper using different from Standalone interface. Aka Adapter
-	: public Interface
-{
-	Bridge(Standalone& s): standalone(s) {}
-	int method() override {
-		return this->standalone.standalone_method();
-	}
-private:
-	Standalone& standalone;
-};
-
-struct Proxy
-/// @brief is a wrapper using same as wrapped object Interface
-	: public Interface
-{
-	Proxy(Interface& o): orig(o) {}
-	int method() override {
-		return this->orig.method();
-	}
-private:
-	Interface& orig;
-};
-
-struct Composite
-	: public Interface
-{
-	void add(Interface& o) {
-		children.push_front(o);
-	}
-	int method() override {
-		for (Interface& i : children) i.method();
-		return 0;
-	}
-private:
-	forward_list<reference_wrapper<Interface>> children;
-};
-
 struct Handler
 /// @brief is a virtual command handler of Chain_of_responsibility
 {
@@ -339,6 +365,7 @@ int main()
 {
 	View ob;
 	crational_patterns_demo();
+	structural_patterns_demo();
 	Model mod;
 	mod.register_observer(ob);
 	mod.notify_observers();
