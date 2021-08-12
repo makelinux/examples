@@ -2,6 +2,12 @@
 
 /**
   @file
+  @brief skeleton examples of Design patterns
+
+  See module @ref DP
+
+  Code style:
+  Using struct because is it like class with default public members and methods.
 */
 
 /**
