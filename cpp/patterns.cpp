@@ -11,7 +11,11 @@
 */
 
 /**
-  @defgroup DP Design patterns examples
+  @defgroup DP Design patterns skeleton examples
+  @brief [Software design patterns](https://en.wikipedia.org/wiki/Software_design_pattern)
+
+  https://refactoring.guru/design-patterns
+
   @{
   */
 
