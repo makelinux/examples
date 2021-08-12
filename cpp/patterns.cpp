@@ -4,6 +4,8 @@
   @file
   @brief skeleton examples of Design patterns
 
+  (C) Copyright 2021 Constantine Shulyupin
+
   See module @ref DP
 
   Code style:
@@ -146,7 +148,6 @@ struct Bridge
 	: public Interface
 {
 	Bridge(Standalone& s): standalone(s) {
-		trace(typeid(*this).name());
 	}
 	int method() override {
 		return this->standalone.standalone_method();
@@ -197,6 +198,15 @@ void structural_patterns_demo()
 /// @} SP
 
 /**
+  @defgroup BP Behavioral
+  @brief [Behavioral patterns](https://en.wikipedia.org/wiki/Behavioral_pattern)
+
+  https://refactoring.guru/design-patterns/behavioral-patterns
+
+  @{
+  */
+
+/**
   Credit: [observer](https://cpppatterns.com/patterns/observer.html)
 */
 
@@ -215,7 +225,7 @@ struct View
 };
 
 struct Command
-/** @brief encapsulates arguments. Aka Intent, operation.
+/** @brief encapsulates arguments. AKA Intent, operation.
 
   [Command pattern](https://en.wikipedia.org/wiki/Command_pattern)
 
@@ -241,7 +251,7 @@ private:
 struct Controller
 /// @brief is part of MVC with Model and View
 {
-	Model mod;
+	Model& mod; // can be many models
 	Controller(Model& s) : mod(s) { };
 	int command(const Command& cmnd) {
 		return mod.command(cmnd);
@@ -361,13 +371,55 @@ private:
 	list<reference_wrapper<Handler>> handlers;
 };
 
-int main()
+struct Message { };
+
+/**
+  [Mediator_pattern](https://en.wikipedia.org/wiki/Mediator_pattern)
+
+  https://refactoring.guru/design-patterns/mediator
+  */
+
+struct Mediator;
+
+struct Member
 {
-	View ob;
-	crational_patterns_demo();
-	structural_patterns_demo();
+	Mediator* mediator;
+	void send(Message& );
+	void receive(Message& ) { }
+};
+
+struct Mediator
+{
+	void register_member(Member& m) {
+		m.mediator = this;
+		members.push_front(m);
+	}
+	void receive(Message& msg) {
+		for (Member& m : members) m.receive(msg);
+	}
+	forward_list<reference_wrapper<Member>> members;
+};
+
+void Member::send(Message& m)
+{
+	mediator->receive(m);
+}
+
+void mediator_demo()
+{
+	Member m1, m2;
+	Mediator md;
+	md.register_member(m1);
+	md.register_member(m2);
+	Message msg;
+	m1.send(msg);
+}
+
+void behavioral_patterns_demo()
+{
+	View view;
 	Model mod;
-	mod.register_observer(ob);
+	mod.register_observer(view);
 	mod.notify_observers();
 	Controller ctrl(mod);
 	ctrl.command(Command());
@@ -378,16 +430,17 @@ int main()
 	chain.register_handler(Handler());
 	chain.handle(cmnd);
 
-	Standalone sa;
-	Bridge br(sa);
-	br.method();
-	Proxy p(br);
-	p.method();
-	Composite comp;
-	comp.add(p);
-	comp.method();
-
 	visitor_demo();
+	mediator_demo();
+}
+
+/// @} BP
+
+int main()
+{
+	crational_patterns_demo();
+	structural_patterns_demo();
+	behavioral_patterns_demo();
 }
 
 /// @}
