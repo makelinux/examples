@@ -227,7 +227,7 @@ private:
 
 struct Generic_client
 {
-	virtual shared_ptr<Interface> factory_method() = 0;
+	virtual unique_ptr<Interface> factory_method() = 0;
 
 	int client() {
 		auto p(factory_method());
@@ -244,8 +244,8 @@ struct Sample_product
 struct Sample_client
 	: Generic_client
 {
-	shared_ptr<Interface> factory_method() override {
-		return make_shared<Sample_product>();
+	unique_ptr<Interface> factory_method() override {
+		return make_unique<Sample_product>();
 	}
 };
 
@@ -257,14 +257,14 @@ void factory_method_demo()
 
 struct Abstract_factory
 {
-	virtual shared_ptr<Interface> create() = 0;
+	virtual unique_ptr<Interface> create() = 0;
 };
 
 struct Sample_factory
 	: Abstract_factory
 {
-	virtual shared_ptr<Interface> create() {
-		return make_shared<Sample_product>();
+	virtual unique_ptr<Interface> create() {
+		return make_unique<Sample_product>();
 	}
 };
 
