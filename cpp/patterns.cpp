@@ -19,6 +19,22 @@
   @{
   */
 
+struct Interface
+/// @brief is a common pure virtual interface
+{
+	virtual int method() = 0;
+	virtual ~Interface() = default;
+};
+
+/**
+  @defgroup CP Creational
+  @brief [Creational patterns](https://en.wikipedia.org/wiki/Creational_pattern)
+
+  https://refactoring.guru/design-patterns/creational-patterns
+
+  @{
+  */
+
 /**
   The singleton will be automatically safely instantiated on the first call.
 
@@ -42,6 +58,68 @@ struct Singleton_demo
 {
 	SINGLETON(Singleton_demo) { };
 };
+
+struct Generic_client
+{
+	virtual unique_ptr<Interface> factory_method() = 0;
+
+	int client() {
+		auto p(factory_method());
+		return p->method();
+	};
+};
+
+struct Sample_product
+	: Interface
+{
+	int method() override { return 1; }
+};
+
+struct Sample_client
+	: Generic_client
+{
+	unique_ptr<Interface> factory_method() override {
+		return make_unique<Sample_product>();
+	}
+};
+
+struct Abstract_factory
+{
+	virtual unique_ptr<Interface> create() = 0;
+};
+
+struct Sample_factory
+	: Abstract_factory
+{
+	virtual unique_ptr<Interface> create() {
+		return make_unique<Sample_product>();
+	}
+};
+
+struct Prototype
+/// @brief is the factory of himself
+	: Abstract_factory, Interface
+{
+
+	int method() override { return 1; }
+	unique_ptr<Interface> create() override {
+		auto clone = new Prototype(*this);
+		return unique_ptr<Interface>(clone);
+	}
+};
+
+void crational_patterns_demo()
+{
+	Singleton_demo& singe = Singleton_demo::get();
+	unique_ptr<Abstract_factory> factory(new Sample_factory());
+	auto product = factory->create();
+	Prototype p1;
+	auto p2 = p1.create();
+	Sample_client C;
+	assert(C.client() == 1);
+}
+
+/// @} CP
 
 /**
   Credit: [observer](https://cpppatterns.com/patterns/observer.html)
@@ -184,13 +262,6 @@ struct Standalone
 	}
 };
 
-struct Interface
-/// @brief is a common pure virtual interface
-{
-	virtual int method() = 0;
-	virtual ~Interface() = default;
-};
-
 struct Bridge
 /// @brief is a wrapper using different from Standalone interface. Aka Adapter
 	: public Interface
@@ -229,63 +300,6 @@ private:
 	forward_list<reference_wrapper<Interface>> children;
 };
 
-/**
-  @defgroup factories Factories
-
-  @{
-  */
-
-struct Generic_client
-{
-	virtual unique_ptr<Interface> factory_method() = 0;
-
-	int client() {
-		auto p(factory_method());
-		return p->method();
-	};
-};
-
-struct Sample_product
-	: Interface
-{
-	int method() override { return 1; }
-};
-
-struct Sample_client
-	: Generic_client
-{
-	unique_ptr<Interface> factory_method() override {
-		return make_unique<Sample_product>();
-	}
-};
-
-void factory_method_demo()
-{
-	Sample_client C;
-	assert(C.client() == 1);
-}
-
-struct Abstract_factory
-{
-	virtual unique_ptr<Interface> create() = 0;
-};
-
-struct Sample_factory
-	: Abstract_factory
-{
-	virtual unique_ptr<Interface> create() {
-		return make_unique<Sample_product>();
-	}
-};
-
-void abstract_factory_demo()
-{
-	unique_ptr<Abstract_factory> factory(new Sample_factory());
-	auto product = factory->create();
-}
-
-/// @}
-
 struct Handler
 /// @brief is a virtual command handler of Chain_of_responsibility
 {
@@ -323,8 +337,8 @@ private:
 
 int main()
 {
-	Singleton_demo& singe = Singleton_demo::get();
 	View ob;
+	crational_patterns_demo();
 	Model mod;
 	mod.register_observer(ob);
 	mod.notify_observers();
@@ -347,8 +361,6 @@ int main()
 	comp.method();
 
 	visitor_demo();
-	factory_method_demo();
-	abstract_factory_demo();
 }
 
 /// @}
