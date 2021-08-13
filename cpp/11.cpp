@@ -256,6 +256,15 @@ auto trailing_return_type(int a) -> int
 	return a;
 }
 
+/// [copy_elision](https://en.cppreference.com/w/cpp/language/copy_elision)
+
+void copy_elision_demo()
+{
+	struct Obj2 { Obj2* orig = this; int ballast[4]; };
+	auto&& o2 = [](){ return Obj2();}();
+	assert(&o2 == o2.orig);
+}
+
 void func_11()
 {
 	class functor {
@@ -276,6 +285,8 @@ void func_11()
 	// https://en.cppreference.com/w/cpp/utility/functional/bind
 	auto binded = bind(ft2, 3);
 	assert(binded() == 5);
+
+	copy_elision_demo();
 }
 
 static_assert(__cpp_constexpr, "");
