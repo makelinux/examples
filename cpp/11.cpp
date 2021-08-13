@@ -161,6 +161,8 @@ char func_type(int&& x)
 	return 'R';
 }
 
+/// [Forwarding reference](https://en.cppreference.com/w/cpp/language/reference#Forwarding_references)
+
 template<class T>
 char func_type_template(T&& x) // x is a forwarding reference
 {
@@ -207,6 +209,8 @@ void references_11()
   [Member_initialization](https://en.cppreference.com/w/cpp/language/data_members#Member_initialization)
 
   [aggregate_initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization)
+
+  [reference_initialization](https://en.cppreference.com/w/cpp/language/reference_initialization)
 
   */
 
