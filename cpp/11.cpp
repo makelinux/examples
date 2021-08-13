@@ -15,19 +15,7 @@ static_assert(__cplusplus == 201103, "");
 
 #include <signal.h>
 #include <unistd.h>
-#include <utility>
-#include <vector>
-#include <iostream>
-#include <cassert>
-#include <functional>
-#include <algorithm>
-#include <array>
-#include <forward_list>
-#include <memory>
-#include <chrono>
-#include <thread>
-#include <mutex>
-#include <future>
+#include <bits/stdc++.h>
 
 #if __has_include (<version>)
 #include <version>

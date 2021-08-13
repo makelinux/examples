@@ -14,16 +14,7 @@
 
 static_assert(__cplusplus == 201402, "");
 
-#include <utility>
-#include <iostream>
-#include <memory>
-#include <chrono>
-#include <tuple>
-#include <string>
-#include <cassert>
-#include <algorithm>
-#include <array>
-#include <memory>
+#include <bits/stdc++.h>
 
 using namespace std;
 

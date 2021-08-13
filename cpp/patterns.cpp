@@ -148,6 +148,7 @@ struct Bridge
 	: public Interface
 {
 	Bridge(Standalone& s): standalone(s) {
+//		trace(typeid(*this).name());
 	}
 	int method() override {
 		return this->standalone.standalone_method();

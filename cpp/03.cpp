@@ -9,19 +9,8 @@
 
  @{
  */
-#include <utility>
-#include <iostream>
-#include <cassert>
-#include <cstring>
-#include <algorithm>
-#include <vector>
-#include <deque>
-#include <list>
-#include <queue>
-#include <stack>
-#include <set>
-#include <map>
-#include <typeinfo>
+
+#include <bits/stdc++.h>
 
 using namespace std;
 
