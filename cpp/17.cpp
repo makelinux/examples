@@ -35,6 +35,7 @@ static_assert(__cplusplus == 201703);
 #include <thread>
 #include <mutex>
 #include <shared_mutex>
+#include <cassert>
 
 using namespace std;
 
