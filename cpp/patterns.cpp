@@ -18,6 +18,20 @@
 
   https://refactoring.guru/design-patterns
 
+  DP helps to conform to [SOLID principles](https://en.wikipedia.org/wiki/SOLID):
+  - [<b>S</b>ingle-responsibility](https://en.wikipedia.org/wiki/Single-responsibility_principle)
+   - high [cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science))
+  - [<b>O</b>pen-closed](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle)
+   - open for extension
+   - but closed for modification
+  - [<b>L</b>iskov substitution](https://en.wikipedia.org/wiki/Liskov_substitution_principle)
+   - [composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
+  - [<b>I</b>nterface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle)
+   - use many specific interfaces
+  - [<b>D</b>ependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
+   - don't depend on implementations
+   - depend on interfaces
+   - [Loose coupling](https://en.wikipedia.org/wiki/Loose_coupling)
   @{
   */
 
