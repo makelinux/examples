@@ -5,12 +5,14 @@ using namespace std;
   @file
   @brief skeleton examples of Design patterns
 
-  (C) Copyright 2021 Constantine Shulyupin
+  © 2021 Constantine Shulyupin
 
   See module @ref DP
 
   Code style:
   Using struct because is it like class with default public members and methods.
+  Less is more. Skeleton code with minimal optional code and duplications.
+
 */
 
 /**
@@ -125,7 +127,7 @@ struct Prototype
 	}
 };
 
-void crational_patterns_demo()
+void creational_patterns_demo()
 {
 	Singleton_demo& singe = Singleton_demo::get();
 	unique_ptr<Abstract_factory> factory(new Sample_factory());
@@ -142,7 +144,7 @@ void crational_patterns_demo()
   @defgroup SP Structural
   @brief [Structural patterns](https://en.wikipedia.org/wiki/Structural_pattern)
 
-  https://refactoring.guru/design-patterns/creational-patterns
+  https://refactoring.guru/design-patterns/structural-patterns
 
   @{
   */
@@ -154,7 +156,7 @@ struct Standalone
   */
 {
 	float standalone_method() const {
-		return 0.0;
+		return 1.01;
 	}
 };
 
@@ -173,7 +175,7 @@ private:
 };
 
 struct Proxy
-/// @brief is a wrapper using same as wrapped object Interface
+/// @brief is a opaque wrapper with same as wrapped object Interface
 	: public Interface
 {
 	Proxy(Interface& o): orig(o) {}
@@ -454,7 +456,7 @@ void behavioral_patterns_demo()
 
 int main()
 {
-	crational_patterns_demo();
+	creational_patterns_demo();
 	structural_patterns_demo();
 	behavioral_patterns_demo();
 }
