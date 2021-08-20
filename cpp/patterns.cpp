@@ -91,14 +91,16 @@ struct Generic_client
 struct Sample_product
 	: Interface
 {
-	int method() override { return 1; }
+	int data;
+	int method() override { return data; }
+	Sample_product(int d = 0) : data(d) {}
 };
 
 struct Sample_client
 	: Generic_client
 {
 	unique_ptr<Interface> factory_method() override {
-		return make_unique<Sample_product>();
+		return make_unique<Sample_product>(123);
 	}
 };
 
@@ -135,7 +137,7 @@ void creational_patterns_demo()
 	Prototype p1;
 	auto p2 = p1.create();
 	Sample_client C;
-	assert(C.client() == 1);
+	assert(C.client() == 123);
 }
 
 /// @} CP
