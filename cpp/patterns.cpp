@@ -129,6 +129,20 @@ struct Prototype
 	}
 };
 
+struct Builder
+{
+	int data = 0;
+	Builder& add(int i) {
+		data += i;
+		return *this;
+	}
+
+	Interface& create()
+	{
+		return *new Sample_product(data);
+	}
+};
+
 void creational_patterns_demo()
 {
 	Singleton_demo& singe = Singleton_demo::get();
@@ -138,6 +152,9 @@ void creational_patterns_demo()
 	auto p2 = p1.create();
 	Sample_client C;
 	assert(C.client() == 123);
+	Interface& p = Builder().add(1).add(20).create();
+	assert(p.method() == 21);
+	delete &p;
 }
 
 /// @} CP
