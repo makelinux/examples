@@ -1,0 +1,64 @@
+digraph G {
+	rankdir="BT"
+	node [shape=plaintext];
+	{ rank=max Interface }
+	edge [fontsize=10 _fontcolor=darkgray]
+	// Inheritance
+	edge [label=inh arrowhead=onormal];
+
+	// Implementation
+	edge [label=imp weight=1000 arrowhead=onormal style=dashed];
+	Product -> Interface;
+	Factory [label=<Abstract <b>Factory</b>>]
+	Sample_factory -> Factory;
+	Proxy [label=<<b>Proxy</b>>]
+	{ Subject Proxy } -> Common_interface
+	Decorator [label=<<b>Decorator</b>>]
+	Subject_of_Decorator [label=Subject]
+	{ Decorator Subject_of_Decorator} -> Decorator_Interface
+	Common_interface [label="Interface\nof subject"]
+	Decorator_Interface [label="Interface\nof subject"]
+	Factory_of_prototype [label=Factory]
+	Interface_of_prototype [label=Interface]
+	Prototype -> { Factory_of_prototype Interface_of_prototype}
+	Prototype [label=<<b>Prototype</b>>]
+	Bridge_interface [label=Interface]
+	Bridge -> Bridge_interface
+	Observer [label=<<b>Observer</b>>]
+	View -> Observer
+
+	Visitor [label=<<b>Visitor</b>>]
+	rank = same { Component  Visitor }
+	//Component [rank=min]
+	Sample_visitor -> Visitor
+	Sample_component -> Component
+
+	// Aggregation
+	edge [label=agg weight=1 arrowtail=odiamond dir=back style=""]
+
+	edge [label=creates]
+	Sample_factory -> Product
+	Prototype -> Prototype
+
+	// Dependencies
+	edge [label=dep weight=1 arrowhead=vee style=dashed dir="" ]
+	Factory -> Interface
+	Factory_of_prototype -> Interface_of_prototype
+	Client_of_Proxy -> Proxy
+	Bridge -> Standalone
+	Bridge [label="Bridge\nor\nAdapter"]
+
+	Proxy -> Subject
+	Decorator -> Subject_of_Decorator
+
+	Client_of_Decorator -> { Decorator Subject_of_Decorator }
+
+	Controller -> Model [label=manipulates]
+	Model -> Observer [label=updates]
+
+	Component -> Visitor [weight=0]
+	Sample_component -> Visitor [label=accepts weight=0 dir=both arrowtail=vee _constraint=false]
+	Sample_visitor -> Component [label=extends]
+	//{Sample_visitor Sample_component } -> Client_of_Visitor [style=invis]
+	{ Visitor Component  } -> Client_of_Visitor [dir=back, arrowtail=vee]
+}
