@@ -1,9 +1,73 @@
 #!/usr/bin/env python2.3
 # -*- coding: UTF-8 -*-
 
+from passed import passed
+
+
+try:
+    raise "Ex"
+except:
+    pass
+
+
+# https://docs.python.org/3.10/whatsnew/2.0.html
+
+
+comprehension = [c for c in 'ab' if c > 'a']
+assert 'a' not in comprehension
+assert 'b' in comprehension
+
+# https://docs.python.org/3.10/whatsnew/2.1.html
+
+
+def function():
+    def closure():
+        pass
+    closure()
+
+
+# https://docs.python.org/3.10/whatsnew/2.2.html
+
+
+class C(object):
+    def __init__(self):
+        pass
+
+
+assert C.__name__ == 'C'
+
+
+# https://docs.python.org/3.10/whatsnew/2.0.html
+
+
+comprehension = [c for c in 'ab' if c > 'a']
+assert 'a' not in comprehension
+assert 'b' in comprehension
+
+
+# https://docs.python.org/3.10/whatsnew/2.1.html
+
+
+def function():
+    def closure():
+        pass
+    closure()
+
+
+# https://docs.python.org/3.10/whatsnew/2.2.html
+
+
+class C(object):
+    def __init__(self):
+        pass
+
+
+assert C.__name__ == 'C'
+
+
+
 import logging
 import csv
-from passed import passed
 
 
 # before 2.4
