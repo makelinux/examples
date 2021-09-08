@@ -426,6 +426,7 @@ struct Visitor::Sample_component
 void visitor_demo()
 {
 	/// @brief is one of many specific visitors with custom method visit
+	/// Per each of the possible pairs of Sample_visitor and Sample_component
 	struct Sample_visitor
 		: public Visitor {
 		string visit(const Visitor::Sample_component& c) const override {
@@ -501,7 +502,8 @@ struct Mediator
 		members.push_front(m);
 	}
 	void receive(Message& msg) {
-		for (Member& m : members) m.receive(msg);
+		for (Member& m : members)
+			m.receive(msg);
 	}
 	forward_list<reference_wrapper<Member>> members;
 };
