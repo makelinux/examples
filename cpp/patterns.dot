@@ -23,8 +23,12 @@ digraph G {
 	Prototype -> { Factory_of_prototype Interface_of_prototype}
 	Prototype [label=<<b>Prototype</b>>]
 	Bridge_interface [label=Interface]
+	Bridge [label=<<b>Bridge or Adapter</b>>]
 	Bridge -> Bridge_interface
 	Observer [label=<<b>Observer</b>>]
+	View [label=<<b>View</b>>]
+	Model [label=<<b>Model</b>>]
+	Controller [label=<<b>Controller</b>>]
 	View -> Observer
 
 	Visitor [label=<<b>Visitor</b>>]
