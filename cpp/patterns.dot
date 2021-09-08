@@ -36,29 +36,30 @@ digraph G {
 	// Aggregation
 	edge [label=agg weight=1 arrowtail=odiamond dir=back style=""]
 
-	edge [label=creates]
-	Sample_factory -> Product
+	edge [label=creates dir="" arrowhead=odiamond]
+	Product -> Sample_factory
 	Prototype -> Prototype
 
 	// Dependencies
-	edge [label=dep weight=1 arrowhead=vee style=dashed dir="" ]
-	Factory -> Interface
-	Factory_of_prototype -> Interface_of_prototype
-	Client_of_Proxy -> Proxy
-	Bridge -> Standalone
-	Bridge [label="Bridge\nor\nAdapter"]
-
-	Proxy -> Subject
-	Decorator -> Subject_of_Decorator
-
-	Client_of_Decorator -> { Decorator Subject_of_Decorator }
-
-	Controller -> Model [label=manipulates]
-	Model -> Observer [label=updates]
+	edge [label=uses weight=1 arrowhead=vee style=dashed dir="" ]
 
 	Component -> Visitor [weight=0]
 	Sample_component -> Visitor [label=accepts weight=0 dir=both arrowtail=vee _constraint=false]
-	Sample_visitor -> Component [label=extends]
+	Sample_visitor -> Component [label=extends color=blue fontcolor=blue]
 	//{Sample_visitor Sample_component } -> Client_of_Visitor [style=invis]
-	{ Visitor Component  } -> Client_of_Visitor [dir=back, arrowtail=vee]
+	edge [label=uses weight=1 dir=back arrowtail=vee ]
+	Subject_of_Decorator -> Decorator -> Client_of_Decorator
+	{ Subject_of_Decorator } -> Client_of_Decorator
+	{ Visitor Component  } -> Client_of_Visitor
+
+	Subject -> Proxy
+	Proxy -> Client_of_Proxy
+	Model -> Controller [label=manipulates]
+	Interface -> Factory
+	Interface_of_prototype -> Factory_of_prototype
+	Standalone -> Bridge
+	Observer -> Model [label=updates]
+	edge [color=lightgray fontcolor=lightgray xweight=0  _constraint=false]
+	Subject -> Client_of_Proxy [label="no access"]
+	Standalone -> Bridge_interface [label="incompatible" constraint=false]
 }
