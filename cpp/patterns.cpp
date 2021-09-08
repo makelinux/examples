@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <shared_mutex>
 using namespace std;
 
 /**
@@ -15,6 +16,76 @@ using namespace std;
   Each word "Sample" in an inventers assumes multiple examples like Sample1, Sample2 ... SampleN
 
 */
+
+/**
+  @defgroup OOP Object Oriented Programming
+  @brief , some examples in C++
+
+  [Object-oriented_programming ](https://en.wikipedia.org/wiki/Object-oriented_programming )
+
+  [object-oriented-programming-in-cpp](https://www.geeksforgeeks.org/object-oriented-programming-in-cpp)
+
+  [class](https://en.cppreference.com/w/cpp/language/class)
+
+  [derived_class](https://en.cppreference.com/w/cpp/language/derived_class)
+
+  [abstract_class](https://en.cppreference.com/w/cpp/language/abstract_class)
+
+  [shared_lock](https://en.cppreference.com/w/cpp/thread/shared_lock)
+
+  @{
+  */
+
+struct Setter_interface {
+/// @brief is a sample of setter abstract interface for Synchronised_encapsulated_value
+	virtual void set(int i) = 0;
+	virtual ~Setter_interface() = default;
+};
+
+struct Getter_interface {
+/// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
+	virtual int get() = 0;
+	virtual ~Getter_interface() = default;
+};
+
+class Synchronised_encapsulated_value
+/// @brief extrime private (by default) class with public intrfaces
+	: public Setter_interface, public Getter_interface
+{
+	void set(int i) override {
+		lock_guard writer_lock(mtx);
+		value = i;
+	}
+
+	int get() override {
+		shared_lock reader_lock(mtx); /// [reader writer locks](https://www.modernescpp.com/index.php/reader-writer-locks)
+		return value;
+	}
+	shared_mutex mtx; ///< [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
+	int value;
+};
+
+/**
+
+  Disclaimer:
+
+  Example code below for simplicity doesn't utilize synchronization,
+  Synchronised_encapsulated_value and other administrative functions.
+
+  Don't forget to add locking, synchronisation, encapsulation, privatization,
+  protection manually where is required when using examples below.
+  */
+
+void oop_demo()
+{
+	Synchronised_encapsulated_value v;
+	Getter_interface& g = v;
+	Setter_interface& s = v;
+	s.set(1);
+	assert(g.get() == 1);
+}
+
+/// @}
 
 /**
   @defgroup DP Design patterns skeleton examples
@@ -531,6 +602,7 @@ void architectural_patterns_demo()
 
 int main()
 {
+	oop_demo();
 	creational_patterns_demo();
 	structural_patterns_demo();
 	behavioral_patterns_demo();
