@@ -205,6 +205,16 @@ struct Proxy
 private:
 	Interface& subject;
 };
+
+struct Decorator
+/// @brief is a partial wrapper of an object with same as wrapped object Interface
+	: public Interface
+{
+	Decorator(Interface& o): subject(o) {}
+	int method() override {
+		return 100 + this->subject.method();
+	}
+	Interface& subject; // decorated object is public
 };
 
 struct Composite
@@ -228,6 +238,9 @@ void structural_patterns_demo()
 	Bridge br(sa);
 	br.method();
 	Proxy p(br);
+	Decorator dec(br);
+	dec.method();
+	dec.subject.method();
 	p.method();
 	Composite comp;
 	comp.add(p);
