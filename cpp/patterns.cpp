@@ -134,7 +134,7 @@ struct Interface
 #define SINGLETON(Singleton)	\
 public:				\
 	/* Meyers Singleton realization */ \
-	static Singleton& get() {	\
+	static Singleton& instance() {	\
 		static Singleton me; 	\
 		return me; 		\
 	}				\
@@ -217,7 +217,7 @@ struct Builder
 
 void creational_patterns_demo()
 {
-	Singleton_demo& singe = Singleton_demo::get();
+	Singleton_demo& singe = Singleton_demo::instance();
 	unique_ptr<Abstract_factory> factory(new Sample_factory());
 	auto product = factory->create();
 	Prototype p1;
