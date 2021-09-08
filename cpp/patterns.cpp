@@ -262,18 +262,28 @@ void structural_patterns_demo()
   Credit: [observer](https://cpppatterns.com/patterns/observer.html)
 */
 
+struct Subject;
+
 struct Observer
-/// @brief is pure virtual notification observer of a Model
+/// @brief is virtual observer of a Subject
 {
-	virtual void notify() = 0;
+	/// @brief without arguments
+	virtual void notify() {};
+	/// @brief with the only Subject argument
+	virtual void update(Subject& subject) {};
 	virtual ~Observer() = default;
 };
 
-struct View
-/// @brief is concrete Observer
-	: public Observer
+struct Subject
+/// @brief of Observer
 {
-	void notify() override { }
+	void notify_observers() {
+		for (Observer& o : observers)  {
+			o.notify();
+			o.update(*this);
+		}
+	}
+	forward_list<reference_wrapper<Observer>> observers;
 };
 
 struct Command
@@ -285,33 +295,6 @@ struct Command
  */
 { };
 
-struct Model
-/// @brief is part of MVC with View and Controller
-{
-	void register_observer(Observer& o) {
-		observers.push_front(o);
-	}
-	void notify_observers() {
-		for (Observer& o : observers) o.notify();
-	}
-	int command(const Command& cmnd) { return 0; }
-	int command(Command&& cmnd) { return 0; }
-private:
-	forward_list<reference_wrapper<Observer>> observers;
-};
-
-struct Controller
-/// @brief is part of MVC with Model and View
-{
-	Model& mod; // can be many models
-	Controller(Model& s) : mod(s) { };
-	int command(const Command& cmnd) {
-		return mod.command(cmnd);
-	}
-	int command(Command&& cmnd) {
-		return mod.command(cmnd);
-	}
-};
 
 /**
   @defgroup visitor Visitor
@@ -469,6 +452,69 @@ void mediator_demo()
 
 void behavioral_patterns_demo()
 {
+	Chain_of_responsibility chain;
+	chain.register_handler(Handler());
+	Command cmnd;
+	chain.handle(cmnd);
+
+	Observer o;
+	Subject s;
+	s.observers.push_front(o);
+
+	visitor_demo();
+	mediator_demo();
+}
+
+/// @} BP
+
+/**
+  @defgroup AP Architectural
+  @brief [Architectural patterns](https://en.wikipedia.org/wiki/Architectural_pattern)
+
+  https://refactoring.guru/design-patterns/behavioral-patterns
+
+  @{
+  */
+
+struct View
+/// @brief is concrete Observer
+	: public Observer
+{
+	void notify() override { }
+};
+
+struct Model
+/// @brief is part of MVC with View and Controller
+{
+	void register_observer(Observer& o) {
+		observers.push_front(o);
+	}
+	void notify_observers() {
+		for (Observer& o : observers) o.notify();
+	}
+	int command(const Command& cmnd) { return 0; }
+	int command(Command&& cmnd) { return 0; }
+private:
+	forward_list<reference_wrapper<Observer>> observers;
+};
+
+struct Controller
+/** @brief is part of MVC with Model and View
+
+  */
+{
+	Model& mod; // can be many models
+	Controller(Model& s) : mod(s) { };
+	int command(const Command& cmnd) {
+		return mod.command(cmnd);
+	}
+	int command(Command&& cmnd) {
+		return mod.command(cmnd);
+	}
+};
+
+void architectural_patterns_demo()
+{
 	View view;
 	Model mod;
 	mod.register_observer(view);
@@ -477,22 +523,18 @@ void behavioral_patterns_demo()
 	ctrl.command(Command());
 	Command cmnd;
 	ctrl.command(cmnd);
-
-	Chain_of_responsibility chain;
-	chain.register_handler(Handler());
-	chain.handle(cmnd);
-
-	visitor_demo();
-	mediator_demo();
 }
 
-/// @} BP
+/// @} AP
+
+
 
 int main()
 {
 	creational_patterns_demo();
 	structural_patterns_demo();
 	behavioral_patterns_demo();
+	architectural_patterns_demo();
 }
 
 /// @}
