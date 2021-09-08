@@ -12,6 +12,7 @@ using namespace std;
   Code style:
   Using struct because is it like class with default public members and methods.
   Less is more. Skeleton code with minimal optional code and duplications.
+  Each word "Sample" in an inventers assumes multiple examples like Sample1, Sample2 ... SampleN
 
 */
 
@@ -21,7 +22,7 @@ using namespace std;
 
   https://refactoring.guru/design-patterns
 
-  DP helps to conform to [SOLID principles](https://en.wikipedia.org/wiki/SOLID):
+  DP help to conform to [SOLID principles](https://en.wikipedia.org/wiki/SOLID):
   - [<b>S</b>ingle-responsibility](https://en.wikipedia.org/wiki/Single-responsibility_principle)
    - high [cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science))
   - [<b>O</b>pen-closed](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle)
@@ -78,7 +79,7 @@ struct Singleton_demo
 	SINGLETON(Singleton_demo) { };
 };
 
-struct Generic_client
+struct Factory_method_demo
 {
 	virtual unique_ptr<Interface> factory_method() = 0;
 
@@ -96,8 +97,8 @@ struct Sample_product
 	Sample_product(int d = 0) : data(d) {}
 };
 
-struct Sample_client
-	: Generic_client
+struct Sample_factory_method_demo
+	: Factory_method_demo
 {
 	unique_ptr<Interface> factory_method() override {
 		return make_unique<Sample_product>(123);
@@ -150,7 +151,7 @@ void creational_patterns_demo()
 	auto product = factory->create();
 	Prototype p1;
 	auto p2 = p1.create();
-	Sample_client C;
+	Sample_factory_method_demo C;
 	assert(C.client() == 123);
 	Interface& p = Builder().add(1).add(20).create();
 	assert(p.method() == 21);
@@ -197,12 +198,13 @@ struct Proxy
 /// @brief is a opaque wrapper with same as wrapped object Interface
 	: public Interface
 {
-	Proxy(Interface& o): orig(o) {}
+	Proxy(Interface& o): subject(o) {}
 	int method() override {
-		return this->orig.method();
+		return this->subject.method();
 	}
 private:
-	Interface& orig;
+	Interface& subject;
+};
 };
 
 struct Composite
