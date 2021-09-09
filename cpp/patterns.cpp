@@ -36,33 +36,36 @@ using namespace std;
   @{
   */
 
+template <typename ValueType>
 struct Setter_interface {
 /// @brief is a sample of setter abstract interface for Synchronised_encapsulated_value
-	virtual void set(int i) = 0;
+	virtual void set(ValueType i) = 0;
 	virtual ~Setter_interface() = default;
 };
 
+template <typename ValueType>
 struct Getter_interface {
 /// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
-	virtual int get() const = 0;
+	virtual ValueType get() const = 0;
 	virtual ~Getter_interface() = default;
 };
 
+template <typename ValueType>
 class Synchronised_encapsulated_value
 /// @brief extrime private (by default) class with public intrfaces
-	: public Setter_interface, public Getter_interface
+	: public Setter_interface<ValueType>, public Getter_interface<ValueType>
 {
-	void set(int i) override {
+	void set(ValueType i) override {
 		scoped_lock writer_lock(mtx);
 		value = i;
 	}
 
-	int get() const override {
+	ValueType get() const override {
 		shared_lock reader_lock(mtx); /// [reader writer locks](https://www.modernescpp.com/index.php/reader-writer-locks)
 		return value;
 	}
 	mutable shared_mutex mtx; ///< [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
-	int value;
+	ValueType value;
 };
 
 /**
@@ -78,9 +81,9 @@ class Synchronised_encapsulated_value
 
 void oop_demo()
 {
-	Synchronised_encapsulated_value v;
-	Getter_interface& g = v;
-	Setter_interface& s = v;
+	Synchronised_encapsulated_value<int> v;
+	Getter_interface<int>& g = v;
+	Setter_interface<int>& s = v;
 	s.set(1);
 	assert(g.get() == 1);
 }
