@@ -552,13 +552,6 @@ void behavioral_patterns_demo()
   @{
   */
 
-struct View
-/// @brief is concrete Observer
-	: public Observer
-{
-	void notify() override { }
-};
-
 struct Model
 /// @brief is part of MVC with View and Controller
 {
@@ -572,6 +565,19 @@ struct Model
 	int command(Command&& cmnd) { return 0; }
 private:
 	forward_list<reference_wrapper<Observer>> observers;
+};
+
+struct View
+/// @brief is concrete Observer
+	: public Observer
+{
+	View(Model& m) : model(m) {};
+	void notify() override {
+		// check model
+		(void)model;
+	}
+
+	Model& model;
 };
 
 struct Controller
@@ -591,8 +597,8 @@ struct Controller
 
 void architectural_patterns_demo()
 {
-	View view;
 	Model mod;
+	View view(mod);
 	mod.register_observer(view);
 	mod.notify_observers();
 	Controller ctrl(mod);
