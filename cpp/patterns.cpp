@@ -44,7 +44,7 @@ struct Setter_interface {
 
 struct Getter_interface {
 /// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
-	virtual int get() = 0;
+	virtual int get() const = 0;
 	virtual ~Getter_interface() = default;
 };
 
@@ -53,15 +53,15 @@ class Synchronised_encapsulated_value
 	: public Setter_interface, public Getter_interface
 {
 	void set(int i) override {
-		lock_guard writer_lock(mtx);
+		scoped_lock writer_lock(mtx);
 		value = i;
 	}
 
-	int get() override {
+	int get() const override {
 		shared_lock reader_lock(mtx); /// [reader writer locks](https://www.modernescpp.com/index.php/reader-writer-locks)
 		return value;
 	}
-	shared_mutex mtx; ///< [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
+	mutable shared_mutex mtx; ///< [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
 	int value;
 };
 
