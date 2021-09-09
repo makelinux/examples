@@ -18,7 +18,7 @@ using namespace std;
 */
 
 /**
-  @defgroup OOP Object Oriented Programming
+  @defgroup OOP Object Oriented Programming patterns
   @brief , some examples in C++
 
   [Object-oriented_programming ](https://en.wikipedia.org/wiki/Object-oriented_programming )
@@ -615,3 +615,22 @@ int main()
 }
 
 /// @}
+
+/**
+ @mainpage
+
+ @ref OOP
+
+ @ref DP
+
+ @ref CPP20
+
+ @ref CPP17
+
+ @ref CPP14
+
+ @ref CPP11
+
+ @ref CPP03
+
+*/

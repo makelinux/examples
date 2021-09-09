@@ -414,18 +414,3 @@ int main()
 	functional_20();
 }
 /// @}
-
-/**
- @mainpage
-
- @ref CPP20
-
- @ref CPP17
-
- @ref CPP14
-
- @ref CPP11
-
- @ref CPP03
-
-*/
