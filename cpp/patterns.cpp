@@ -367,7 +367,9 @@ struct Command
 
   https://refactoring.guru/design-patterns/command/cpp/example
  */
-{ };
+{
+	virtual int execute() { return -1; };
+};
 
 
 /**
@@ -553,18 +555,24 @@ void behavioral_patterns_demo()
   */
 
 struct Model
+	: Subject
 /// @brief is part of MVC with View and Controller
 {
 	void register_observer(Observer& o) {
 		observers.push_front(o);
 	}
-	void notify_observers() {
-		for (Observer& o : observers) o.notify();
+
+	int command(Command& cmnd) {
+		int rc = cmnd.execute();
+		notify_observers();
+		return rc;
 	}
-	int command(const Command& cmnd) { return 0; }
-	int command(Command&& cmnd) { return 0; }
-private:
-	forward_list<reference_wrapper<Observer>> observers;
+
+	int command(Command&& cmnd) {
+		int rc = cmnd.execute();
+		notify_observers();
+		return rc;
+	}
 };
 
 struct View
@@ -572,6 +580,7 @@ struct View
 	: public Observer
 {
 	View(Model& m) : model(m) {};
+
 	void notify() override {
 		// check model
 		(void)model;
@@ -587,9 +596,11 @@ struct Controller
 {
 	Model& mod; // can be many models
 	Controller(Model& s) : mod(s) { };
-	int command(const Command& cmnd) {
+
+	int command(Command& cmnd) {
 		return mod.command(cmnd);
 	}
+
 	int command(Command&& cmnd) {
 		return mod.command(cmnd);
 	}
