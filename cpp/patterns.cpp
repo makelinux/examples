@@ -606,6 +606,29 @@ struct Controller
 	}
 };
 
+/**
+  @defgroup PS Publish–subscribe pattern
+  @brief [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish–subscribe_pattern)
+
+  @{
+  */
+
+struct Subscriber
+{
+	void message(Message& m) {
+	};
+};
+
+struct Publisher
+{
+	map<string, forward_list<reference_wrapper<Subscriber>>> topic_subscribers;
+	void publish(const string& topic, Message& m) {
+		for (Subscriber& s : topic_subscribers[topic])
+			s.message(m);
+	}
+};
+/// @} PS
+
 void architectural_patterns_demo()
 {
 	Model mod;
@@ -616,6 +639,12 @@ void architectural_patterns_demo()
 	ctrl.command(Command());
 	Command cmnd;
 	ctrl.command(cmnd);
+
+	Subscriber sub;
+	Publisher pub;
+	pub.topic_subscribers["sample_topic"].push_front(sub);
+	Message m;
+	pub.publish("sample_topic", m);
 }
 
 /// @} AP
