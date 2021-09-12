@@ -2,11 +2,7 @@
 //
 // See https://en.cppreference.com/w/cpp/feature_test
 
-#include <string>
-#include <utility>
-#include <iostream>
-#include <cassert>
-#include <functional>
+#include <bits/stdc++.h>
 
 /*
 
@@ -60,7 +56,7 @@ using namespace std;
 	while (0)
 
 #define check(x) \
-		class c##x { \
+		static class c##x { \
 			public: \
 				c##x() { \
 					if (std::getenv("features")) \

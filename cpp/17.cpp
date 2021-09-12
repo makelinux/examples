@@ -14,28 +14,7 @@
 
 static_assert(__cplusplus == 201703);
 
-#include <utility>
-#include <tuple>
-#include <unordered_map>
-#include <string>
-#include <algorithm>
-#include <map>
-#include <set>
-#include <iostream>
-#include <vector>
-#include <deque>
-#include <memory>
-#include <functional> //11
-#include <utility>
-#include <valarray>
-// New headers
-//#include <execution>
-#include <variant>
-#include <string_view>
-#include <thread>
-#include <mutex>
-#include <shared_mutex>
-#include <cassert>
+#include <bits/stdc++.h>
 
 using namespace std;
 

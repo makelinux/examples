@@ -14,6 +14,7 @@
 
 static_assert(__cplusplus >= 201707);
 
+#include <bits/stdc++.h>
 #include <functional>
 #include <algorithm>
 #if __has_include (<bit>)

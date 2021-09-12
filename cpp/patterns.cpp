@@ -365,7 +365,7 @@ struct Command
 
   [Command pattern](https://en.wikipedia.org/wiki/Command_pattern)
 
-  https://refactoring.guru/design-patterns/command
+  https://refactoring.guru/design-patterns/command/cpp/example
  */
 { };
 
@@ -450,7 +450,7 @@ struct Handler
 /// @brief is a virtual command handler of Chain_of_responsibility
 {
 	/// Specific handler can process a command and return non-negative
-	virtual int handle(Command) { return -1; };
+	virtual int handle(Command& cmnd) { return cmnd.execute(); };
 	virtual ~Handler() = default;
 };
 
@@ -470,10 +470,10 @@ struct Chain_of_responsibility
 		else
 			handlers.push_back(h);
 	}
-	int handle(Command arg) override {
+	int handle(Command& cmnd) override {
 		int rc = -1;
 		for (Handler& h : handlers)
-			if ((rc = h.handle(arg)) >= 0)
+			if ((rc = h.handle(cmnd)) >= 0)
 				return rc;
 		return rc;
 	}
