@@ -1,6 +1,9 @@
-/*
-  "Traditional" C, before books of K&R
+/**
+  @file
+  @brief "Traditional" C, before books of K&R
+
   https://gcc.gnu.org/onlinedocs/gcc-7.5.0/cpp/Traditional-warnings.html
+
  */
 
 #include <string.h>
