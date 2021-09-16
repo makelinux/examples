@@ -112,7 +112,7 @@ void test_vector_container(V & v)
 	string err;
 	try {
 		v.at(666) = 0;
-	} catch (std::out_of_range const& exc) {
+	} catch (out_of_range const& exc) {
 		err = exc.what();
 	}
 	assert(err.length());
@@ -132,7 +132,7 @@ void container_03()
 	list<int> l;
 	test_generic_container(l);
 
-	std::vector<int> v;
+	vector<int> v;
 	test_generic_container(v);
 	test_vector_container(v);
 
@@ -170,7 +170,7 @@ void container_03()
  @fn void sort_03()
  http://www.cplusplus.com/reference/algorithm/sort/?kw=sort
 
- Compare with @ref lambda::sort_11
+ Compare with @ref lambda::sort_11 and @ref sort_libc
  */
 
 /// @private
@@ -250,7 +250,7 @@ int main(void)
 	pair<int, char> p(1, 'a');
 	assert(p.first == 1);
 	assert(p.second == 'a');
-	p = std::make_pair('b', 2);
+	p = make_pair('b', 2);
 	assert(p.first == 'b');
 }
 

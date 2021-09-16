@@ -93,7 +93,8 @@ array deduction_guide_array {1, 2, 3, 4};
 vector deduction_guide1_vector(int_vector.begin(), int_vector.end());
 /// @brief deduced vector\<vector\<int\> :: iterator\>
 vector deduction_guide2_vector {int_vector.begin(), int_vector.end()};
-/// @}
+/// @} template_argument_deduction
+
 void deduction_guides_17()
 {
 	assert(deduction_guide1_queue[0] == 1);
@@ -159,7 +160,7 @@ auto seq = my_integer_sequence<0, 1, 2>();
 auto identity = [](int n) constexpr { return n; };
 static_assert(identity(1) == 1);
 
-// lambda with auto argument is actually a template
+// lambda with auto argument actually is a template
 
 // implicit auto constexpr:
 

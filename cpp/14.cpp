@@ -185,7 +185,7 @@ static void lambda_14()
 	assert(c == 1);
 
 	unique_ptr<int> ptr(new int(10));
-	auto capture_by_move = [value = std::move(ptr)] { return *value; };
+	auto capture_by_move = [value = move(ptr)] { return *value; };
 }
 
 /// Compare with @ref lambda::sort_11

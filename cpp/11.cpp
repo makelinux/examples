@@ -186,15 +186,15 @@ void references_11()
 	assert(is_rvalue_reference<int&&>::value);
 
 	const int c = 1;
-	int i;
+	int i = 2;
 
+	assert(func_type(3) == 'R');
 	assert(func_type(c) == 'C');
-	assert(func_type(i) == 'L');
-	assert(func_type(1) == 'R');
+	assert(func_type(move(i)) == 'R');
 
 	assert(func_type_template(c) == 'C');
 	assert(func_type_template(i) == 'L');
-	assert(func_type_template(1) == 'R');
+	assert(func_type_template(3) == 'R');
 }
 
 /**
