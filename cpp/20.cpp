@@ -15,25 +15,6 @@
 static_assert(__cplusplus >= 201707);
 
 #include <bits/stdc++.h>
-#include <functional>
-#include <algorithm>
-#if __has_include (<bit>)
-#include <bit>
-#endif
-#include <vector>
-#include <cmath>
-#include <cassert>
-#include <map>
-#include <memory>
-#include <thread>
-#if __cpp_impl_coroutine
-#include <coroutine>
-#endif
-#include <sstream>
-#include <experimental/array>
-#if __has_include (<concepts>)
-#include <concepts>
-#endif
 
 using namespace std;
 
@@ -58,7 +39,7 @@ char8_t char8;
 
 /// [to_array](https://en.cppreference.com/w/cpp/container/array/to_array)
 
-auto to_array_demo = experimental::to_array("foo");
+auto to_array_demo = to_array("foo");
 static_assert(to_array_demo.size() == 4);
 
 void init_20()
@@ -160,17 +141,15 @@ using namespace lambda;
 /// @} lang20
 
 /**
- @defgroup templ20 Template
+ @defgroup templ20 Templates
 
  [templates](https://en.cppreference.com/w/cpp/language/templates)
 
  @{
 */
 
-#if __cpp_concepts
 /**
- @}
-
+ 
  @defgroup conc20 Concepts
 
  https://en.wikipedia.org/wiki/Concepts_(C++)
