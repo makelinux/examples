@@ -3,16 +3,18 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "Build with make",
+            "label": "Build",
             "command": "make",
+            "detail": "Build C++ examples with default make",
             "problemMatcher": {
                 "owner": "cpp",
                 "fileLocation": [
                     "relative",
                     "${workspaceFolder}"
                 ],
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):\\s+(.*)$",
+                "pattern":
+                {
+                    "regexp": "^\\w+: ([^[]*):(\\d+):\\s+(.*)$",
                     "file": 1,
                     "line": 2,
                     "message": 3
@@ -22,7 +24,6 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Build C++ examples"
         }
     ]
 }
