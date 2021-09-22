@@ -7,7 +7,7 @@ t=features.csv
 build: $e $t
 
 clean:
-	rm -f $e $t
+	rm -f $e $t || true
 
 CXXFLAGS+=-Wall -Wno-unused
 CXXFLAGS+=-Wextra -Wno-missing-field-initializers
