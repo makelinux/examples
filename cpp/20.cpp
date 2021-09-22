@@ -238,12 +238,11 @@ requires(T x) {
 
 
 
-/// @}
+/// @} conc_def_20
 
-/// @}
-#else
-#pragma message("undefined __cpp_concepts")
-#endif
+/// @} conc20
+
+/// @} templ20
 
 /**
  @defgroup cor20 Coroutines

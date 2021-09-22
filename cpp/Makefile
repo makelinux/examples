@@ -1,4 +1,5 @@
-default: build check
+default: build
+	${MAKE} check
 
 e=20 17 14 11 03
 e+=patterns

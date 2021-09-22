@@ -16,10 +16,6 @@ int a, b;
 	return a > b ? a : b;
 }
 
-double g()
-{
-	return 0.1;
-}
 
 int main()
 {

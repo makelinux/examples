@@ -19,7 +19,7 @@ using namespace std;
 
 /**
   @defgroup OOP Object Oriented Programming patterns
-  @brief , some examples in C++
+  @brief some examples in C++
 
   [Object-oriented_programming ](https://en.wikipedia.org/wiki/Object-oriented_programming )
 
@@ -76,7 +76,7 @@ class Synchronised_encapsulated_value
   Synchronised_encapsulated_value and other administrative functions.
 
   Don't forget to add locking, synchronisation, encapsulation, privatization,
-  protection manually where is required when using examples below.
+  protection manually where it is required when using examples below.
   */
 
 void oop_demo()
@@ -146,7 +146,7 @@ public:				\
 	Singleton(Singleton&&) = delete;			\
 	Singleton& operator=(Singleton&&) = delete;		\
 private: \
-	Singleton_demo()
+	Singleton()
 
 struct Singleton_demo
 {

@@ -557,7 +557,7 @@ void string_view_demo()
 
 inline int inline_var;
 
-/// @}
+/// @} other17
 
 int main()
 {
@@ -566,6 +566,7 @@ int main()
 	folding_demo();
 	lambda_17();
 	threads_17();
+	map_demo();
 	variant_demo();
 	clamp_demo();
 	dynamic_memory_17();
