@@ -9,6 +9,7 @@ build: $e $t
 
 clean:
 	rm -f $e $t || true
+	rm -f *.gcov *.gcda *.gcno || true
 
 CXXFLAGS+=-Wall -Wno-unused
 CXXFLAGS+=-Wextra -Wno-missing-field-initializers
@@ -17,6 +18,7 @@ CXXFLAGS+=-Dgcc_extension
 CXXFLAGS+=-include features.cpp
 CXXFLAGS+=-g -fsanitize=leak
 LDLIBS+=-pthread
+CXXFLAGS+=--coverage
 
 ifneq (, $(shell which g++-10))
 20: CXX=g++-10
@@ -34,10 +36,15 @@ endif
 11: CXXFLAGS+=-std=c++11
 03: CXXFLAGS+=-std=c++03
 
-check:
+check: build
 	for a in $e; do ./$$a || exit; done
 
 features.csv:
 	#./03 && ./11 && ./14 && ./17 && ./20
 	bash -c "export features=1; join --nocheck-order <(join <(join <(join <(./03) <(./11)) <(./14)) <(./17)) <(./20)" \
 		> $@
+
+coverage: build
+	${MAKE} check &> /dev/null
+	for a in $e; do gcov ./$$a 2> /dev/null || exit; done
+	grep -H '##' *cpp.gcov | sed 's/\.gcov: \+#\+: \+\([0-9]\+\):/:\1: untested:/'

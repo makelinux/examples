@@ -31,6 +31,26 @@
             "command": "make",
             "args": [ "clean" ],
             "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Test coverage",
+            "detail": "Find untested code with gcov",
+            "command": "make coverage",
+            "group": "build",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "message": 3
+                }
+            }
         }
     ]
 }
