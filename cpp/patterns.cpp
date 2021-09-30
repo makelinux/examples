@@ -649,6 +649,88 @@ void architectural_patterns_demo()
 
 /// @} AP
 
+/**
+  @defgroup CC Concurrency
+  @brief [Concurrency patterns](https://en.wikipedia.org/wiki/Concurrency_pattern)
+
+  @{
+  */
+
+template <typename T,  class Container = std::queue<T>>
+class Synchronized_queue
+	: Container
+{
+	mutex mtx;
+public:
+	condition_variable cv;
+	bool stop = false;
+	void push(T&& v) {
+		scoped_lock<mutex>{mtx}, Container::push(v);
+		cv.notify_one();
+	};
+
+	optional<reference_wrapper<T>> pull() {
+		unique_lock<mutex> lk(mtx);
+		cv.wait(lk, [&] { return !this->empty() || stop; });
+		optional<reference_wrapper<T>> ret;
+		if (stop) {
+			ret =  nullopt;
+		} else {
+			ret = make_optional(ref(Container::front()));
+			this->pop();
+		}
+		return ret;
+	};
+};
+
+struct Active_object
+/** @brief [Active object](https://en.wikipedia.org/wiki/Active_object)
+
+  [Revisiting the Active Object Pattern - with C++11 Closures](https://www.codeproject.com/Articles/991641/Revisiting-the-Active-Object-Pattern-with-Cplusplu)
+
+  */
+	: Interface
+{
+	typedef function<void()> Command;
+	Interface& subject;
+	Active_object(Interface& s)
+		: subject(s)
+	{
+		th = thread([this] {
+			while (true) {
+				auto cmd = cmd_q.pull();
+				if (!cmd.has_value())
+					break;
+				cmd.value()();
+			}
+		});
+	}
+	~Active_object() {
+		cmd_q.stop = true;
+		cmd_q.cv.notify_one();
+		th.join();
+	}
+
+	int method() override {
+		promise<int> p;
+		future f = p.get_future();
+		cmd_q.push([&p, this] { p.set_value(subject.method());});
+		return f.get();
+	}
+
+protected:
+	Synchronized_queue<Command> cmd_q;
+	thread th;
+};
+
+void concurrency_patterns_demo()
+{
+	Sample_product sp(3);
+	Active_object ao(sp);
+	assert(ao.method() == 3);
+}
+
+/// @} CC
 
 
 int main()
@@ -658,6 +740,7 @@ int main()
 	structural_patterns_demo();
 	behavioral_patterns_demo();
 	architectural_patterns_demo();
+	concurrency_patterns_demo();
 }
 
 /// @}
