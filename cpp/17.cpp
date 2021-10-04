@@ -2,6 +2,7 @@
  @file
  @brief C++17
  @defgroup CPP17 C++17 examples
+ @ingroup CPP
 
  https://en.wikipedia.org/wiki/C++17
 

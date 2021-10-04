@@ -2,6 +2,7 @@
  @file
  @brief C++14
  @defgroup CPP14 C++14 examples
+ @ingroup CPP
 
  https://en.wikipedia.org/wiki/C++14
 

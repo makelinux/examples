@@ -1,19 +1,37 @@
 #include <bits/stdc++.h>
-#include <shared_mutex>
+
 using namespace std;
 
 /**
   @file
-  @brief skeleton examples of Design patterns
+  @brief skeleton examples of OOP and Design patterns
 
   © 2021 Constantine Shulyupin
 
-  See module @ref DP
+  Patterns help to conform to [SOLID principles](https://en.wikipedia.org/wiki/SOLID):
+  - [<b>S</b>ingle-responsibility](https://en.wikipedia.org/wiki/Single-responsibility_principle)
+   - high [cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science))
+  - [<b>O</b>pen-closed](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle)
+   - open for extension
+   - but closed for modification
+  - [<b>L</b>iskov substitution](https://en.wikipedia.org/wiki/Liskov_substitution_principle)
+   - [composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
+  - [<b>I</b>nterface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle)
+   - use many specific interfaces
+  - [<b>D</b>ependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
+   - don't depend on implementations
+   - depend on interfaces
+   - [Loose coupling](https://en.wikipedia.org/wiki/Loose_coupling)
+
 
   Code style:
   Using struct because is it like class with default public members and methods.
   Less is more. Skeleton code with minimal optional code and duplications.
-  Each word "Sample" in an inventers assumes multiple examples like Sample1, Sample2 ... SampleN
+  Each word "Sample" in an inventers assumes multiple instances like Sample1, Sample2 ... SampleN
+
+  Contents
+  - @ref OOP
+  - @ref DP
 
 */
 
@@ -68,17 +86,6 @@ class Synchronised_encapsulated_value
 	ValueType value;
 };
 
-/**
-
-  Disclaimer:
-
-  Example code below for simplicity doesn't utilize synchronization,
-  Synchronised_encapsulated_value and other administrative functions.
-
-  Don't forget to add locking, synchronisation, encapsulation, privatization,
-  protection manually where it is required when using examples below.
-  */
-
 void oop_demo()
 {
 	Synchronised_encapsulated_value<int> v;
@@ -96,20 +103,14 @@ void oop_demo()
 
   https://refactoring.guru/design-patterns
 
-  DP help to conform to [SOLID principles](https://en.wikipedia.org/wiki/SOLID):
-  - [<b>S</b>ingle-responsibility](https://en.wikipedia.org/wiki/Single-responsibility_principle)
-   - high [cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science))
-  - [<b>O</b>pen-closed](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle)
-   - open for extension
-   - but closed for modification
-  - [<b>L</b>iskov substitution](https://en.wikipedia.org/wiki/Liskov_substitution_principle)
-   - [composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
-  - [<b>I</b>nterface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle)
-   - use many specific interfaces
-  - [<b>D</b>ependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
-   - don't depend on implementations
-   - depend on interfaces
-   - [Loose coupling](https://en.wikipedia.org/wiki/Loose_coupling)
+  Disclaimer:
+
+  Example code below for simplicity doesn't utilize synchronization,
+  Synchronised_encapsulated_value and other administrative functions.
+
+  Don't forget to add locking, synchronisation, encapsulation, privatization,
+  protection manually where it is required when using examples below.
+
   @{
   */
 
@@ -752,14 +753,7 @@ int main()
 
  @ref DP
 
- @ref CPP20
+ @ref CPP
 
- @ref CPP17
-
- @ref CPP14
-
- @ref CPP11
-
- @ref CPP03
-
+ [Sources](https://github.com/makelinux/examples/tree/main/cpp)
 */

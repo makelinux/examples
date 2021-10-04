@@ -2,6 +2,7 @@
  @file
  @brief C++11
  @defgroup CPP11 C++11 examples
+ @ingroup CPP
 
  https://en.wikipedia.org/wiki/C++11
 

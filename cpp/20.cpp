@@ -2,6 +2,7 @@
  @file
  @brief C++20
  @defgroup CPP20 C++20 examples
+ @ingroup CPP
 
  [C++20](https://en.wikipedia.org/wiki/C++20)
 
@@ -393,3 +394,18 @@ int main()
 	functional_20();
 }
 /// @}
+
+/**
+ @defgroup CPP C++ examples by version
+
+ @ref CPP20
+
+ @ref CPP17
+
+ @ref CPP14
+
+ @ref CPP11
+
+ @ref CPP03
+
+ */

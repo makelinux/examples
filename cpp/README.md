@@ -12,4 +12,4 @@
 * Lambda expressions
 * Templates
 * [Reveals features support by compiler](features.cpp)
-* A lot of Doxygen inline documentation
+* A lot of [Doxygen inline and online documentation](https://makelinux.github.io/docs/examples/cpp/)

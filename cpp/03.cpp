@@ -3,6 +3,7 @@
  @brief C++03 / C++98
 
  @defgroup CPP03 C++03 examples
+ @ingroup CPP
  @brief C++03 / C++98
 
  https://en.wikipedia.org/wiki/C++03
