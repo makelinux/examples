@@ -37,6 +37,7 @@ endif
 03: CXXFLAGS+=-std=c++03
 
 check: build
+	rm *.gcda || true
 	for a in $e; do ./$$a || exit; done
 
 features.csv:
