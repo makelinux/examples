@@ -249,7 +249,7 @@ void threads_17()
 /// @} threads17
 
 /**
- @defgroup land17 Language
+ @defgroup lang17 Language
  @brief [language](https://en.cppreference.com/w/cpp/language)
  @{
  */
@@ -443,7 +443,7 @@ floating_literal:
 
 
 /**
- @} land17
+ @} lang17
 
  @defgroup lib17 Library
 

@@ -74,7 +74,7 @@ struct Getter_interface {
 template <typename ValueType>
 class Synchronised_encapsulated_value
 /**
-  @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
+  @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
 
   Classes by default are private. This class doesn't contain public members.
   */
