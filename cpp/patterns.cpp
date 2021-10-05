@@ -51,6 +51,9 @@ using namespace std;
 
   [shared_lock](https://en.cppreference.com/w/cpp/thread/shared_lock)
 
+  Two independent interfaces Setter_interface and Getter_interface demonstrate
+  [Interface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle)
+
   @{
   */
 
@@ -70,7 +73,11 @@ struct Getter_interface {
 
 template <typename ValueType>
 class Synchronised_encapsulated_value
-/// @brief extrime private (by default) class with public intrfaces
+/**
+  @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
+
+  Classes by default are private. This class doesn't contain public members.
+  */
 	: public Setter_interface<ValueType>, public Getter_interface<ValueType>
 {
 	void set(ValueType i) override {
@@ -87,12 +94,20 @@ class Synchronised_encapsulated_value
 };
 
 void oop_demo()
+/**
+  Lambda 'client' demonstrates [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle) -
+  it doesn't depends from implementation Synchronised_encapsulated_value but depends only from interfaces.
+  */
+
 {
+	auto client = [] (Setter_interface<int>& s, Getter_interface<int>& g) {
+		s.set(1);
+		assert(g.get() == 1);
+	};
 	Synchronised_encapsulated_value<int> v;
-	Getter_interface<int>& g = v;
 	Setter_interface<int>& s = v;
-	s.set(1);
-	assert(g.get() == 1);
+	Getter_interface<int>& g = v;
+	client(s, g);
 }
 
 /// @}
