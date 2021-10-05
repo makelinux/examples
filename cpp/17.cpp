@@ -19,17 +19,6 @@ static_assert(__cplusplus == 201703);
 
 using namespace std;
 
-void references_17()
-{
-	static_assert(is_reference_v<int&>);
-
-	// L-value:
-	static_assert(is_lvalue_reference_v<int&>);
-
-	// R-value
-	static_assert(is_rvalue_reference_v<int&&>);
-}
-
 /**
  @defgroup templ17 Template
 
@@ -262,7 +251,20 @@ void threads_17()
  @defgroup land17 Language
  @brief [language](https://en.cppreference.com/w/cpp/language)
  @{
+ */
 
+void references_17()
+{
+	static_assert(is_reference_v<int&>);
+
+	// L-value:
+	static_assert(is_lvalue_reference_v<int&>);
+
+	// R-value
+	static_assert(is_rvalue_reference_v<int&&>);
+}
+
+/**
  @defgroup folding Folding
  @brief [fold](https://en.cppreference.com/w/cpp/language/fold)
  @{
