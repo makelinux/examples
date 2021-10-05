@@ -81,7 +81,11 @@ array deduction_guide_array {1, 2, 3, 4};
 vector deduction_guide1_vector(int_vector.begin(), int_vector.end());
 /// @brief deduced vector\<vector\<int\> :: iterator\>
 vector deduction_guide2_vector {int_vector.begin(), int_vector.end()};
-/// @} template_argument_deduction
+
+
+/**
+  @} template_argument_deduction
+  */
 
 void deduction_guides_17()
 {
@@ -121,10 +125,11 @@ struct my_integer_sequence {
 /// @brief auto seq = integer_sequence<int, 0, 1, 2>();
 auto seq = my_integer_sequence<0, 1, 2>();
 
-/// @} template_parameters
-/// @} templ17
-
 /**
+
+ @} template_parameters
+ @} templ17
+
  @defgroup lambda17 Lambda
 
  @{
@@ -170,14 +175,14 @@ constexpr int const_inc(int n)
 constexpr int(*inc)(int) = const_inc;
 static_assert(const_inc(1) == 2);
 
-/// @}
-
 /**
- @defgroup lcbv Lambda capture this by value
+  @} constexpr_lambda
 
- [Lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)
+  @defgroup lcbv Lambda capture this by value
 
- @{
+  [Lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)
+
+  @{
  */
 
 void capture_this_by_value()
@@ -204,11 +209,13 @@ void lambda_17()
 	capture_this_by_value();
 }
 
-/// @} lcbv
 
-/// @} lambda17
 
 /**
+ @} lcbv
+
+ @} lambda17
+
  @defgroup threads17 Threads
  [threads](https://en.cppreference.com/w/cpp/thread)
  @{
@@ -554,7 +561,9 @@ void string_view_demo()
 
 inline int inline_var;
 
-/// @} other17
+/**
+  @} other17
+  */
 
 int main()
 {
@@ -577,4 +586,6 @@ int main()
 	}
 }
 
-/// @} CPP17
+/**
+  @} CPP17
+  */

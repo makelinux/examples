@@ -198,12 +198,12 @@ static_assert(what(1) == 1);
 template <class T> requires requires(T a) { a[0]; } auto constexpr what(T a) { return 2; }
 static_assert(what("2") == 2);
 
-/// @}
-
 
 /**
- @defgroup conc_def_20 Concept definitions
- @{
+  @}
+
+  @defgroup conc_def_20 Concept definitions
+  @{
  */
 
 /// trivial concepts as assignment
@@ -239,13 +239,14 @@ requires(T x) {
 
 
 
-/// @} conc_def_20
-
-/// @} conc20
-
-/// @} templ20
-
 /**
+
+ @} conc_def_20
+
+ @} conc20
+
+ @} templ20
+
  @defgroup cor20 Coroutines
  @{
 
@@ -300,9 +301,10 @@ void coroutine_demo()
 void coroutine_demo() {}
 #pragma message("undefined __cpp_impl_coroutine")
 #endif
-/// @}
 
 /**
+ @} cor20
+
  @defgroup other20 Other
  @{
 
