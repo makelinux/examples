@@ -27,8 +27,6 @@ using namespace std;
  @{
 */
 
-#if __cpp_deduction_guides
-
 /**
  @defgroup template_argument_deduction Template argument deduction
 
@@ -92,10 +90,6 @@ void deduction_guides_17()
 	assert(deduction_guide1_vector[0] == 1);
 	assert(*deduction_guide2_vector[0] == 1);
 }
-
-#else
-#pragma message("undefined __cpp_deduction_guides")
-#endif
 
 /**
   @defgroup template_parameters Template parameters
