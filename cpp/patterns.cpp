@@ -36,7 +36,7 @@ using namespace std;
 */
 
 /**
-  @defgroup OOP Object Oriented Programming patterns
+  @defgroup OOP OOP patterns
   @brief some examples in C++
 
   [Object-oriented_programming ](https://en.wikipedia.org/wiki/Object-oriented_programming )
@@ -95,7 +95,7 @@ class Synchronised_encapsulated_value
 
 void oop_demo()
 /**
-  Lambda 'client' demonstrates [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle) -
+  Lambda expression 'client' demonstrates [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle) -
   it doesn't depends from implementation Synchronised_encapsulated_value but depends only from interfaces.
   */
 
@@ -118,12 +118,14 @@ void oop_demo()
 
   https://refactoring.guru/design-patterns
 
+  [C++ Programming: Code patterns design](https://en.wikibooks.org/wiki/C++_Programming/Code/Design_Patterns)
+
   Disclaimer:
 
   Example code below for simplicity doesn't utilize synchronization,
-  Synchronised_encapsulated_value and other administrative functions.
+  privatization and other administrative functions.
 
-  Don't forget to add locking, synchronisation, encapsulation, privatization,
+  Don't forget to add locking, synchronization, encapsulation, privatization,
   protection manually where it is required when using examples below.
 
   @{
