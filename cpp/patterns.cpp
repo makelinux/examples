@@ -583,6 +583,7 @@ void behavioral_patterns_demo()
 {
 	Chain_of_responsibility chain;
 	chain.register_handler(Handler());
+
 	Command cmnd;
 	chain.handle(cmnd);
 
@@ -591,6 +592,7 @@ void behavioral_patterns_demo()
 	s.observers.push_front(o);
 
 	visitor_demo();
+
 	mediator_demo();
 }
 
@@ -673,6 +675,7 @@ struct Subscriber
 struct Publisher
 {
 	map<string, forward_list<reference_wrapper<Subscriber>>> topic_subscribers;
+
 	void publish(const string& topic, Message& m) {
 		for (Subscriber& s : topic_subscribers[topic])
 			s.message(m);
