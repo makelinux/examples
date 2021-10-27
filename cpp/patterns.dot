@@ -1,7 +1,6 @@
 digraph G {
 	rankdir="BT"
 	node [shape=plaintext];
-	{ rank=max Interface }
 	edge [fontsize=10 _fontcolor=darkgray]
 	// Inheritance
 	edge [label=inh arrowhead=onormal];
@@ -12,12 +11,12 @@ digraph G {
 	Factory [label=<Abstract <b>Factory</b>>]
 	Sample_factory -> Factory;
 	Proxy [label=<<b>Proxy</b>>]
-	{ Subject Proxy } -> Common_interface
+	{ Subject Proxy } -> Proxy_interface
 	Decorator [label=<<b>Decorator</b>>]
 	Subject_of_Decorator [label=Subject]
-	{ Decorator Subject_of_Decorator} -> Decorator_Interface
-	Common_interface [label="Interface\nof subject"]
-	Decorator_Interface [label="Interface\nof subject"]
+	{ Decorator Subject_of_Decorator} -> Decorator_interface
+	Proxy_interface [label="Interface"]
+	Decorator_interface [label="Interface"]
 	Factory_of_prototype [label=Factory]
 	Interface_of_prototype [label=Interface]
 	Prototype -> { Factory_of_prototype Interface_of_prototype}
@@ -52,12 +51,17 @@ digraph G {
 	Sample_visitor -> Component [label=extends color=blue fontcolor=blue]
 	//{Sample_visitor Sample_component } -> Client_of_Visitor [style=invis]
 	edge [label=uses weight=1 dir=back arrowtail=vee ]
+	Client_of_Decorator [label=Client]
 	Subject_of_Decorator -> Decorator -> Client_of_Decorator
-	{ Subject_of_Decorator } -> Client_of_Decorator
+	Decorator_interface -> Client_of_Decorator
+	{ Subject_of_Decorator } -> Client_of_Decorator [color=red]
+	Client_of_Visitor [label=Client]
 	{ Visitor Component  } -> Client_of_Visitor
 
 	Subject -> Proxy
+	Client_of_Proxy [label=Client]
 	Proxy -> Client_of_Proxy
+	Proxy_interface -> Client_of_Proxy
 	Model -> Controller [label=manipulates]
 	Interface -> Factory
 	Interface_of_prototype -> Factory_of_prototype
