@@ -266,10 +266,14 @@ struct Builder
 void creational_patterns_demo()
 {
 	Singleton_demo& singe = Singleton_demo::instance();
+
 	unique_ptr<Abstract_factory> factory(new Sample_factory());
+
 	auto product = factory->create();
+
 	Prototype p1;
 	auto p2 = p1.create();
+
 	Sample_factory_method_demo C;
 	assert(C.client() == 123);
 
