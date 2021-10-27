@@ -255,6 +255,8 @@ struct Builder
 		return *this;
 	}
 
+	Builder& operator <<(int i) { return add(i); }
+
 	Interface& create()
 	{
 		return *new Sample_product(data);
@@ -270,8 +272,10 @@ void creational_patterns_demo()
 	auto p2 = p1.create();
 	Sample_factory_method_demo C;
 	assert(C.client() == 123);
-	Interface& p = Builder().add(1).add(20).create();
-	assert(p.method() == 21);
+
+	Interface& p = (Builder().add(1).add(2) << 3 << 4).create();
+	assert(p.method() == 10);
+	// strstream looks like string builder
 	delete &p;
 }
 
