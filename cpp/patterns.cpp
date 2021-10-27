@@ -72,13 +72,20 @@ struct Getter_interface {
 };
 
 template <typename ValueType>
+struct Change_interface {
+/// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
+	virtual void change(ValueType c) = 0;
+	virtual ~Change_interface() = default;
+};
+
+template <typename ValueType>
 class Synchronised_encapsulated_value
 /**
   @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
 
   Classes by default are private. This class doesn't contain public members.
   */
-	: public Setter_interface<ValueType>, public Getter_interface<ValueType>
+	: public Setter_interface<ValueType>, public Getter_interface<ValueType>, public Change_interface<ValueType>
 {
 	void set(ValueType i) override {
 		scoped_lock writer_lock(mtx);
@@ -89,6 +96,12 @@ class Synchronised_encapsulated_value
 		shared_lock reader_lock(mtx); /// [reader writer locks](https://www.modernescpp.com/index.php/reader-writer-locks)
 		return value;
 	}
+
+	void change(ValueType c) override {
+		scoped_lock writer_lock(mtx);
+		value += c;
+	}
+
 	mutable shared_mutex mtx; ///< [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
 	ValueType value;
 };
@@ -108,6 +121,18 @@ void oop_demo()
 	Setter_interface<int>& s = v;
 	Getter_interface<int>& g = v;
 	client(s, g);
+
+	auto client2 = [] (Setter_interface<string>& s, Getter_interface<string>& g) {
+		s.set("abc");
+		assert(g.get() == "abc");
+	};
+	Synchronised_encapsulated_value<string> v2;
+	Setter_interface<string>& s2(v2);
+	Getter_interface<string>& g2(v2);
+	Change_interface<string>& c2(v2);
+	client2(s2, g2);
+	c2.change("de");
+	assert(g2.get() == "abcde");
 }
 
 /// @}
