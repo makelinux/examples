@@ -1,5 +1,5 @@
 PROJECT_NAME           = "C++ features by examples"
-INPUT                  = patterns.cpp 03.cpp 11.cpp 14.cpp 17.cpp 20.cpp
+INPUT                  = patterns.cpp 20.cpp 17.cpp 14.cpp 11.cpp 03.cpp
 EXTRACT_ALL            = YES
 EXTRACT_STATIC         = YES
 RECURSIVE              = YES

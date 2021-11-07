@@ -2,7 +2,6 @@
  @file
  @brief C++20
  @defgroup CPP20 C++20 examples
- @ingroup CPP
 
  [C++20](https://en.wikipedia.org/wiki/C++20)
 
@@ -398,16 +397,13 @@ int main()
 /// @}
 
 /**
- @defgroup CPP C++ examples by version
-
- @ref CPP20
-
- @ref CPP17
-
- @ref CPP14
-
- @ref CPP11
-
- @ref CPP03
-
- */
+  @defgroup CPP C++ examples by version
+  @brief from recent to oldest
+  @{
+  @addtogroup CPP20
+  @addtogroup CPP17
+  @addtogroup CPP14
+  @addtogroup CPP11
+  @addtogroup CPP03
+  @}
+*/
