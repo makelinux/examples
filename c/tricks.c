@@ -63,6 +63,12 @@ int main()
 	b = (0, assert(1), 2, 3);
 
 	assert(b == 3);
+
+	// Avoiding use of strlen
+	int i;
+	char s[] =  "abc";
+	for (i = 0; s[i]; i++);
+	assert(i == 3);
 }
 
 /**
