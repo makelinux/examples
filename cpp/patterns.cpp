@@ -4,7 +4,7 @@ using namespace std;
 
 /**
   @file
-  @brief skeleton examples of OOP and Design patterns
+  @brief skeleton C++ examples of OOP and Design patterns
 
   © 2021 Constantine Shulyupin
 
@@ -36,10 +36,15 @@ using namespace std;
 */
 
 /**
-  @defgroup OOP OOP patterns
+  @defgroup OOP C++ OOP patterns
   @brief some examples in C++
 
-  [Object-oriented_programming ](https://en.wikipedia.org/wiki/Object-oriented_programming )
+  Four Pillars of
+  [Object-oriented_programming](https://en.wikipedia.org/wiki/Object-oriented_programming):
+  - [Abstraction](https://en.wikipedia.org/wiki/Abstraction_(computer_science))
+  - [Encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
+  - [Inheritance](https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming))
+  - [Polymorphism](https://en.wikipedia.org/wiki/Polymorphism_(computer_science))
 
   [object-oriented-programming-in-cpp](https://www.geeksforgeeks.org/object-oriented-programming-in-cpp)
 
@@ -51,7 +56,8 @@ using namespace std;
 
   [shared_lock](https://en.cppreference.com/w/cpp/thread/shared_lock)
 
-  Two independent interfaces Setter_interface and Getter_interface demonstrate
+  Three independent interfaces
+  Setter_interface, Getter_interface and Change_interface demonstrate
   [Interface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle)
 
   @{
