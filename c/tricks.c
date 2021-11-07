@@ -30,15 +30,14 @@ int main()
 	static_assert(0 && 1 || 1);
 	static_assert(!(1 && 0 || 0));
 	static_assert(1 && 0 || 1);
-	static_assert(1 && 1 || 0);
+	static_assert(1 && 1 || 1/0);
 	static_assert(1 && 1 || 1);
 
 	int a = 1, b = 2;
 
 	// swaps
-	a ^= b;
-	b ^= a;
-	a ^= b;
+	a ^= b, b ^= a, a ^= b;
+
 	assert(a == 2  && b == 1);
 
 	a = a + b - (b = a);
@@ -54,6 +53,7 @@ int main()
 	a = b = 0;
 
 	// https://en.cppreference.com/w/c/language/operator_other
+	// https://en.wikipedia.org/wiki/Comma_operator
 	// avoid compound statement
 	if (1)
 		a = 1, b = 2, assert(1);

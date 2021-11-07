@@ -9,10 +9,11 @@ ansi: CFLAGS+=-ansi
 11: CFLAGS+=-std=c11
 11: CC=musl-gcc
 
-check:
+check: all
 	./tr
 	./ansi
 	./99
 	./libc
 	./11
+	./tricks
 	@echo $@ finished
