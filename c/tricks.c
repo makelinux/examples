@@ -50,6 +50,19 @@ int main()
 	// inline automatic pointer to integer
 	assert(*(int[]){1} == 1);
 	setsockopt(0, 0, 0, (int[]){1}, sizeof(int));
+
+	a = b = 0;
+
+	// https://en.cppreference.com/w/c/language/operator_other
+	// avoid compound statement
+	if (1)
+		a = 1, b = 2, assert(1);
+	assert(a == 1 && b == 2);
+
+	// void function can be part of coma operator
+	b = (0, assert(1), 2, 3);
+
+	assert(b == 3);
 }
 
 /**
