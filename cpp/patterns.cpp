@@ -351,15 +351,11 @@ struct Decorator
 struct Composite
 	: public Interface
 {
-	void add(Interface& o) {
-		children.push_front(o);
-	}
 	int method() override {
 		//trace();
 		for (Interface& i : children) i.method();
 		return 0;
 	}
-private:
 	forward_list<reference_wrapper<Interface>> children;
 };
 
@@ -374,7 +370,7 @@ void structural_patterns_demo()
 	dec.subject.method();
 	p.method();
 	Composite comp;
-	comp.add(p);
+	comp.children.push_front(p);
 	comp.method();
 }
 
