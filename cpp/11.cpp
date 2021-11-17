@@ -141,6 +141,7 @@ void dynamic_memory_11()
 }
 
 /// func_type - overloaded functions
+/// [remove_reference](https://en.cppreference.com/w/cpp/types/remove_reference)
 
 char func_type(const int& x)
 {
@@ -174,6 +175,14 @@ char func_type_template(T&& x) // x is a forwarding reference
 	return func_type(forward<T>(x)); // like func_type((T)(x));
 }
 
+/**
+  [References](https://en.wikipedia.org/wiki/Reference_(C++))
+
+  [is_reference](https://en.cppreference.com/w/cpp/types/is_reference),
+  [ref](https://en.cppreference.com/w/cpp/utility/functional/ref),
+  [reference_wrapper](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper)
+*/
+
 void references_11()
 {
 	// https://en.cppreference.com/w/cpp/language/reference
@@ -195,6 +204,11 @@ void references_11()
 	assert(func_type_template(c) == 'C');
 	assert(func_type_template(i) == 'L');
 	assert(func_type_template(3) == 'R');
+	reference_wrapper<int> rw = i;
+	rw.get() = 3;
+	assert(i == 3);
+	auto cr = cref(i);
+	assert(cr == 3);
 }
 
 /**
@@ -320,8 +334,8 @@ struct Base11
 
 struct Derived11 : Base11
 {
-    void method1() override; ///< [ref](https://en.cppreference.com/w/cpp/language/override)
-    void method2() final; ///< [ref](https://en.cppreference.com/w/cpp/language/final)
+    void method1() override; ///< [override](https://en.cppreference.com/w/cpp/language/override)
+    void method2() final; ///< [final](https://en.cppreference.com/w/cpp/language/final)
 };
 
 /// @}
@@ -671,10 +685,6 @@ void mutex_11()
   https://en.cppreference.com/w/cpp/types/is_move_constructible
 
   https://en.cppreference.com/w/cpp/types/is_constructible
-
-  https://en.cppreference.com/w/cpp/utility/functional/ref
-
-  https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
 
  @}
  */

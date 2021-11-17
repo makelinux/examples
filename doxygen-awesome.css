@@ -130,17 +130,17 @@ html {
     --code-foreground: var(--page-foreground-color);
 
     /* fragment colors */
-    --fragment-background: #282c34;
-    --fragment-foreground: #ffffff;
+    --fragment-background: var(--page-background-color);
+    --fragment-foreground: var(--page-foreground-color);
     --fragment-keyword: #cc99cd;
     --fragment-keywordtype: #ab99cd;
     --fragment-keywordflow: #e08000;
     --fragment-token: #7ec699;
     --fragment-comment: #999999;
-    --fragment-link: #98c0e3;
+    --fragment-link: #00A;
     --fragment-preprocessor: #65cabe;
-    --fragment-linenumber-color: #cccccc;
-    --fragment-linenumber-background: #35393c;
+    --fragment-linenumber-color: #0;
+    --fragment-linenumber-background: #EEE;
     --fragment-linenumber-border: #1f1f1f;
     --fragment-lineheight: 20px;
 
@@ -278,7 +278,7 @@ p, div, table, dl {
 
 a:link, a:visited, a:hover, a:focus, a:active {
     color: var(--primary-color) !important;
-    font-weight: 500;
+    xfont-weight: 500;
 }
 
 /*
@@ -1501,4 +1501,16 @@ doxygen-awesome-dark-mode-toggle:hover {
 
 doxygen-awesome-dark-mode-toggle:after {
     content: var(--darkmode-toggle-button-icon)
+}
+
+td.memItemRight a {
+    font-weight: bold;
+}
+
+td.mdescRight a {
+    font-style: italic;
+}
+
+a.el {
+    font-weight: normal;
 }
