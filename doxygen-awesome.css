@@ -131,13 +131,13 @@ html {
 
     /* fragment colors */
     --fragment-background: var(--page-background-color);
-    --fragment-foreground: var(--page-foreground-color);
-    --fragment-keyword: #cc99cd;
-    --fragment-keywordtype: #ab99cd;
-    --fragment-keywordflow: #e08000;
+    --fragment-foreground: #666;
+    --fragment-keyword: #400;
+    --fragment-keywordtype: #050;
+    --fragment-keywordflow: #500;
     --fragment-token: #7ec699;
     --fragment-comment: #999999;
-    --fragment-link: #00A;
+    --fragment-link: var(--page-foreground-color);
     --fragment-preprocessor: #65cabe;
     --fragment-linenumber-color: #0;
     --fragment-linenumber-background: #EEE;
