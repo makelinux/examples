@@ -472,9 +472,8 @@ string client_visit(const forward_list<unique_ptr<Component>>& components,
 {
 	string res;
 	for (auto&& comp : components)
-		for (auto&& vis : visitors) {
+		for (auto&& vis : visitors)
 			res += string(__func__) + " > " + comp->component_accept(*vis.get());
-		}
 	return res;
 }
 
