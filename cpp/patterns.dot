@@ -31,7 +31,6 @@ digraph G {
 	View -> Observer
 
 	Visitor [label=<<b>Visitor</b>>]
-	rank = same { Component  Visitor }
 	//Component [rank=min]
 	Sample_visitor -> Visitor
 	Sample_component -> Component
@@ -46,17 +45,18 @@ digraph G {
 	// Dependencies
 	edge [label=uses weight=1 arrowhead=vee style=dashed dir="" ]
 
-	Component -> Visitor [weight=0]
-	Sample_component -> Visitor [label=accepts weight=0 dir=both arrowtail=vee _constraint=false]
-	Sample_visitor -> Component [label=extends color=blue fontcolor=blue]
+	Component -> Visitor [label=accepts weight=0]
+	Sample_component -> Visitor [label=usage dir=both _weight=0 arrowtail=vee constraint=false]
+	rank = same { Sample_component  Visitor }
 	//{Sample_visitor Sample_component } -> Client_of_Visitor [style=invis]
 	edge [label=uses weight=1 dir=back arrowtail=vee ]
 	Client_of_Decorator [label=Client]
 	Subject_of_Decorator -> Decorator -> Client_of_Decorator
 	Decorator_interface -> Client_of_Decorator
-	{ Subject_of_Decorator } -> Client_of_Decorator [color=green]
+	Subject_of_Decorator -> Client_of_Decorator [color=green]
 	Client_of_Visitor [label=Client]
-	{ Visitor Component  } -> Client_of_Visitor
+	Component -> Client_of_Visitor
+	Visitor -> Client_of_Visitor
 
 	Subject -> Proxy
 	Client_of_Proxy [label=Client]
@@ -67,8 +67,8 @@ digraph G {
 	Interface_of_prototype -> Factory_of_prototype
 	Standalone -> Bridge
 	Observer -> Model [label=updates]
+	Sample_component -> Sample_visitor [label=<<b>visits<br/>and does a work</b>> constraint=false]
 	edge [color=lightgray fontcolor=lightgray xweight=0  constraint=false]
 	Subject -> Client_of_Proxy [label="no access"]
 	Standalone -> Bridge_interface [label="incompatible" constraint=false]
-	Sample_component -> Sample_visitor [label="independed" dir="" ]
 }
