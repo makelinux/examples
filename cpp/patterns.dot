@@ -54,7 +54,7 @@ digraph G {
 	Client_of_Decorator [label=Client]
 	Subject_of_Decorator -> Decorator -> Client_of_Decorator
 	Decorator_interface -> Client_of_Decorator
-	{ Subject_of_Decorator } -> Client_of_Decorator [color=red]
+	{ Subject_of_Decorator } -> Client_of_Decorator [color=green]
 	Client_of_Visitor [label=Client]
 	{ Visitor Component  } -> Client_of_Visitor
 
@@ -67,7 +67,8 @@ digraph G {
 	Interface_of_prototype -> Factory_of_prototype
 	Standalone -> Bridge
 	Observer -> Model [label=updates]
-	edge [color=lightgray fontcolor=lightgray xweight=0  _constraint=false]
+	edge [color=lightgray fontcolor=lightgray xweight=0  constraint=false]
 	Subject -> Client_of_Proxy [label="no access"]
 	Standalone -> Bridge_interface [label="incompatible" constraint=false]
+	Sample_component -> Sample_visitor [label="independed" dir="" ]
 }
