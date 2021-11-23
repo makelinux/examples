@@ -427,16 +427,13 @@ struct Command
 
 /**
   @defgroup visitor Visitor
+  @brief [Visitor pattern](https://en.wikipedia.org/wiki/Visitor_pattern)
+
+  https://refactoring.guru/design-patterns/visitor/cpp/example
   @{
   */
 
-struct Visitor
-/// @brief is a pure virtual visitor of Sample_component and other specific components
-{
-	struct Sample_component;
-	virtual string visit(const Sample_component&) const = 0;
-	virtual ~Visitor() = default;
-};
+struct Visitor;
 
 struct Component
 /// @brief accepts a pure virtual Visitor
@@ -445,22 +442,20 @@ struct Component
 	virtual ~Component() = default;
 };
 
-string client_visit(const forward_list<unique_ptr<Component>>& components,
-		    Visitor& visitor)
-/// @brief knows only virtual visitor and component
+struct Sample_component;
+struct Visitor
+/// @brief is a pure virtual visitor of Sample_component and other specific components
 {
-	string res;
-	for (auto&& comp : components) {
-		res += string(__func__) + " > " + comp->component_accept(visitor);
-		//assert(rc);
-	}
-	//assert(rc);
-	return res;
-}
+	/// overloaded function for each component
+	virtual string visit(const Sample_component&) const = 0;
+	virtual ~Visitor() = default;
+};
 
-struct Visitor::Sample_component
+struct Sample_component
 	: public Component
-/// @brief one of many components
+/** @brief one of many components
+  is independent from Sample_visitor and implementations of function visit.
+  */
 {
 	string component_accept(Visitor& visitor) const override {
 		return string(__func__) + " > " + visitor.visit(*this);
@@ -470,6 +465,18 @@ struct Visitor::Sample_component
 		return __func__;
 	}
 };
+
+string client_visit(const forward_list<unique_ptr<Component>>& components,
+		    const forward_list<unique_ptr<Visitor>>& visitors)
+/// @brief knows only virtual visitor and component
+{
+	string res;
+	for (auto&& comp : components)
+		for (auto&& vis : visitors) {
+			res += string(__func__) + " > " + comp->component_accept(*vis.get());
+		}
+	return res;
+}
 
 /**
   Call hierarchy:
@@ -487,16 +494,19 @@ void visitor_demo()
 	/// Per each of the possible pairs of Sample_visitor and Sample_component
 	struct Sample_visitor
 		: public Visitor {
-		string visit(const Visitor::Sample_component& c) const override {
+		/// overloaded function for each component
+		string visit(const Sample_component& c) const override {
 			return string(__func__) + " > " + c.component_method();
 		}
 	};
 
 	forward_list<unique_ptr<Component>> components;
-	components.emplace_front(new Visitor::Sample_component);
+	components.emplace_front(new Sample_component);
 	Sample_visitor v;
-	assert(client_visit(components, v) ==
-	       "client_visit > component_accept > visit > component_method");
+	forward_list<unique_ptr<Visitor>> visitors;
+	visitors.emplace_front(new Sample_visitor);
+	assert(client_visit(components, visitors) ==
+	      "client_visit > component_accept > visit > component_method");
 }
 
 /// @} visitor
