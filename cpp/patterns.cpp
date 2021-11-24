@@ -63,6 +63,44 @@ using namespace std;
   @{
   */
 
+struct Module {};
+
+/// [Object composition](https://en.wikipedia.org/wiki/Object_composition)
+struct Composition
+{
+	Module m1, m2;
+};
+
+/** [Aggregation](https://en.wikipedia.org/wiki/Object_composition#Aggregation)
+  by reference
+*/
+struct Reference
+{
+	Module &m1, &m2;
+	Reference() = default;
+};
+
+/** [Pointer](https://en.wikipedia.org/wiki/Pointer_(computer_programming)#C_and_C++)
+  is also can be used for aggregation
+  */
+struct Pointer
+{
+	Module* ptr;
+	shared_ptr<Module> sm;
+	unique_ptr<Module> um;
+};
+
+/// [Associations](https://en.wikipedia.org/wiki/Association_(object-oriented_programming))
+void associations_demo()
+{
+	Module m1, m2;
+	Reference r{m1, m2};
+
+	Pointer p{&m1};
+	// References can't be changed or zeroed like pointers during runtime.
+	p.ptr = nullptr;
+}
+
 template <typename ValueType>
 struct Setter_interface {
 /// @brief is a sample of setter abstract interface for Synchronised_encapsulated_value
@@ -112,7 +150,7 @@ class Synchronised_encapsulated_value
 	ValueType value;
 };
 
-void oop_demo()
+void synchronised_encapsulated_value()
 /**
   Lambda expression 'client' demonstrates [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle) -
   it doesn't depends from implementation Synchronised_encapsulated_value but depends only from interfaces.
@@ -139,6 +177,12 @@ void oop_demo()
 	client2(s2, g2);
 	c2.change("de");
 	assert(g2.get() == "abcde");
+}
+
+void oop_demo()
+{
+	associations_demo();
+	synchronised_encapsulated_value();
 }
 
 /// @}
