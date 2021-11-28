@@ -1,0 +1,131 @@
+<style>
+
+table, th, td {
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 0px solid black;
+	padding: 15px;
+}
+td:nth-child(even), th:nth-child(even) {
+	background-color: #DEE;
+}
+
+a {
+	text-decoration: none;
+}
+</style>
+
+<center>
+	<br>
+	<br>
+	<br>
+	<b>
+		<a href=https://en.wikipedia.org/wiki/Double_dispatch>Double dispatch</a>
+		matrix of virtual functions "visit" of
+		<a href=https://en.wikipedia.org/wiki/Visitor_pattern>Visitor pattern</a>
+		for example of tree components and tree visitors</b>
+	<br>
+	<br>
+	<br>
+	<table xborder=10>
+		<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				struct Visitor_1 : public Visitor {
+			</td>
+			<td>
+			</td>
+			<td>
+				struct Visitor_2 : public Visitor {
+			</td>
+			<td>
+			</td>
+			<td>
+				struct Visitor_3 : public Visitor {
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Component_1
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_1&amp; c);
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_1&amp; c);
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_1&amp; c);
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Component_2
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_2&amp; c);
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_2&amp; c);
+			</td>
+			</td>
+			<td>
+				<td>
+					string visit(const Component_2&amp; c);
+				</td>
+		</tr>
+		<tr>
+			<td>
+				Component_3
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_3&amp; c);
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_3&amp; c);
+			</td>
+			<td>
+			</td>
+			<td>
+				string visit(const Component_3&amp; c);
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				};
+			</td>
+			<td>
+			</td>
+			<td>
+				};
+			</td>
+			<td>
+			</td>
+			<td>
+				};
+			</td>
+			<tr>
+	</table>
