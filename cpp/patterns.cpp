@@ -24,10 +24,10 @@ using namespace std;
    - [Loose coupling](https://en.wikipedia.org/wiki/Loose_coupling)
 
 
-  Code style:
+  Coding style:
   Using struct because is it like class with default public members and methods.
   Less is more. Skeleton code with minimal optional code and duplications.
-  Each word "Sample" in an inventers assumes multiple instances like Sample1, Sample2 ... SampleN
+  Each word "Sample" in an inventer assumes multiple instances like Sample1, Sample2 ... SampleN
 
   Contents
   - @ref OOP
@@ -486,6 +486,21 @@ struct Component
 	virtual ~Component() = default;
 };
 
+string client_visit(const forward_list<unique_ptr<Component>>& components,
+		    const forward_list<unique_ptr<Visitor>>& visitors)
+/// @brief knows only virtual visitor and component
+{
+	string res;
+	for (auto&& c : components)
+		for (auto&& v : visitors) {
+			assert(typeid(c) != typeid(Component));
+			//assert(typeid((*v.get()) != typeid(Visitor)));
+			res += string(__func__) + " > " + c->component_accept(*v.get());
+		}
+	return res;
+}
+
+
 struct Sample_component;
 struct Visitor
 /// @brief is a pure virtual visitor of Sample_component and other specific components
@@ -502,6 +517,8 @@ struct Sample_component
   */
 {
 	string component_accept(Visitor& visitor) const override {
+		assert(typeid(*this) == typeid(Sample_component));
+		assert(typeid(visitor) != typeid(Visitor));
 		return string(__func__) + " > " + visitor.visit(*this);
 	}
 	/// @brief is not virtual
@@ -509,17 +526,6 @@ struct Sample_component
 		return __func__;
 	}
 };
-
-string client_visit(const forward_list<unique_ptr<Component>>& components,
-		    const forward_list<unique_ptr<Visitor>>& visitors)
-/// @brief knows only virtual visitor and component
-{
-	string res;
-	for (auto&& comp : components)
-		for (auto&& vis : visitors)
-			res += string(__func__) + " > " + comp->component_accept(*vis.get());
-	return res;
-}
 
 /**
   Call hierarchy:
@@ -539,6 +545,8 @@ void visitor_demo()
 		: public Visitor {
 		/// overloaded function for each component
 		string visit(const Sample_component& c) const override {
+			assert(typeid(*this) == typeid(Sample_visitor));
+			assert(typeid(c) == typeid(Sample_component));
 			return string(__func__) + " > " + c.component_method();
 		}
 	};
