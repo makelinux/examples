@@ -522,7 +522,7 @@ struct Sample_component
 		return string(__func__) + " > " + visitor.visit(*this);
 	}
 	/// @brief is not virtual
-	string component_method() const {
+	string sample_component_method() const {
 		return __func__;
 	}
 };
@@ -534,7 +534,7 @@ struct Sample_component
 		client_visit
 			component_accept
 				visit
-					component_method
+					sample_component_method
 */
 
 void visitor_demo()
@@ -543,21 +543,22 @@ void visitor_demo()
 	/// Per each of the possible pairs of Sample_visitor and Sample_component
 	struct Sample_visitor
 		: public Visitor {
-		/// overloaded function for each component
-		string visit(const Sample_component& c) const override {
-			assert(typeid(*this) == typeid(Sample_visitor));
-			assert(typeid(c) == typeid(Sample_component));
-			return string(__func__) + " > " + c.component_method();
-		}
-	};
+			/// overloaded function for each component
+			string visit(const Sample_component& sc) const override {
+				assert(typeid(*this) == typeid(Sample_visitor));
+				assert(typeid(sc) == typeid(Sample_component));
+				return string(__func__) + " > " + sc.sample_component_method();
+			}
+		};
 
 	forward_list<unique_ptr<Component>> components;
 	components.emplace_front(new Sample_component);
 	Sample_visitor v;
 	forward_list<unique_ptr<Visitor>> visitors;
 	visitors.emplace_front(new Sample_visitor);
+
 	assert(client_visit(components, visitors) ==
-	      "client_visit > component_accept > visit > component_method");
+			"client_visit > component_accept > visit > sample_component_method");
 }
 
 /// @} visitor
