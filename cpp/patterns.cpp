@@ -559,6 +559,19 @@ void visitor_demo()
 
 	assert(client_visit(components, visitors) ==
 			"client_visit > component_accept > visit > sample_component_method");
+
+	// flat code of expanded visitor:
+	for (auto&& c : components)
+		for (auto&& v : visitors)
+			if (typeid(v) == typeid(Sample_visitor) &&
+					typeid(c) == typeid(Sample_component)) {
+
+				auto sv = dynamic_cast<Sample_visitor&>(*v.get());
+				auto sc = dynamic_cast<Sample_component&>(*c.get());
+				sc.sample_component_method();
+			} else {
+			// etc for each pair of components and visitors
+			};
 }
 
 /// @} visitor
