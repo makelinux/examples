@@ -127,7 +127,7 @@ void dynamic_memory_11()
 {
 	auto a = new int[3] {1, 2, 3};
 	assert(a[2] == 3);
-	delete[] a;
+	delete a;
 
 	auto as = new string[3] {"1", "2", "3"};
 	assert(as[2] == "3");

@@ -60,6 +60,8 @@ using namespace std;
   Setter_interface, Getter_interface and Change_interface demonstrate
   [Interface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle)
 
+  [Use multiple inheritance to represent multiple distinct interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c135-use-multiple-inheritance-to-represent-multiple-distinct-interfaces)
+
   @{
   */
 
@@ -101,23 +103,26 @@ void associations_demo()
 	p.ptr = nullptr;
 }
 
-template <typename ValueType>
-struct Setter_interface {
 /// @brief is a sample of setter abstract interface for Synchronised_encapsulated_value
+template <typename ValueType>
+struct Setter_interface
+{
 	virtual void set(ValueType i) = 0;
 	virtual ~Setter_interface() = default;
 };
 
 template <typename ValueType>
-struct Getter_interface {
+struct Getter_interface
 /// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
+{
 	virtual ValueType get() const = 0;
 	virtual ~Getter_interface() = default;
 };
 
 template <typename ValueType>
-struct Change_interface {
-/// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
+struct Change_interface
+/// @brief is a sample of changer abstract interface for Synchronised_encapsulated_value
+{
 	virtual void change(ValueType c) = 0;
 	virtual ~Change_interface() = default;
 };
