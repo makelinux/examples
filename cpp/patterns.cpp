@@ -462,6 +462,93 @@ struct Subject
 	forward_list<reference_wrapper<Observer>> observers;
 };
 
+void observer_demo()
+{
+	Observer o;
+	Subject s;
+	s.observers.push_front(o);
+	s.notify_observers();
+}
+
+/**
+  @defgroup PS Publish–subscribe pattern
+  @brief [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish–subscribe_pattern)
+
+  @{
+  */
+
+struct Message { };
+
+struct Subscriber
+{
+	void message(Message& m) {
+	};
+};
+
+struct Publisher
+{
+	map<string, forward_list<reference_wrapper<Subscriber>>> topic_subscribers;
+
+	void publish(const string& topic, Message& m) {
+		for (Subscriber& s : topic_subscribers[topic])
+			s.message(m);
+	}
+};
+
+void publisher_subscriber_demo()
+{
+	Subscriber sub;
+	Publisher pub;
+	pub.topic_subscribers["sample_topic"].push_front(sub);
+	Message m;
+	pub.publish("sample_topic", m);
+}
+
+/// @} PS
+
+/**
+  [Mediator_pattern](https://en.wikipedia.org/wiki/Mediator_pattern)
+
+  https://refactoring.guru/design-patterns/mediator
+  */
+
+struct Mediator;
+
+struct Member
+{
+	Mediator* mediator;
+	void send(Message& );
+	void receive(Message& ) { }
+};
+
+struct Mediator
+{
+	void register_member(Member& m) {
+		m.mediator = this;
+		members.push_front(m);
+	}
+	void receive(Message& msg) {
+		for (Member& m : members)
+			m.receive(msg);
+	}
+	forward_list<reference_wrapper<Member>> members;
+};
+
+void Member::send(Message& m)
+{
+	mediator->receive(m);
+}
+
+void mediator_demo()
+{
+	Member m1, m2;
+	Mediator md;
+	md.register_member(m1);
+	md.register_member(m2);
+	Message msg;
+	m1.send(msg);
+}
+
 struct Command
 /** @brief encapsulates arguments. AKA Intent, operation.
 
@@ -618,66 +705,21 @@ private:
 	list<reference_wrapper<Handler>> handlers;
 };
 
-struct Message { };
-
-/**
-  [Mediator_pattern](https://en.wikipedia.org/wiki/Mediator_pattern)
-
-  https://refactoring.guru/design-patterns/mediator
-  */
-
-struct Mediator;
-
-struct Member
-{
-	Mediator* mediator;
-	void send(Message& );
-	void receive(Message& ) { }
-};
-
-struct Mediator
-{
-	void register_member(Member& m) {
-		m.mediator = this;
-		members.push_front(m);
-	}
-	void receive(Message& msg) {
-		for (Member& m : members)
-			m.receive(msg);
-	}
-	forward_list<reference_wrapper<Member>> members;
-};
-
-void Member::send(Message& m)
-{
-	mediator->receive(m);
-}
-
-void mediator_demo()
-{
-	Member m1, m2;
-	Mediator md;
-	md.register_member(m1);
-	md.register_member(m2);
-	Message msg;
-	m1.send(msg);
-}
-
 void behavioral_patterns_demo()
 {
+	observer_demo();
+
+	publisher_subscriber_demo();
+
+	mediator_demo();
+
 	Chain_of_responsibility chain;
 	chain.register_handler(Handler());
 
 	Command cmnd;
 	chain.handle(cmnd);
 
-	Observer o;
-	Subject s;
-	s.observers.push_front(o);
-
 	visitor_demo();
-
-	mediator_demo();
 }
 
 /// @} BP
@@ -743,30 +785,6 @@ struct Controller
 	}
 };
 
-/**
-  @defgroup PS Publish–subscribe pattern
-  @brief [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish–subscribe_pattern)
-
-  @{
-  */
-
-struct Subscriber
-{
-	void message(Message& m) {
-	};
-};
-
-struct Publisher
-{
-	map<string, forward_list<reference_wrapper<Subscriber>>> topic_subscribers;
-
-	void publish(const string& topic, Message& m) {
-		for (Subscriber& s : topic_subscribers[topic])
-			s.message(m);
-	}
-};
-/// @} PS
-
 void architectural_patterns_demo()
 {
 	Model mod;
@@ -777,12 +795,6 @@ void architectural_patterns_demo()
 	ctrl.command(Command());
 	Command cmnd;
 	ctrl.command(cmnd);
-
-	Subscriber sub;
-	Publisher pub;
-	pub.topic_subscribers["sample_topic"].push_front(sub);
-	Message m;
-	pub.publish("sample_topic", m);
 }
 
 /// @} AP
