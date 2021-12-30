@@ -47,6 +47,11 @@ void types_11()
 	assert(!is_integral<float>::value);
 	assert(is_pointer<int*>::value);
 	assert(sizeof (long long) >= 8);
+
+	enum class Number { zero, tree = 3, four };
+	Number n = Number::zero;
+	assert(static_cast<int>(n) == 0);
+	assert(std::is_enum<Number>());
 }
 
 /// [unique_ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr)
