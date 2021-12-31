@@ -583,15 +583,14 @@ string client_visit(const forward_list<unique_ptr<Component>>& components,
 /// @brief knows only virtual visitor and component
 {
 	string res;
-	for (auto&& c : components)
-		for (auto&& v : visitors) {
+	for (auto&& v : visitors)
+		for (auto&& c : components) {
 			assert(typeid(c) != typeid(Component));
 			//assert(typeid((*v.get()) != typeid(Visitor)));
 			res += string(__func__) + " > " + c->component_accept(*v.get());
 		}
 	return res;
 }
-
 
 struct Sample_component;
 struct Visitor
@@ -652,20 +651,22 @@ void visitor_demo()
 	assert(client_visit(components, visitors) ==
 			"client_visit > component_accept > visit > sample_component_method");
 
-	// flat code of expanded visitor:
-	for (auto&& c : components)
-		if (auto sc = dynamic_cast<Sample_component*>(c.get()))
-			for (auto&& v : visitors) {
-				if (auto sv = dynamic_cast<Sample_visitor*>(v.get()))
+	// flat code of expanded client_visit:
+	for (auto&& v : visitors) {
+		if (auto sv = dynamic_cast<Sample_visitor*>(v.get()))
+			for (auto&& c : components) {
+				if (auto sc = dynamic_cast<Sample_component*>(c.get()))
+					// inside component_accept:
 					sv->visit(*sc);
 				else { };
 			}
 		else {
-			/* And so on for each pair of component and visitor.
+			/* And so on for each pair of visitor and component.
 			   Total number of pairs is multiplication of
 			   number components and number of visitors.
 			 */
 		};
+	}
 }
 
 /// @} visitor
