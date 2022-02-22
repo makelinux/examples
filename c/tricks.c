@@ -4,6 +4,8 @@
   */
 
 #include <assert.h>
+#include <string.h>
+#include <stdio.h>
 #include <sys/socket.h>
 
 struct open_array {
@@ -45,6 +47,21 @@ void swaps()
 	assert(a == 2 && b == 1);
 }
 
+struct itos_ {
+	char str[12]; /* more than length of INT_MAX */
+};
+
+/**
+  from https://gitlab.com/graphviz/graphviz/-/blob/main/lib/cgraph/itos.h
+  */
+
+static inline struct itos_ itos(int i)
+{
+	struct itos_ s;
+	(void)snprintf(s.str, sizeof(s.str), "%d", i);
+	return s;
+}
+
 int main()
 {
 	integer_tricks();
@@ -74,6 +91,8 @@ int main()
 	char s[] = "abc";
 	for (i = 0; s[i]; i++);
 	assert(i == 3);
+
+	assert(0 == strcmp("1234", itos(1234).str));
 }
 
 /**
