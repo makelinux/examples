@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <sys/socket.h>
 
+#define STRINGIFY_(arg)          #arg
+#define STRINGIFY(arg)           STRINGIFY_(arg)
+
 struct open_array {
 	int len;
 	int str[];
@@ -64,6 +67,8 @@ static inline struct itos_ itos(int i)
 
 int main()
 {
+	assert(0 == strcmp(STRINGIFY(123), "123"));
+
 	integer_tricks();
 	swaps();
 
