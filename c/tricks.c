@@ -6,9 +6,6 @@
 #include <assert.h>
 #include <sys/socket.h>
 
-// redefining reserved words for debugging
-#define return assert(1), return
-
 struct open_array {
 	int len;
 	int str[];
