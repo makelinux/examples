@@ -98,6 +98,7 @@ int main()
 	assert(i == 3);
 
 	assert(0 == strcmp("1234", itos(1234).str));
+	//memory leak: assert(0 > strcmp(itos(123).str, itos(456).str));
 }
 
 /**
