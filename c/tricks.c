@@ -20,15 +20,15 @@ void integer_tricks()
 {
 	// convert to boolean or bit
 	static_assert(!! 0 == 0);
-	static_assert(!! 123 == 1);
+	static_assert((!! 123) == 1);
 
 	// logical not
-	static_assert(!!! 0 == 1);
+	static_assert((!!! 0) == 1);
 	static_assert(!!! 123 == 0);
 
 	// implicit "if else" with side effect
-	static_assert(!(0 && 0 || 0));
-	static_assert(0 && 0 || 1);
+	static_assert(!((0 && 0) || 0));
+	static_assert((0 && 0) || 1);
 	static_assert(!(0 && 1 || 0));
 	static_assert(0 && 1 || 1);
 	static_assert(!(1 && 0 || 0));
