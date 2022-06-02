@@ -55,7 +55,7 @@ struct itos_ {
 };
 
 /**
-  from https://gitlab.com/graphviz/graphviz/-/blob/main/lib/cgraph/itos.h
+  https://en.cppreference.com/w/c/language/lifetime
   */
 
 static inline struct itos_ itos(int i)
