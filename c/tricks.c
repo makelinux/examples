@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <sys/socket.h>
+#include <stdlib.h>
 
 #define STRINGIFY_(arg)          #arg
 #define STRINGIFY(arg)           STRINGIFY_(arg)
@@ -99,6 +100,14 @@ int main()
 
 	assert(0 == strcmp("1234", itos(1234).str));
 	//memory leak: assert(0 > strcmp(itos(123).str, itos(456).str));
+
+	char *dynamic = NULL;
+	int num = sscanf("discarded dynamic 1", "%*s %ms %d", &dynamic, &i);
+	assert(num == 2);
+	assert(i == 1);
+	assert(dynamic);
+	assert(! strcmp(dynamic, "dynamic"));
+	// no need to call free(dynamic);
 }
 
 /**
