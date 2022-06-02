@@ -527,7 +527,7 @@ struct Mediator
 		m.mediator = this;
 		members.push_front(m);
 	}
-	void receive(Message& msg) {
+	void dispatch(Message& msg) {
 		for (Member& m : members)
 			m.receive(msg);
 	}
@@ -536,7 +536,7 @@ struct Mediator
 
 void Member::send(Message& m)
 {
-	mediator->receive(m);
+	mediator->dispatch(m);
 }
 
 void mediator_demo()
@@ -644,7 +644,7 @@ void visitor_demo()
 
 	forward_list<unique_ptr<Component>> components;
 	components.emplace_front(new Sample_component);
-	Sample_visitor v;
+
 	forward_list<unique_ptr<Visitor>> visitors;
 	visitors.emplace_front(new Sample_visitor);
 

@@ -69,6 +69,7 @@ digraph G {
 	Observer -> Model [label=updates]
 	Sample_component -> Sample_visitor [label=<<b>visits<br/>and does a work</b>> constraint=false]
 	edge [color=lightgray fontcolor=lightgray xweight=0  constraint=false]
+	Sample_visitor -> Sample_component [label="independent" constraint=false]
 	Subject -> Client_of_Proxy [label="no access"]
 	Standalone -> Bridge_interface [label="incompatible" constraint=false]
 }
