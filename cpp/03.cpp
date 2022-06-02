@@ -163,6 +163,12 @@ void container_03()
 	q.pop();
 	assert(q.empty());
 
+	priority_queue<int> pq;
+	pq.push(2);
+	pq.push(3);
+	pq.push(1);
+	assert(pq.top() == 3);
+
 	associative_containers_03();
 }
 
