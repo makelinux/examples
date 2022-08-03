@@ -489,6 +489,15 @@ void algorithm_11()
 
 /// Compare with @ref sort_03
 
+struct comp
+{
+	template<typename T>
+	bool operator()(const T &l, const T &r) const
+	{
+		return l.second < r.second;
+	}
+};
+
 void sort_11()
 {
 	/// [array](https://en.cppreference.com/w/cpp/container/array)
@@ -506,6 +515,18 @@ void sort_11()
 		} = {{"a", 2}, {"b", 1}, {"c", 0}, };
 	assert(reverse.begin()->first == "c");
 	assert(reverse.begin()->second == 0);
+
+	// https://www.techiedelight.com/sort-map-values-cpp/
+	typedef pair<string, int> pair;
+	vector<pair> vec = {{"a", 2}, {"b", 1}, {"c", 0}, };
+	sort(vec.begin(), vec.end(),
+		[](const pair &l, const pair &r)
+		{ return l.second < r.second; });
+	assert(vec.begin()->first == "c");
+
+	set<std::pair<string, int>, comp> t = {{"a", 2}, {"b", 1}, {"c", 0}, };
+	cout << t.begin()->first << "\n";
+	assert(t.begin()->first == "c");
 }
 
 /// @}
