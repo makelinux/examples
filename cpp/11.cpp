@@ -51,7 +51,7 @@ void types_11()
 	enum class Number { zero, tree = 3, four };
 	Number n = Number::zero;
 	assert(static_cast<int>(n) == 0);
-	assert(std::is_enum<Number>());
+	assert(is_enum<Number>());
 }
 
 /// [unique_ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr)
@@ -113,11 +113,11 @@ void shared_pointer()
 
 void weak_pointer()
 {
-	std::weak_ptr<int> wp;
+	weak_ptr<int> wp;
 
 	assert(!wp.lock());
 	assert(!wp.use_count());
-	auto sp = std::make_shared<int>(1);
+	auto sp = make_shared<int>(1);
 	wp = sp;
 	assert(*wp.lock() == 1);
 }
