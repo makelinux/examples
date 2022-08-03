@@ -499,6 +499,13 @@ void sort_11()
 		  [](int a, int b)
 		  { return a > b; }
 		 );
+
+	// https://stackoverflow.com/questions/18045208/override-mapcompare-with-lambda-function-directly
+	auto reverse = map<string, int, function<bool(const string&, const string&)>>{
+		[](const string& a, const string& b) { return a > b; }
+		} = {{"a", 2}, {"b", 1}, {"c", 0}, };
+	assert(reverse.begin()->first == "c");
+	assert(reverse.begin()->second == 0);
 }
 
 /// @}
