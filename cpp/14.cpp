@@ -198,6 +198,13 @@ void sort_14()
 		  [](auto a, auto b) // C++14 allows auto
 		  { return a > b; }
 		 );
+
+	// https://stackoverflow.com/questions/18045208/override-mapcompare-with-lambda-function-directly
+	auto reverse = map<string, int, function<bool(const string&, const string&)>>{
+		[](const auto& a, const auto& b) { return a > b; }
+		} = {{"a", 2}, {"b", 1}, {"c", 0}, };
+	assert(reverse.begin()->first == "c");
+	assert(reverse.begin()->second == 0);
 }
 
 /// @}
