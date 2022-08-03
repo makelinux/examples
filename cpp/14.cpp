@@ -195,7 +195,7 @@ void sort_14()
 	array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
 	sort(s.begin(), s.end(),
 		  // sort using a generic lambda expression
-		  [](auto a, auto b)
+		  [](auto a, auto b) // C++14 allows auto
 		  { return a > b; }
 		 );
 }
