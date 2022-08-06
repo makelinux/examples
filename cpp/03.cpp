@@ -211,7 +211,7 @@ void sort_03()
 	}
 }
 
-/// https://en.cppreference.com/w/cpp/language/reference
+/// [reference](https://en.cppreference.com/w/cpp/language/reference)
 int& a_ref(int &a) { return a; }
 
 struct Common
