@@ -9,20 +9,20 @@
 Updating from /usr/include/:
 
 comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' |sort -u) \
-	<(grep --binary-files=without-match -ro '__cpp_\w*' -h . /usr/include/ | sort -u) \
-	| awk '{ print "check(" $1 ");";}'
+        <(grep --binary-files=without-match -ro '__cpp_\w*' -h . /usr/include/ | sort -u) \
+        | awk '{ print "check(" $1 ");";}'
 
 Updating from web:
 
 comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' | sort -u) \
-	<(wget -q -O- 'https://en.cppreference.com/mwiki/index.php?title=cpp/feature_test&action=raw' | \
-	sed 's/_}}{{c|/_/' | grep -o '__cpp\w*' | sort -u) | \
-	awk '{ print "check(" $1 ");";}'
+        <(wget -q -O- 'https://en.cppreference.com/mwiki/index.php?title=cpp/feature_test&action=raw' | \
+        sed 's/_}}{{c|/_/' | grep -o '__cpp\w*' | sort -u) | \
+        awk '{ print "check(" $1 ");";}'
 
 comm -13 <(grep check features.cpp | grep -o '__cpp_\w*' | sort -u) \
-	<(wget -q -O- https://raw.githubusercontent.com/BRevzin/sd6/master/macros.yaml | \
-	awk '/name: __cpp/ { print $3 }' | sort -u) | \
-	awk '{ print "check(" $1 ");";}'
+        <(wget -q -O- https://raw.githubusercontent.com/BRevzin/sd6/master/macros.yaml | \
+        awk '/name: __cpp/ { print $3 }' | sort -u) | \
+        awk '{ print "check(" $1 ");";}'
 
 Tip: append result of  snippets above to this file.
 
@@ -45,24 +45,25 @@ using namespace std;
 
 #define u(a) concat(a, __LINE__)
 
-#define check2(x, y) \
-	do { \
-		cout << x; \
-		if (string(x) != #y) \
-			cout << " " << #y; \
-		else \
-			cout << " ------"; cout << endl; \
-	} \
-	while (0)
+#define check2(x, y)           \
+    do {                       \
+        cout << x;             \
+        if (string(x) != #y)   \
+            cout << " " << #y; \
+        else                   \
+            cout << " ------"; \
+        cout << endl;          \
+    } while (0)
 
-#define check(x) \
-		static class c##x { \
-			public: \
-				c##x() { \
-					if (std::getenv("features")) \
-						check2(#x, x); \
-				} \
-		} c##x // global instantiation
+#define check(x)                         \
+    static class c##x {                  \
+    public:                              \
+        c##x()                           \
+        {                                \
+            if (std::getenv("features")) \
+                check2(#x, x);           \
+        }                                \
+    } c##x // global instantiation
 
 // Just append new check at the end of the file
 

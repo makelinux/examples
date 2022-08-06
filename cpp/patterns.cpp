@@ -65,94 +65,94 @@ using namespace std;
   @{
   */
 
-struct Module {};
+struct Module { };
 
 /// [Object composition](https://en.wikipedia.org/wiki/Object_composition)
-struct Composition
-{
-	Module m1, m2;
+struct Composition {
+    Module m1, m2;
 };
 
 /** [Aggregation](https://en.wikipedia.org/wiki/Object_composition#Aggregation)
   by reference
 */
-struct Reference
-{
-	Module &m1, &m2;
-	Reference() = default;
+struct Reference {
+    Module &m1, &m2;
+    Reference() = default;
 };
 
 /** [Pointer](https://en.wikipedia.org/wiki/Pointer_(computer_programming)#C_and_C++)
   is also can be used for aggregation
   */
-struct Pointer
-{
-	Module* ptr;
-	shared_ptr<Module> sm;
-	unique_ptr<Module> um;
+struct Pointer {
+    Module* ptr;
+    shared_ptr<Module> sm;
+    unique_ptr<Module> um;
 };
 
 /// [Associations](https://en.wikipedia.org/wiki/Association_(object-oriented_programming))
 void associations_demo()
 {
-	Module m1, m2;
-	Reference r{m1, m2};
+    Module m1, m2;
+    Reference r { m1, m2 };
 
-	Pointer p{&m1};
-	// References can't be changed or zeroed like pointers during runtime.
-	p.ptr = nullptr;
+    Pointer p { &m1 };
+    // References can't be changed or zeroed like pointers during runtime.
+    p.ptr = nullptr;
 }
 
 /// @brief is a sample of setter abstract interface for Synchronised_encapsulated_value
 template <typename ValueType>
-struct Setter_interface
-{
-	virtual void set(ValueType i) = 0;
-	virtual ~Setter_interface() = default;
+struct Setter_interface {
+    virtual void set(ValueType i) = 0;
+    virtual ~Setter_interface() = default;
 };
 
 template <typename ValueType>
 struct Getter_interface
 /// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
 {
-	virtual ValueType get() const = 0;
-	virtual ~Getter_interface() = default;
+    virtual ValueType get() const = 0;
+    virtual ~Getter_interface() = default;
 };
 
 template <typename ValueType>
 struct Change_interface
 /// @brief is a sample of changer abstract interface for Synchronised_encapsulated_value
 {
-	virtual void change(ValueType c) = 0;
-	virtual ~Change_interface() = default;
+    virtual void change(ValueType c) = 0;
+    virtual ~Change_interface() = default;
 };
 
 template <typename ValueType>
 class Synchronised_encapsulated_value
-/**
-  @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
+    /**
+      @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
 
-  Classes by default are private. This class doesn't contain public members.
-  */
-	: public Setter_interface<ValueType>, public Getter_interface<ValueType>, public Change_interface<ValueType>
-{
-	void set(ValueType i) override {
-		scoped_lock writer_lock(mtx);
-		value = i;
-	}
+      Classes by default are private. This class doesn't contain public members.
+      */
+    : public Setter_interface<ValueType>,
+      public Getter_interface<ValueType>,
+      public Change_interface<ValueType> {
+    void set(ValueType i) override
+    {
+        scoped_lock writer_lock(mtx);
+        value = i;
+    }
 
-	ValueType get() const override {
-		shared_lock reader_lock(mtx); /// [reader writer locks](https://www.modernescpp.com/index.php/reader-writer-locks)
-		return value;
-	}
+    ValueType get() const override
+    {
+        shared_lock reader_lock(mtx); /// [reader writer locks](https://www.modernescpp.com/index.php/reader-writer-locks)
+        return value;
+    }
 
-	void change(ValueType c) override {
-		scoped_lock writer_lock(mtx);
-		value += c;
-	}
+    void change(ValueType c) override
+    {
+        scoped_lock writer_lock(mtx);
+        value += c;
+    }
 
-	mutable shared_mutex mtx; ///< [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
-	ValueType value;
+    mutable shared_mutex mtx; ///< [shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
+    ValueType value;
 };
 
 void synchronised_encapsulated_value()
@@ -162,32 +162,32 @@ void synchronised_encapsulated_value()
   */
 
 {
-	auto client = [] (Setter_interface<int>& s, Getter_interface<int>& g) {
-		s.set(1);
-		assert(g.get() == 1);
-	};
-	Synchronised_encapsulated_value<int> v;
-	Setter_interface<int>& s = v;
-	Getter_interface<int>& g = v;
-	client(s, g);
+    auto client = [](Setter_interface<int>& s, Getter_interface<int>& g) {
+        s.set(1);
+        assert(g.get() == 1);
+    };
+    Synchronised_encapsulated_value<int> v;
+    Setter_interface<int>& s = v;
+    Getter_interface<int>& g = v;
+    client(s, g);
 
-	auto client2 = [] (Setter_interface<string>& s, Getter_interface<string>& g) {
-		s.set("abc");
-		assert(g.get() == "abc");
-	};
-	Synchronised_encapsulated_value<string> v2;
-	Setter_interface<string>& s2(v2);
-	Getter_interface<string>& g2(v2);
-	Change_interface<string>& c2(v2);
-	client2(s2, g2);
-	c2.change("de");
-	assert(g2.get() == "abcde");
+    auto client2 = [](Setter_interface<string>& s, Getter_interface<string>& g) {
+        s.set("abc");
+        assert(g.get() == "abc");
+    };
+    Synchronised_encapsulated_value<string> v2;
+    Setter_interface<string>& s2(v2);
+    Getter_interface<string>& g2(v2);
+    Change_interface<string>& c2(v2);
+    client2(s2, g2);
+    c2.change("de");
+    assert(g2.get() == "abcde");
 }
 
 void oop_demo()
 {
-	associations_demo();
-	synchronised_encapsulated_value();
+    associations_demo();
+    synchronised_encapsulated_value();
 }
 
 /// @}
@@ -214,8 +214,8 @@ void oop_demo()
 struct Interface
 /// @brief is a common pure virtual interface
 {
-	virtual int method() = 0;
-	virtual ~Interface() = default;
+    virtual int method() = 0;
+    virtual ~Interface() = default;
 };
 
 /**
@@ -232,110 +232,113 @@ struct Interface
 
   Define constructor body after the define */
 
-#define SINGLETON(Singleton)	\
-public:				\
-	/* Meyers Singleton realization */ \
-	static Singleton& instance() {	\
-		static Singleton me; 	\
-		return me; 		\
-	}				\
-	Singleton(const Singleton&) = delete; 			\
-	Singleton& operator=(const Singleton&) = delete; 	\
-	Singleton(Singleton&&) = delete;			\
-	Singleton& operator=(Singleton&&) = delete;		\
-private: \
-	Singleton()
+#define SINGLETON(Singleton)                         \
+public:                                              \
+    /* Meyers Singleton realization */               \
+    static Singleton& instance()                     \
+    {                                                \
+        static Singleton me;                         \
+        return me;                                   \
+    }                                                \
+    Singleton(const Singleton&) = delete;            \
+    Singleton& operator=(const Singleton&) = delete; \
+    Singleton(Singleton&&) = delete;                 \
+    Singleton& operator=(Singleton&&) = delete;      \
+                                                     \
+private:                                             \
+    Singleton()
 
-struct Singleton_demo
-{
-	SINGLETON(Singleton_demo) { };
+struct Singleton_demo {
+    SINGLETON(Singleton_demo) {};
 };
 
-struct Factory_method_demo
-{
-	virtual unique_ptr<Interface> factory_method() = 0;
+struct Factory_method_demo {
+    virtual unique_ptr<Interface> factory_method() = 0;
 
-	int client() {
-		auto p(factory_method());
-		return p->method();
-	};
+    int client()
+    {
+        auto p(factory_method());
+        return p->method();
+    };
 };
 
 struct Sample_product
-	: Interface
-{
-	int data;
-	int method() override { return data; }
-	Sample_product(int d = 0) : data(d) {}
+    : Interface {
+    int data;
+    int method() override { return data; }
+    Sample_product(int d = 0)
+        : data(d)
+    {
+    }
 };
 
 struct Sample_factory_method_demo
-	: Factory_method_demo
-{
-	unique_ptr<Interface> factory_method() override {
-		return make_unique<Sample_product>(123);
-	}
+    : Factory_method_demo {
+    unique_ptr<Interface> factory_method() override
+    {
+        return make_unique<Sample_product>(123);
+    }
 };
 
-struct Abstract_factory
-{
-	virtual unique_ptr<Interface> create() = 0;
+struct Abstract_factory {
+    virtual unique_ptr<Interface> create() = 0;
 };
 
 struct Sample_factory
-	: Abstract_factory
-{
-	virtual unique_ptr<Interface> create() {
-		return make_unique<Sample_product>();
-	}
+    : Abstract_factory {
+    virtual unique_ptr<Interface> create()
+    {
+        return make_unique<Sample_product>();
+    }
 };
 
 struct Prototype
-/// @brief is the factory of himself
-	: Abstract_factory, Interface
-{
+    /// @brief is the factory of himself
+    : Abstract_factory,
+      Interface {
 
-	int method() override { return 1; }
-	unique_ptr<Interface> create() override {
-		auto clone = new Prototype(*this);
-		return unique_ptr<Interface>(clone);
-	}
+    int method() override { return 1; }
+    unique_ptr<Interface> create() override
+    {
+        auto clone = new Prototype(*this);
+        return unique_ptr<Interface>(clone);
+    }
 };
 
-struct Builder
-{
-	int data = 0;
-	Builder& add(int i) {
-		data += i;
-		return *this;
-	}
+struct Builder {
+    int data = 0;
+    Builder& add(int i)
+    {
+        data += i;
+        return *this;
+    }
 
-	Builder& operator <<(int i) { return add(i); }
+    Builder& operator<<(int i) { return add(i); }
 
-	Interface& create()
-	{
-		return *new Sample_product(data);
-	}
+    Interface& create()
+    {
+        return *new Sample_product(data);
+    }
 };
 
 void creational_patterns_demo()
 {
-	Singleton_demo& singe = Singleton_demo::instance();
+    Singleton_demo& singe = Singleton_demo::instance();
 
-	unique_ptr<Abstract_factory> factory(new Sample_factory());
+    unique_ptr<Abstract_factory> factory(new Sample_factory());
 
-	auto product = factory->create();
+    auto product = factory->create();
 
-	Prototype p1;
-	auto p2 = p1.create();
+    Prototype p1;
+    auto p2 = p1.create();
 
-	Sample_factory_method_demo C;
-	assert(C.client() == 123);
+    Sample_factory_method_demo C;
+    assert(C.client() == 123);
 
-	Interface& p = (Builder().add(1).add(2) << 3 << 4).create();
-	assert(p.method() == 10);
-	// strstream looks like string builder
-	delete &p;
+    Interface& p = (Builder().add(1).add(2) << 3 << 4).create();
+    assert(p.method() == 10);
+    // strstream looks like string builder
+    delete &p;
 }
 
 /// @} CP
@@ -355,72 +358,84 @@ struct Standalone
   It could be a legacy interface playing adaptee role in Adapter pattern
   */
 {
-	float standalone_method() const {
-		return 1.01;
-	}
+    float standalone_method() const
+    {
+        return 1.01;
+    }
 };
 
 struct Bridge
-/// @brief is a wrapper using different from Standalone interface. AKA Adapter
-	: public Interface
-{
-	Bridge(Standalone& s): standalone(s) {
-//		trace(typeid(*this).name());
-	}
-	int method() override {
-		return this->standalone.standalone_method();
-	}
+    /// @brief is a wrapper using different from Standalone interface. AKA Adapter
+    : public Interface {
+    Bridge(Standalone& s)
+        : standalone(s)
+    {
+        //		trace(typeid(*this).name());
+    }
+    int method() override
+    {
+        return this->standalone.standalone_method();
+    }
+
 private:
-	Standalone& standalone;
+    Standalone& standalone;
 };
 
 struct Proxy
-/// @brief is a opaque wrapper with same as wrapped object Interface
-	: public Interface
-{
-	Proxy(Interface& o): subject(o) {}
-	int method() override {
-		return this->subject.method();
-	}
+    /// @brief is a opaque wrapper with same as wrapped object Interface
+    : public Interface {
+    Proxy(Interface& o)
+        : subject(o)
+    {
+    }
+    int method() override
+    {
+        return this->subject.method();
+    }
+
 private:
-	Interface& subject;
+    Interface& subject;
 };
 
 struct Decorator
-/// @brief is a partial wrapper of an object with same as wrapped object Interface
-	: public Interface
-{
-	Decorator(Interface& o): subject(o) {}
-	int method() override {
-		return 100 + this->subject.method();
-	}
-	Interface& subject; // decorated object is public
+    /// @brief is a partial wrapper of an object with same as wrapped object Interface
+    : public Interface {
+    Decorator(Interface& o)
+        : subject(o)
+    {
+    }
+    int method() override
+    {
+        return 100 + this->subject.method();
+    }
+    Interface& subject; // decorated object is public
 };
 
 struct Composite
-	: public Interface
-{
-	int method() override {
-		//trace();
-		for (Interface& i : children) i.method();
-		return 0;
-	}
-	forward_list<reference_wrapper<Interface>> children;
+    : public Interface {
+    int method() override
+    {
+        // trace();
+        for (Interface& i : children)
+            i.method();
+        return 0;
+    }
+    forward_list<reference_wrapper<Interface>> children;
 };
 
 void structural_patterns_demo()
 {
-	Standalone sa;
-	Bridge br(sa);
-	br.method();
-	Proxy p(br);
-	Decorator dec(br);
-	dec.method();
-	dec.subject.method();
-	p.method();
-	Composite comp;
-	comp.children.push_front(p);
-	comp.method();
+    Standalone sa;
+    Bridge br(sa);
+    br.method();
+    Proxy p(br);
+    Decorator dec(br);
+    dec.method();
+    dec.subject.method();
+    p.method();
+    Composite comp;
+    comp.children.push_front(p);
+    comp.method();
 }
 
 /// @} SP
@@ -443,31 +458,32 @@ struct Subject;
 struct Observer
 /// @brief is virtual observer of a Subject
 {
-	/// @brief without arguments
-	virtual void notify() {};
-	/// @brief with the only Subject argument
-	virtual void update(Subject& subject) {};
-	virtual ~Observer() = default;
+    /// @brief without arguments
+    virtual void notify() {};
+    /// @brief with the only Subject argument
+    virtual void update(Subject& subject) {};
+    virtual ~Observer() = default;
 };
 
 struct Subject
 /// @brief of Observer
 {
-	void notify_observers() {
-		for (Observer& o : observers)  {
-			o.notify();
-			o.update(*this);
-		}
-	}
-	forward_list<reference_wrapper<Observer>> observers;
+    void notify_observers()
+    {
+        for (Observer& o : observers) {
+            o.notify();
+            o.update(*this);
+        }
+    }
+    forward_list<reference_wrapper<Observer>> observers;
 };
 
 void observer_demo()
 {
-	Observer o;
-	Subject s;
-	s.observers.push_front(o);
-	s.notify_observers();
+    Observer o;
+    Subject s;
+    s.observers.push_front(o);
+    s.notify_observers();
 }
 
 /**
@@ -479,29 +495,27 @@ void observer_demo()
 
 struct Message { };
 
-struct Subscriber
-{
-	void message(Message& m) {
-	};
+struct Subscriber {
+    void message(Message& m) {};
 };
 
-struct Publisher
-{
-	map<string, forward_list<reference_wrapper<Subscriber>>> topic_subscribers;
+struct Publisher {
+    map<string, forward_list<reference_wrapper<Subscriber>>> topic_subscribers;
 
-	void publish(const string& topic, Message& m) {
-		for (Subscriber& s : topic_subscribers[topic])
-			s.message(m);
-	}
+    void publish(const string& topic, Message& m)
+    {
+        for (Subscriber& s : topic_subscribers[topic])
+            s.message(m);
+    }
 };
 
 void publisher_subscriber_demo()
 {
-	Subscriber sub;
-	Publisher pub;
-	pub.topic_subscribers["sample_topic"].push_front(sub);
-	Message m;
-	pub.publish("sample_topic", m);
+    Subscriber sub;
+    Publisher pub;
+    pub.topic_subscribers["sample_topic"].push_front(sub);
+    Message m;
+    pub.publish("sample_topic", m);
 }
 
 /// @} PS
@@ -514,39 +528,39 @@ void publisher_subscriber_demo()
 
 struct Mediator;
 
-struct Member
-{
-	Mediator* mediator;
-	void send(Message& );
-	void receive(Message& ) { }
+struct Member {
+    Mediator* mediator;
+    void send(Message&);
+    void receive(Message&) { }
 };
 
-struct Mediator
-{
-	void register_member(Member& m) {
-		m.mediator = this;
-		members.push_front(m);
-	}
-	void dispatch(Message& msg) {
-		for (Member& m : members)
-			m.receive(msg);
-	}
-	forward_list<reference_wrapper<Member>> members;
+struct Mediator {
+    void register_member(Member& m)
+    {
+        m.mediator = this;
+        members.push_front(m);
+    }
+    void dispatch(Message& msg)
+    {
+        for (Member& m : members)
+            m.receive(msg);
+    }
+    forward_list<reference_wrapper<Member>> members;
 };
 
 void Member::send(Message& m)
 {
-	mediator->dispatch(m);
+    mediator->dispatch(m);
 }
 
 void mediator_demo()
 {
-	Member m1, m2;
-	Mediator md;
-	md.register_member(m1);
-	md.register_member(m2);
-	Message msg;
-	m1.send(msg);
+    Member m1, m2;
+    Mediator md;
+    md.register_member(m1);
+    md.register_member(m2);
+    Message msg;
+    m1.send(msg);
 }
 
 struct Command
@@ -557,9 +571,8 @@ struct Command
   https://refactoring.guru/design-patterns/command/cpp/example
  */
 {
-	virtual int execute() { return -1; };
+    virtual int execute() { return -1; };
 };
-
 
 /**
   @defgroup visitor Visitor
@@ -574,99 +587,102 @@ struct Visitor;
 struct Component
 /// @brief accepts a pure virtual Visitor
 {
-	virtual string component_accept(Visitor&) const = 0;
-	virtual ~Component() = default;
+    virtual string component_accept(Visitor&) const = 0;
+    virtual ~Component() = default;
 };
 
 string client_visit(const forward_list<unique_ptr<Component>>& components,
-		    const forward_list<unique_ptr<Visitor>>& visitors)
+    const forward_list<unique_ptr<Visitor>>& visitors)
 /// @brief knows only virtual visitor and component
 {
-	string res;
-	for (auto&& v : visitors)
-		for (auto&& c : components) {
-			assert(typeid(c) != typeid(Component));
-			//assert(typeid((*v.get()) != typeid(Visitor)));
-			res += string(__func__) + " > " + c->component_accept(*v.get());
-		}
-	return res;
+    string res;
+    for (auto&& v : visitors)
+        for (auto&& c : components) {
+            assert(typeid(c) != typeid(Component));
+            // assert(typeid((*v.get()) != typeid(Visitor)));
+            res += string(__func__) + " > " + c->component_accept(*v.get());
+        }
+    return res;
 }
 
 struct Sample_component;
 struct Visitor
 /// @brief is a pure virtual visitor of Sample_component and other specific components
 {
-	/// overloaded function for each component
-	virtual string visit(const Sample_component&) const = 0;
-	virtual ~Visitor() = default;
+    /// overloaded function for each component
+    virtual string visit(const Sample_component&) const = 0;
+    virtual ~Visitor() = default;
 };
 
 struct Sample_component
-	: public Component
+    : public Component
 /** @brief one of many components
   is independent from Sample_visitor and implementations of function visit.
   */
 {
-	string component_accept(Visitor& visitor) const override {
-		assert(typeid(*this) == typeid(Sample_component));
-		assert(typeid(visitor) != typeid(Visitor));
-		return string(__func__) + " > " + visitor.visit(*this);
-	}
-	/// @brief is not virtual
-	string sample_component_method() const {
-		return __func__;
-	}
+    string component_accept(Visitor& visitor) const override
+    {
+        assert(typeid(*this) == typeid(Sample_component));
+        assert(typeid(visitor) != typeid(Visitor));
+        return string(__func__) + " > " + visitor.visit(*this);
+    }
+    /// @brief is not virtual
+    string sample_component_method() const
+    {
+        return __func__;
+    }
 };
 
 /**
   Call hierarchy:
 
-	visitor_demo
-		client_visit
-			component_accept
-				visit
-					sample_component_method
+        visitor_demo
+                client_visit
+                        component_accept
+                                visit
+                                        sample_component_method
 */
 
 void visitor_demo()
 {
-	/// @brief is one of many specific visitors with custom method visit
-	/// Per each of the possible pairs of Sample_visitor and Sample_component
-	struct Sample_visitor
-		: public Visitor {
-			/// overloaded function for each component
-			string visit(const Sample_component& sc) const override {
-				assert(typeid(*this) == typeid(Sample_visitor));
-				assert(typeid(sc) == typeid(Sample_component));
-				return string(__func__) + " > " + sc.sample_component_method();
-			}
-		};
+    /// @brief is one of many specific visitors with custom method visit
+    /// Per each of the possible pairs of Sample_visitor and Sample_component
+    struct Sample_visitor
+        : public Visitor {
+        /// overloaded function for each component
+        string visit(const Sample_component& sc) const override
+        {
+            assert(typeid(*this) == typeid(Sample_visitor));
+            assert(typeid(sc) == typeid(Sample_component));
+            return string(__func__) + " > " + sc.sample_component_method();
+        }
+    };
 
-	forward_list<unique_ptr<Component>> components;
-	components.emplace_front(new Sample_component);
+    forward_list<unique_ptr<Component>> components;
+    components.emplace_front(new Sample_component);
 
-	forward_list<unique_ptr<Visitor>> visitors;
-	visitors.emplace_front(new Sample_visitor);
+    forward_list<unique_ptr<Visitor>> visitors;
+    visitors.emplace_front(new Sample_visitor);
 
-	assert(client_visit(components, visitors) ==
-			"client_visit > component_accept > visit > sample_component_method");
+    assert(client_visit(components, visitors) == "client_visit > component_accept > visit > sample_component_method");
 
-	// flat code of expanded client_visit:
-	for (auto&& v : visitors) {
-		if (auto sv = dynamic_cast<Sample_visitor*>(v.get()))
-			for (auto&& c : components) {
-				if (auto sc = dynamic_cast<Sample_component*>(c.get()))
-					// inside component_accept:
-					sv->visit(*sc);
-				else { };
-			}
-		else {
-			/* And so on for each pair of visitor and component.
-			   Total number of pairs is multiplication of
-			   number components and number of visitors.
-			 */
-		};
-	}
+    // flat code of expanded client_visit:
+    for (auto&& v : visitors) {
+        if (auto sv = dynamic_cast<Sample_visitor*>(v.get()))
+            for (auto&& c : components) {
+                if (auto sc = dynamic_cast<Sample_component*>(c.get()))
+                    // inside component_accept:
+                    sv->visit(*sc);
+                else {
+                };
+            }
+        else {
+            /* And so on for each pair of visitor and component.
+               Total number of pairs is multiplication of
+               number components and number of visitors.
+             */
+        };
+    }
 }
 
 /// @} visitor
@@ -674,13 +690,13 @@ void visitor_demo()
 struct Handler
 /// @brief is a virtual command handler of Chain_of_responsibility
 {
-	/// Specific handler can process a command and return non-negative
-	virtual int handle(Command& cmnd) { return cmnd.execute(); };
-	virtual ~Handler() = default;
+    /// Specific handler can process a command and return non-negative
+    virtual int handle(Command& cmnd) { return cmnd.execute(); };
+    virtual ~Handler() = default;
 };
 
 struct Chain_of_responsibility
-	: Handler
+    : Handler
 /** @brief list based implementation without recursion
 
   [Chain-of-responsibility pattern](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern)
@@ -689,38 +705,41 @@ struct Chain_of_responsibility
 
  */
 {
-	void register_handler(Handler&& h, bool front = false) {
-		if (front)
-			handlers.push_front(h);
-		else
-			handlers.push_back(h);
-	}
-	int handle(Command& cmnd) override {
-		int rc = -1;
-		for (Handler& h : handlers)
-			if ((rc = h.handle(cmnd)) >= 0)
-				return rc;
-		return rc;
-	}
+    void register_handler(Handler&& h, bool front = false)
+    {
+        if (front)
+            handlers.push_front(h);
+        else
+            handlers.push_back(h);
+    }
+    int handle(Command& cmnd) override
+    {
+        int rc = -1;
+        for (Handler& h : handlers)
+            if ((rc = h.handle(cmnd)) >= 0)
+                return rc;
+        return rc;
+    }
+
 private:
-	list<reference_wrapper<Handler>> handlers;
+    list<reference_wrapper<Handler>> handlers;
 };
 
 void behavioral_patterns_demo()
 {
-	observer_demo();
+    observer_demo();
 
-	publisher_subscriber_demo();
+    publisher_subscriber_demo();
 
-	mediator_demo();
+    mediator_demo();
 
-	Chain_of_responsibility chain;
-	chain.register_handler(Handler());
+    Chain_of_responsibility chain;
+    chain.register_handler(Handler());
 
-	Command cmnd;
-	chain.handle(cmnd);
+    Command cmnd;
+    chain.handle(cmnd);
 
-	visitor_demo();
+    visitor_demo();
 }
 
 /// @} BP
@@ -735,38 +754,42 @@ void behavioral_patterns_demo()
   */
 
 struct Model
-	: Subject
+    : Subject
 /// @brief is part of MVC with View and Controller
 {
-	void register_observer(Observer& o) {
-		observers.push_front(o);
-	}
+    void register_observer(Observer& o)
+    {
+        observers.push_front(o);
+    }
 
-	int command(Command& cmnd) {
-		int rc = cmnd.execute();
-		notify_observers();
-		return rc;
-	}
+    int command(Command& cmnd)
+    {
+        int rc = cmnd.execute();
+        notify_observers();
+        return rc;
+    }
 
-	int command(Command&& cmnd) {
-		int rc = cmnd.execute();
-		notify_observers();
-		return rc;
-	}
+    int command(Command&& cmnd)
+    {
+        int rc = cmnd.execute();
+        notify_observers();
+        return rc;
+    }
 };
 
 struct View
-/// @brief is concrete Observer
-	: public Observer
-{
-	View(Model& m) : model(m) {};
+    /// @brief is concrete Observer
+    : public Observer {
+    View(Model& m)
+        : model(m) {};
 
-	void notify() override {
-		// check model
-		(void)model;
-	}
+    void notify() override
+    {
+        // check model
+        (void)model;
+    }
 
-	Model& model;
+    Model& model;
 };
 
 struct Controller
@@ -774,28 +797,31 @@ struct Controller
 
   */
 {
-	Model& mod; // can be many models
-	Controller(Model& s) : mod(s) { };
+    Model& mod; // can be many models
+    Controller(Model& s)
+        : mod(s) {};
 
-	int command(Command& cmnd) {
-		return mod.command(cmnd);
-	}
+    int command(Command& cmnd)
+    {
+        return mod.command(cmnd);
+    }
 
-	int command(Command&& cmnd) {
-		return mod.command(cmnd);
-	}
+    int command(Command&& cmnd)
+    {
+        return mod.command(cmnd);
+    }
 };
 
 void architectural_patterns_demo()
 {
-	Model mod;
-	View view(mod);
-	mod.register_observer(view);
-	mod.notify_observers();
-	Controller ctrl(mod);
-	ctrl.command(Command());
-	Command cmnd;
-	ctrl.command(cmnd);
+    Model mod;
+    View view(mod);
+    mod.register_observer(view);
+    mod.notify_observers();
+    Controller ctrl(mod);
+    ctrl.command(Command());
+    Command cmnd;
+    ctrl.command(cmnd);
 }
 
 /// @} AP
@@ -807,91 +833,93 @@ void architectural_patterns_demo()
   @{
   */
 
-template <typename T,  class Container = std::queue<T>>
+template <typename T, class Container = std::queue<T>>
 class Synchronized_queue
-	: Container
-{
-	mutex mtx;
-public:
-	condition_variable cv;
-	bool stop = false;
-	void push(T&& v) {
-		scoped_lock<mutex>{mtx}, Container::push(v);
-		cv.notify_one();
-	};
+    : Container {
+    mutex mtx;
 
-	optional<reference_wrapper<T>> pull() {
-		unique_lock<mutex> lk(mtx);
-		cv.wait(lk, [&] { return !this->empty() || stop; });
-		optional<reference_wrapper<T>> ret;
-		if (stop) {
-			ret =  nullopt;
-		} else {
-			ret = make_optional(ref(Container::front()));
-			this->pop();
-		}
-		return ret;
-	};
+public:
+    condition_variable cv;
+    bool stop = false;
+    void push(T&& v)
+    {
+        scoped_lock<mutex> { mtx }, Container::push(v);
+        cv.notify_one();
+    };
+
+    optional<reference_wrapper<T>> pull()
+    {
+        unique_lock<mutex> lk(mtx);
+        cv.wait(lk, [&] { return !this->empty() || stop; });
+        optional<reference_wrapper<T>> ret;
+        if (stop) {
+            ret = nullopt;
+        } else {
+            ret = make_optional(ref(Container::front()));
+            this->pop();
+        }
+        return ret;
+    };
 };
 
 struct Active_object
-/** @brief [Active object](https://en.wikipedia.org/wiki/Active_object)
+    /** @brief [Active object](https://en.wikipedia.org/wiki/Active_object)
 
-  [Revisiting the Active Object Pattern - with C++11 Closures](https://www.codeproject.com/Articles/991641/Revisiting-the-Active-Object-Pattern-with-Cplusplu)
+      [Revisiting the Active Object Pattern - with C++11 Closures](https://www.codeproject.com/Articles/991641/Revisiting-the-Active-Object-Pattern-with-Cplusplu)
 
-  */
-	: Interface
-{
-	typedef function<void()> Command;
-	Interface& subject;
-	Active_object(Interface& s)
-		: subject(s)
-	{
-		th = thread([this] {
-			while (true) {
-				auto cmd = cmd_q.pull();
-				if (!cmd.has_value())
-					break;
-				cmd.value()();
-			}
-		});
-	}
-	~Active_object() {
-		cmd_q.stop = true;
-		cmd_q.cv.notify_one();
-		th.join();
-	}
+      */
+    : Interface {
+    typedef function<void()> Command;
+    Interface& subject;
+    Active_object(Interface& s)
+        : subject(s)
+    {
+        th = thread([this] {
+            while (true) {
+                auto cmd = cmd_q.pull();
+                if (!cmd.has_value())
+                    break;
+                cmd.value()();
+            }
+        });
+    }
+    ~Active_object()
+    {
+        cmd_q.stop = true;
+        cmd_q.cv.notify_one();
+        th.join();
+    }
 
-	int method() override {
-		promise<int> p;
-		future f = p.get_future();
-		cmd_q.push([&p, this] { p.set_value(subject.method());});
-		return f.get();
-	}
+    int method() override
+    {
+        promise<int> p;
+        future f = p.get_future();
+        cmd_q.push([&p, this] { p.set_value(subject.method()); });
+        return f.get();
+    }
 
 protected:
-	Synchronized_queue<Command> cmd_q;
-	thread th;
+    Synchronized_queue<Command> cmd_q;
+    thread th;
 };
 
 void concurrency_patterns_demo()
 {
-	Sample_product sp(3);
-	Active_object ao(sp);
-	assert(ao.method() == 3);
+    Sample_product sp(3);
+    Active_object ao(sp);
+    assert(ao.method() == 3);
 }
 
 /// @} CC
 
-
 int main()
 {
-	oop_demo();
-	creational_patterns_demo();
-	structural_patterns_demo();
-	behavioral_patterns_demo();
-	architectural_patterns_demo();
-	concurrency_patterns_demo();
+    oop_demo();
+    creational_patterns_demo();
+    structural_patterns_demo();
+    behavioral_patterns_demo();
+    architectural_patterns_demo();
+    concurrency_patterns_demo();
 }
 
 /// @}

@@ -13,11 +13,11 @@
 
 static_assert(__cplusplus == 201103, "");
 
+#include <bits/stdc++.h>
 #include <signal.h>
 #include <unistd.h>
-#include <bits/stdc++.h>
 
-#if __has_include (<version>)
+#if __has_include(<version>)
 #include <version>
 #endif
 
@@ -31,95 +31,97 @@ using namespace std;
 
 void types_11()
 {
-	static_assert(__cpp_decltype, "");
+    static_assert(__cpp_decltype, "");
 
-	int a;
-	// https://en.cppreference.com/w/cpp/header/type_traits
-	decltype(a) b; // https://en.cppreference.com/w/cpp/language/decltype
+    int a;
+    // https://en.cppreference.com/w/cpp/header/type_traits
+    decltype(a) b; // https://en.cppreference.com/w/cpp/language/decltype
 
-	assert((is_same<decltype(a), decltype(b)>::value));
-	assert((!is_same<decltype(a), unsigned>::value));
-	assert((is_same<int, int32_t>::value));
-	assert((is_same<signed, int32_t>::value));
+    assert((is_same<decltype(a), decltype(b)>::value));
+    assert((!is_same<decltype(a), unsigned>::value));
+    assert((is_same<int, int32_t>::value));
+    assert((is_same<signed, int32_t>::value));
 
-	assert(is_integral<int>::value);
-	assert(is_integral<bool>::value);
-	assert(!is_integral<float>::value);
-	assert(is_pointer<int*>::value);
-	assert(sizeof (long long) >= 8);
+    assert(is_integral<int>::value);
+    assert(is_integral<bool>::value);
+    assert(!is_integral<float>::value);
+    assert(is_pointer<int*>::value);
+    assert(sizeof(long long) >= 8);
 
-	enum class Number { zero, tree = 3, four };
-	Number n = Number::zero;
-	assert(static_cast<int>(n) == 0);
-	assert(is_enum<Number>());
+    enum class Number { zero,
+        tree = 3,
+        four };
+    Number n = Number::zero;
+    assert(static_cast<int>(n) == 0);
+    assert(is_enum<Number>());
 }
 
 /// [unique_ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr)
 
 void unique_pounter()
 {
-	int d = 0;
-	unique_ptr<int> u1;
-	assert(!u1);
-	u1.reset(&d);
-	assert(u1);
-	*u1 = 1;
-	assert(d == 1);
+    int d = 0;
+    unique_ptr<int> u1;
+    assert(!u1);
+    u1.reset(&d);
+    assert(u1);
+    *u1 = 1;
+    assert(d == 1);
 
-	unique_ptr<int> u2;
-	// u2 = u1; - prohibited
+    unique_ptr<int> u2;
+    // u2 = u1; - prohibited
 
-	int * p1 = u1.get();
-	u2 = move(u1); // [move](https://en.cppreference.com/w/cpp/utility/move)
-	assert(u2.get() == p1);
-	assert(u2);
-	assert(!u1);
-	assert(u2.get() == &d);
-	// must release because d is local
-	u2.release();
-	u2.reset(new int(10));
-	assert(*u2 == 10);
+    int* p1 = u1.get();
+    u2 = move(u1); // [move](https://en.cppreference.com/w/cpp/utility/move)
+    assert(u2.get() == p1);
+    assert(u2);
+    assert(!u1);
+    assert(u2.get() == &d);
+    // must release because d is local
+    u2.release();
+    u2.reset(new int(10));
+    assert(*u2 == 10);
 
-	u2.reset(); // deletes int(10)
-	assert(u2 == nullptr); // [nullptr](https://en.cppreference.com/w/cpp/language/nullptr)
+    u2.reset(); // deletes int(10)
+    assert(u2 == nullptr); // [nullptr](https://en.cppreference.com/w/cpp/language/nullptr)
 
-	assert(!u2);
+    assert(!u2);
 }
 
 /// [shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)
 
 void shared_pointer()
 {
-	shared_ptr<int> s1;
-	assert(!s1);
-	assert(!s1.use_count());
+    shared_ptr<int> s1;
+    assert(!s1);
+    assert(!s1.use_count());
 
-	auto s2 = make_shared<int>(1);
-	assert(s2.use_count() == 1);
+    auto s2 = make_shared<int>(1);
+    assert(s2.use_count() == 1);
 
-	s1 = s2;
-	assert(s1.use_count() == 2);
+    s1 = s2;
+    assert(s1.use_count() == 2);
 
-	*s1 = 2;
-	assert(*s1 == *s1.get());
-	assert(*s2 == 2);
+    *s1 = 2;
+    assert(*s1 == *s1.get());
+    assert(*s2 == 2);
 
-	s2 = nullptr; // like s2.reset();
-	assert(s1.use_count() == 1);
-	assert(!s2.use_count());
+    s2 = nullptr; // like s2.reset();
+    assert(s1.use_count() == 1);
+    assert(!s2.use_count());
 }
 
 /// [weak_ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr)
 
 void weak_pointer()
 {
-	weak_ptr<int> wp;
+    weak_ptr<int> wp;
 
-	assert(!wp.lock());
-	assert(!wp.use_count());
-	auto sp = make_shared<int>(1);
-	wp = sp;
-	assert(*wp.lock() == 1);
+    assert(!wp.lock());
+    assert(!wp.use_count());
+    auto sp = make_shared<int>(1);
+    wp = sp;
+    assert(*wp.lock() == 1);
 }
 
 /**
@@ -130,19 +132,19 @@ void weak_pointer()
 
 void dynamic_memory_11()
 {
-	auto a = new int[3] {1, 2, 3};
-	assert(a[2] == 3);
-	delete a;
+    auto a = new int[3] { 1, 2, 3 };
+    assert(a[2] == 3);
+    delete a;
 
-	auto as = new string[3] {"1", "2", "3"};
-	assert(as[2] == "3");
-	delete[] as; // calls destructors for all members
+    auto as = new string[3] { "1", "2", "3" };
+    assert(as[2] == "3");
+    delete[] as; // calls destructors for all members
 
-	unique_pounter();
+    unique_pounter();
 
-	shared_pointer();
+    shared_pointer();
 
-	weak_pointer();
+    weak_pointer();
 }
 
 /// func_type - overloaded functions
@@ -150,34 +152,34 @@ void dynamic_memory_11()
 
 char func_type(const int& x)
 {
-	assert(is_const<typename remove_reference<decltype(x)>::type>::value);
-	assert(is_lvalue_reference<decltype(x)>::value);
-	return 'C';
+    assert(is_const<typename remove_reference<decltype(x)>::type>::value);
+    assert(is_lvalue_reference<decltype(x)>::value);
+    return 'C';
 }
 
 char func_type(int& x)
 {
-	assert(is_lvalue_reference<decltype(x)>::value);
-	return 'L';
+    assert(is_lvalue_reference<decltype(x)>::value);
+    return 'L';
 }
 
 char func_type(int&& x)
 {
-	assert(is_rvalue_reference<decltype(x)>::value);
-	return 'R';
+    assert(is_rvalue_reference<decltype(x)>::value);
+    return 'R';
 }
 
 /// [Forwarding reference](https://en.cppreference.com/w/cpp/language/reference#Forwarding_references)
 
-template<class T>
+template <class T>
 char func_type_template(T&& x) // x is a forwarding reference
 {
-	// x is not R-value here
-	assert(func_type(x) != 'R');
+    // x is not R-value here
+    assert(func_type(x) != 'R');
 
-	// x can be forwarded as R or L value
-	// https://en.cppreference.com/w/cpp/utility/forward
-	return func_type(forward<T>(x)); // like func_type((T)(x));
+    // x can be forwarded as R or L value
+    // https://en.cppreference.com/w/cpp/utility/forward
+    return func_type(forward<T>(x)); // like func_type((T)(x));
 }
 
 /**
@@ -190,30 +192,30 @@ char func_type_template(T&& x) // x is a forwarding reference
 
 void references_11()
 {
-	// https://en.cppreference.com/w/cpp/language/reference
-	assert(is_reference<int&>::value);
+    // https://en.cppreference.com/w/cpp/language/reference
+    assert(is_reference<int&>::value);
 
-	// L-value:
-	assert(is_lvalue_reference<int&>::value);
+    // L-value:
+    assert(is_lvalue_reference<int&>::value);
 
-	// R-value
-	assert(is_rvalue_reference<int&&>::value);
+    // R-value
+    assert(is_rvalue_reference<int&&>::value);
 
-	const int c = 1;
-	int i = 2;
+    const int c = 1;
+    int i = 2;
 
-	assert(func_type(3) == 'R');
-	assert(func_type(c) == 'C');
-	assert(func_type(move(i)) == 'R');
+    assert(func_type(3) == 'R');
+    assert(func_type(c) == 'C');
+    assert(func_type(move(i)) == 'R');
 
-	assert(func_type_template(c) == 'C');
-	assert(func_type_template(i) == 'L');
-	assert(func_type_template(3) == 'R');
-	reference_wrapper<int> rw = i;
-	rw.get() = 3;
-	assert(i == 3);
-	auto cr = cref(i);
-	assert(cr == 3);
+    assert(func_type_template(c) == 'C');
+    assert(func_type_template(i) == 'L');
+    assert(func_type_template(3) == 'R');
+    reference_wrapper<int> rw = i;
+    rw.get() = 3;
+    assert(i == 3);
+    auto cr = cref(i);
+    assert(cr == 3);
 }
 
 /**
@@ -235,25 +237,27 @@ void references_11()
 
 void init_11()
 {
-	struct C { int a, b, c; };
-	auto o2 = C {1, 2, 3};
-	C o3 {1, 2, 3};
-	(void) o3;
+    struct C {
+        int a, b, c;
+    };
+    auto o2 = C { 1, 2, 3 };
+    C o3 { 1, 2, 3 };
+    (void)o3;
 
-	auto uses_il = [](initializer_list<int> il) {
-		assert(*il.begin() == 3);
-		assert(il.size() == 4);
-	};
-	uses_il({3, 2, 1, 0});
+    auto uses_il = [](initializer_list<int> il) {
+        assert(*il.begin() == 3);
+        assert(il.size() == 4);
+    };
+    uses_il({ 3, 2, 1, 0 });
 
-	auto z1 = C();
-	C z2 = {};
-	auto z3 = C {};
+    auto z1 = C();
+    C z2 = {};
+    auto z3 = C {};
 
-	assert(!z1.a);
-	assert(!z2.a);
-	assert(!z3.a);
-	array<int, 3> a {1, 2};
+    assert(!z1.a);
+    assert(!z2.a);
+    assert(!z3.a);
+    array<int, 3> a { 1, 2 };
 }
 
 /**
@@ -265,47 +269,51 @@ void init_11()
 
 */
 
-
 /// https://en.cppreference.com/w/cpp/language/auto
 auto auto_int = 1;
 
 // int before(int a) { return a; }
 auto trailing_return_type(int a) -> int
 {
-	return a;
+    return a;
 }
 
 /// [copy_elision](https://en.cppreference.com/w/cpp/language/copy_elision)
 
 void copy_elision_demo()
 {
-	struct Obj2 { Obj2* orig = this; int ballast[4]; };
-	auto&& o2 = [](){ return Obj2();}();
-	assert(&o2 == o2.orig);
+    struct Obj2 {
+        Obj2* orig = this;
+        int ballast[4];
+    };
+    auto&& o2 = []() { return Obj2(); }();
+    assert(&o2 == o2.orig);
 }
 
 void func_11()
 {
-	class functor {
-		int y = 1;
-		public:
-		int operator()(int a) const {
-			return a + y;
-		}
-	};
-	functor ft;
-	assert(ft(1) == 2);
+    class functor {
+        int y = 1;
 
-	// https://en.cppreference.com/w/cpp/utility/functional/function
-	function<int(int)> ft2 = ft;
-	assert(ft(2) == 3);
-	return;
+    public:
+        int operator()(int a) const
+        {
+            return a + y;
+        }
+    };
+    functor ft;
+    assert(ft(1) == 2);
 
-	// https://en.cppreference.com/w/cpp/utility/functional/bind
-	auto binded = bind(ft2, 3);
-	assert(binded() == 5);
+    // https://en.cppreference.com/w/cpp/utility/functional/function
+    function<int(int)> ft2 = ft;
+    assert(ft(2) == 3);
+    return;
 
-	copy_elision_demo();
+    // https://en.cppreference.com/w/cpp/utility/functional/bind
+    auto binded = bind(ft2, 3);
+    assert(binded() == 5);
+
+    copy_elision_demo();
 }
 
 static_assert(__cpp_constexpr, "");
@@ -319,26 +327,26 @@ constexpr int constexpr_factorial(int n)
 
 /// https://en.cppreference.com/w/cpp/language/parameter_pack
 
-template<typename T>
-T constexpr adder(T v) {
-  return v;
-}
-
-template<typename T, typename... Args>
-T constexpr adder(T first, Args... args) {
-  return first + adder(args...);
-}
-
-static_assert(adder(1,2,3) == 6,"");
-
-struct Base11
+template <typename T>
+T constexpr adder(T v)
 {
-     virtual void method1();
-     virtual void method2();
+    return v;
+}
+
+template <typename T, typename... Args>
+T constexpr adder(T first, Args... args)
+{
+    return first + adder(args...);
+}
+
+static_assert(adder(1, 2, 3) == 6, "");
+
+struct Base11 {
+    virtual void method1();
+    virtual void method2();
 };
 
-struct Derived11 : Base11
-{
+struct Derived11 : Base11 {
     void method1() override; ///< [override](https://en.cppreference.com/w/cpp/language/override)
     void method2() final; ///< [final](https://en.cppreference.com/w/cpp/language/final)
 };
@@ -354,59 +362,59 @@ struct Derived11 : Base11
 
 static void lambda_basics(void)
 {
-	auto annotated_named_lambda_expression =  // optional name
-		[ ] // capture clause
-		( ) // optional list of arguments
-		{ }; // body
+    auto annotated_named_lambda_expression = // optional name
+        [] // capture clause
+        () // optional list of arguments
+    {}; // body
 
-	// Primitive named lambdas are just like closure functions:
-	// https://en.wikipedia.org/wiki/Closure_(computer_programming)
+    // Primitive named lambdas are just like closure functions:
+    // https://en.wikipedia.org/wiki/Closure_(computer_programming)
 
-	// declaration like a function:
-	// void closure() { };
-	auto closure = [] { };
+    // declaration like a function:
+    // void closure() { };
+    auto closure = [] {};
 
-	closure();
+    closure();
 
-	// with arguments
-	auto pass = [] (int a) { return a; };
-	assert(pass(5) == 5);
+    // with arguments
+    auto pass = [](int a) { return a; };
+    assert(pass(5) == 5);
 
-	// lambda captures external value
-	int c = 1;
-	auto get_i = [=] () { return c; };
-	assert(get_i() == 1);
+    // lambda captures external value
+    int c = 1;
+    auto get_i = [=]() { return c; };
+    assert(get_i() == 1);
 
-	// lambda captures external variable by reference
-	// with omitted arguments and return type
-	auto inc_get = [&] { return ++c; };
-	assert(inc_get() == 2);
-	assert(inc_get() == 3);
+    // lambda captures external variable by reference
+    // with omitted arguments and return type
+    auto inc_get = [&] { return ++c; };
+    assert(inc_get() == 2);
+    assert(inc_get() == 3);
 
-	// annotated expanded empty inline lambda call:
-	[ ] // capture
-	( ) // optional list of arguments
-	-> void // optional return value
-	{ } // body
-	( ); // call with arguments
+    // annotated expanded empty inline lambda call:
+    [] // capture
+        () // optional list of arguments
+        -> void // optional return value
+    {} // body
+    (); // call with arguments
 
-	// annotated expanded sample inline lambda call:
-	c = // result
-	[c] // capture
-	(int a) // an argument
-	-> int // return value
-	{ return c + a; } // body
-	(1); // call with argument
-	assert(c == 4);
+    // annotated expanded sample inline lambda call:
+    c = // result
+        [c] // capture
+        (int a) // an argument
+        -> int // return value
+    { return c + a; } // body
+    (1); // call with argument
+    assert(c == 4);
 
-	// inline lambda which is called in place
-	// https://en.wikipedia.org/wiki/Anonymous_function
+    // inline lambda which is called in place
+    // https://en.wikipedia.org/wiki/Anonymous_function
 
-	// assert((1 + 1) == 2);
-	assert([](int a) { return a + 1; }(1) == 2);
+    // assert((1 + 1) == 2);
+    assert([](int a) { return a + 1; }(1) == 2);
 
-	// Actually calling lambda inline is useless
-	// and is provided only for demonstration.
+    // Actually calling lambda inline is useless
+    // and is provided only for demonstration.
 }
 
 /// @cond
@@ -415,123 +423,131 @@ static int glob;
 
 static void lambda_capture(void)
 {
-	// read only
-	int i = 2;
-	assert([=]{return i; }() == 2);
+    // read only
+    int i = 2;
+    assert([=] { return i; }() == 2);
 
-	// read and write access
-	[&](int a){i = a;}(3);
-	assert(i == 3);
+    // read and write access
+    [&](int a) { i = a; }(3);
+    assert(i == 3);
 
-	// explicit r/o and r/w
-	int j;
-	[i, &j](){ j = i; }();
-	assert(j == i);
+    // explicit r/o and r/w
+    int j;
+    [i, &j]() { j = i; }();
+    assert(j == i);
 
-	// r/o by default
-	i++;
-	[=, &j](){ j = i; }();
-	assert(j == i);
+    // r/o by default
+    i++;
+    [=, &j]() { j = i; }();
+    assert(j == i);
 
-	// r/w by default
-	i++;
-	[&, i](){ j = i; }();
-	assert(j == i);
+    // r/w by default
+    i++;
+    [&, i]() { j = i; }();
+    assert(j == i);
 
-	// can access globals anyway
-	auto inc_global = [] () { return ++glob; };
-	assert(inc_global() == 1);
-	assert(inc_global() == 2);
+    // can access globals anyway
+    auto inc_global = []() { return ++glob; };
+    assert(inc_global() == 1);
+    assert(inc_global() == 2);
 }
 
 /// [container](https://en.cppreference.com/w/cpp/container)
 
 void container_11()
 {
-	// [list_initialization](https://en.cppreference.com/w/cpp/language/list_initialization)
-	vector<int> v = {1, 2, 3};
-	assert(v.data()[2] == 3);
+    // [list_initialization](https://en.cppreference.com/w/cpp/language/list_initialization)
+    vector<int> v = { 1, 2, 3 };
+    assert(v.data()[2] == 3);
 
-	v.shrink_to_fit();
+    v.shrink_to_fit();
 
-	v.emplace(v.cbegin(), 0);
-	assert(v.front() == 0);
+    v.emplace(v.cbegin(), 0);
+    assert(v.front() == 0);
 
-	v.emplace_back(4);
-	assert(v.back() == 4);
+    v.emplace_back(4);
+    assert(v.back() == 4);
 
-	array<int, 1> a1, a2;
-	swap(a1, a2);
+    array<int, 1> a1, a2;
+    swap(a1, a2);
 
-	/// [forward_list](https://en.cppreference.com/w/cpp/container/forward_list)
-	forward_list<int> fl;
+    /// [forward_list](https://en.cppreference.com/w/cpp/container/forward_list)
+    forward_list<int> fl;
 
-	fl.push_front(1);
-	assert(fl.front() == 1);
-	fl.emplace_front(2);
-	assert(fl.front() == 2);
-	fl.insert_after(fl.cbegin(), 3);
-	assert(fl.front() + 1 == 3);
-	assert(fl.front() == 2);
-	fl.erase_after(fl.cbefore_begin()); // like fl.pop_front();
-	assert(fl.front() == 3);
-	fl.pop_front();
+    fl.push_front(1);
+    assert(fl.front() == 1);
+    fl.emplace_front(2);
+    assert(fl.front() == 2);
+    fl.insert_after(fl.cbegin(), 3);
+    assert(fl.front() + 1 == 3);
+    assert(fl.front() == 2);
+    fl.erase_after(fl.cbefore_begin()); // like fl.pop_front();
+    assert(fl.front() == 3);
+    fl.pop_front();
 }
 
 /// [algorithm](https://en.cppreference.com/w/cpp/algorithm)
 
 void algo_11()
 {
-	vector<int> v = {1, 2, 3};
-	assert(find(begin(v), end(v), 0) == end(v));
-	assert(find(begin(v), end(v), 1) != end(v));
+    vector<int> v = { 1, 2, 3 };
+    assert(find(begin(v), end(v), 0) == end(v));
+    assert(find(begin(v), end(v), 1) != end(v));
 
-	vector<int> r(sizeof v / sizeof v[0]);
-	reverse_copy(begin(v), end(v), r.begin());
-	assert(r[0] > r[1]);
-
+    vector<int> r(sizeof v / sizeof v[0]);
+    reverse_copy(begin(v), end(v), r.begin());
+    assert(r[0] > r[1]);
 }
 
 /// Compare with @ref sort_03
 
-struct comp
-{
-	template<typename T>
-	bool operator()(const T &l, const T &r) const
-	{
-		return l.second < r.second;
-	}
+struct comp {
+    template <typename T>
+    bool operator()(const T& l, const T& r) const
+    {
+        return l.second < r.second;
+    }
 };
 
 void sort_11()
 {
-	/// [array](https://en.cppreference.com/w/cpp/container/array)
+    /// [array](https://en.cppreference.com/w/cpp/container/array)
 
-	array<int, 10> s {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
-	sort(s.begin(), s.end(),
-		  // sort using a lambda expression
-		  [](int a, int b)
-		  { return a > b; }
-		 );
+    array<int, 10> s { 5, 7, 4, 2, 8, 6, 1, 9, 0, 3 };
+    sort(s.begin(), s.end(),
+        // sort using a lambda expression
+        [](int a, int b) { return a > b; });
 
-	// https://stackoverflow.com/questions/18045208/override-mapcompare-with-lambda-function-directly
-	auto reverse = map<string, int, function<bool(const string&, const string&)>>{
-		[](const string& a, const string& b) { return a > b; }
-		} = {{"a", 2}, {"b", 1}, {"c", 0}, };
-	assert(reverse.begin()->first == "c");
-	assert(reverse.begin()->second == 0);
+    // https://stackoverflow.com/questions/18045208/override-mapcompare-with-lambda-function-directly
+    auto reverse = map<string, int, function<bool(const string&, const string&)>> {
+        [](const string& a, const string& b) { return a > b; }
+    }
+    = {
+          { "a", 2 },
+          { "b", 1 },
+          { "c", 0 },
+      };
+    assert(reverse.begin()->first == "c");
+    assert(reverse.begin()->second == 0);
 
-	// https://www.techiedelight.com/sort-map-values-cpp/
-	typedef pair<string, int> pair;
-	vector<pair> vec = {{"a", 2}, {"b", 1}, {"c", 0}, };
-	sort(vec.begin(), vec.end(),
-		[](const pair &l, const pair &r)
-		{ return l.second < r.second; });
-	assert(vec.begin()->first == "c");
+    // https://www.techiedelight.com/sort-map-values-cpp/
+    typedef pair<string, int> pair;
+    vector<pair> vec = {
+        { "a", 2 },
+        { "b", 1 },
+        { "c", 0 },
+    };
+    sort(vec.begin(), vec.end(),
+        [](const pair& l, const pair& r) { return l.second < r.second; });
+    assert(vec.begin()->first == "c");
 
-	set<std::pair<string, int>, comp> t = {{"a", 2}, {"b", 1}, {"c", 0}, };
-	cout << t.begin()->first << "\n";
-	assert(t.begin()->first == "c");
+    set<std::pair<string, int>, comp> t = {
+        { "a", 2 },
+        { "b", 1 },
+        { "c", 0 },
+    };
+    cout << t.begin()->first << "\n";
+    assert(t.begin()->first == "c");
 }
 
 /// @}
@@ -548,40 +564,40 @@ void sort_11()
 // int use_lambda(int a; int (func*)(int))
 static int use_lambda(int a, function<int(int)> f)
 {
-	// lambda argument is like pointer to functions
-	return f(a);
+    // lambda argument is like pointer to functions
+    return f(a);
 }
 
 static function<int(int)> g_f;
 
-static void set_lambda(function<int(int)> &&f)
+static void set_lambda(function<int(int)>&& f)
 {
-	g_f = f;
+    g_f = f;
 }
 
 static int call_lambda(int a)
 {
-	return g_f(a);
+    return g_f(a);
 }
 
 /// @endcond
 
 static void lambda_complex(void)
 {
-	auto increment = [] (int a) -> int { return a + 1; };
-	assert(increment(5) == 6);
+    auto increment = [](int a) -> int { return a + 1; };
+    assert(increment(5) == 6);
 
-	// named lambda as argument
-	assert(use_lambda(2, increment) == 3);
-	set_lambda(increment);
-	assert(call_lambda(3) == 4);
+    // named lambda as argument
+    assert(use_lambda(2, increment) == 3);
+    set_lambda(increment);
+    assert(call_lambda(3) == 4);
 
-	// inline lambda as argument
-	assert(use_lambda(1, [](int a) {return a + 1;}) == 2);
+    // inline lambda as argument
+    assert(use_lambda(1, [](int a) { return a + 1; }) == 2);
 
-	int x = 0;
-	[x] () mutable { assert(++x);}();
-	assert(x == 0);
+    int x = 0;
+    [x]() mutable { assert(++x); }();
+    assert(x == 0);
 }
 
 /// @} lambda11_complex
@@ -597,9 +613,9 @@ static void lambda_complex(void)
 // just function with delay for demonstration
 int lento(int a = 0)
 {
-	this_thread::yield();
-	this_thread::sleep_for(chrono::milliseconds(20));
-	return a;
+    this_thread::yield();
+    this_thread::sleep_for(chrono::milliseconds(20));
+    return a;
 }
 /// @endcond
 
@@ -609,88 +625,88 @@ int lento(int a = 0)
 
 void condition_variable_11()
 {
-	mutex m;
-	bool ready;
-	condition_variable cv;
-	thread initiator([&m, &ready, &cv] {
-		unique_lock<mutex> lk(m);
-		lento();
-		lk.unlock();
-		ready = true;
-		cv.notify_one();
-	});
-	unique_lock<mutex> lk(m);
-	cv.wait(lk, [&ready] {return ready;});
-	initiator.join();
+    mutex m;
+    bool ready;
+    condition_variable cv;
+    thread initiator([&m, &ready, &cv] {
+        unique_lock<mutex> lk(m);
+        lento();
+        lk.unlock();
+        ready = true;
+        cv.notify_one();
+    });
+    unique_lock<mutex> lk(m);
+    cv.wait(lk, [&ready] { return ready; });
+    initiator.join();
 }
 
 void threads_11()
 {
-	this_thread::yield();
-	this_thread::get_id();
-	this_thread::sleep_for(chrono::nanoseconds(1));
-	promise<int> p;
-	future<int> f = p.get_future();
-	int v = 0;
-	thread t([&p, &v]{
-		 lento();
-		 p.set_value(2);
-		 v = 3;
-		 });
-	assert(v == 0);
-	assert(f.get() == 2);
-	lento();
-	assert(v == 3);
-	thread t2;
-	t2.swap(t);
-	assert(!t.joinable());
-	assert(t2.joinable());
-	t2.join();
-	try {
-		t2.join();
-		t2.detach();
-	} catch(const system_error& e) {
-		assert(e.code().value() == 22);
-	}
-	assert(!t2.joinable());
+    this_thread::yield();
+    this_thread::get_id();
+    this_thread::sleep_for(chrono::nanoseconds(1));
+    promise<int> p;
+    future<int> f = p.get_future();
+    int v = 0;
+    thread t([&p, &v] {
+        lento();
+        p.set_value(2);
+        v = 3;
+    });
+    assert(v == 0);
+    assert(f.get() == 2);
+    lento();
+    assert(v == 3);
+    thread t2;
+    t2.swap(t);
+    assert(!t.joinable());
+    assert(t2.joinable());
+    t2.join();
+    try {
+        t2.join();
+        t2.detach();
+    } catch (const system_error& e) {
+        assert(e.code().value() == 22);
+    }
+    assert(!t2.joinable());
 
-	// detach demo
-	{
-		thread t3([&p, &v]{
-			  v = 4;
-			  });
-		t3.detach();
-	}
-	lento();
-	assert(v == 4);
+    // detach demo
+    {
+        thread t3([&p, &v] {
+            v = 4;
+        });
+        t3.detach();
+    }
+    lento();
+    assert(v == 4);
 
-	condition_variable_11();
+    condition_variable_11();
 }
 
 void mutex_11()
 {
-	int unguarded = 0, guarded = 0;
-	mutex m;
+    int unguarded = 0, guarded = 0;
+    mutex m;
 
-	thread t1([&unguarded, &guarded, &m]{
-		  unguarded = lento(unguarded) + 1;
+    thread t1([&unguarded, &guarded, &m] {
+        unguarded = lento(unguarded) + 1;
 
-		  lock_guard<mutex> guard(m);
-		  guarded = lento(guarded) + 1;
-		  });
-	thread t2([&unguarded, &guarded, &m]{
-		  unguarded = lento(unguarded) + 1;
+        lock_guard<mutex> guard(m);
+        guarded = lento(guarded) + 1;
+    });
+    thread t2([&unguarded, &guarded, &m] {
+        unguarded = lento(unguarded) + 1;
 
-		  lock_guard<mutex> guard(m);
-		  guarded = lento(guarded) + 1;
-		  });
+        lock_guard<mutex> guard(m);
+        guarded = lento(guarded) + 1;
+    });
 
-	assert(unguarded == 0);
-	assert(guarded == 0);
-	t1.join();
-	t2.join();
-	assert(unguarded == 1);
-	assert(guarded == 2);
+    assert(unguarded == 0);
+    assert(guarded == 0);
+    t1.join();
+    t2.join();
+    assert(unguarded == 1);
+    assert(guarded == 2);
 }
 /// @} threads11
 
@@ -729,32 +745,32 @@ void mutex_11()
 
 void sig(int)
 {
-	abort();
+    abort();
 }
 
 int main(void)
 {
-	signal(SIGALRM, sig);
-	alarm(1);
-	references_11();
-	init_11();
-	auto r = trailing_return_type(1);
-	(void) r;
-	lambda_basics();
-	lambda_capture();
-	lambda_complex();
-	func_11();
-	container_11();
-	algo_11();
-	sort_11();
-	dynamic_memory_11();
-	static_assert(constexpr_factorial(4), "");
+    signal(SIGALRM, sig);
+    alarm(1);
+    references_11();
+    init_11();
+    auto r = trailing_return_type(1);
+    (void)r;
+    lambda_basics();
+    lambda_capture();
+    lambda_complex();
+    func_11();
+    container_11();
+    algo_11();
+    sort_11();
+    dynamic_memory_11();
+    static_assert(constexpr_factorial(4), "");
 
-	types_11();
-	threads_11();
-	mutex_11();
+    types_11();
+    threads_11();
+    mutex_11();
 
-	return 0;
+    return 0;
 }
 
 /// @}
