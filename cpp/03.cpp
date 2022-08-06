@@ -190,6 +190,9 @@ struct _ {
 void sort_03()
 {
 	int a[] = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	list<int> list (a, a + sizeof a / sizeof a[0]);
+	list.sort();
+
 	vector<int> v (a, a + sizeof a / sizeof a[0]);
 
 	// using default comparison (operator <):
