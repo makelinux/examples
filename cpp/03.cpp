@@ -214,6 +214,19 @@ void sort_03()
 	}
 }
 
+/// [algorithm](https://en.cppreference.com/w/cpp/algorithm)
+
+void algo_03()
+{
+	int a[] = {1, 2, 3};
+	vector<int> v(a, a + sizeof a / sizeof a[0]);
+	vector<int> r(sizeof a / sizeof a[0]);
+	reverse_copy(v.begin(), v.end(), r.begin());
+	assert(r[0] > r[1]);
+
+	sort_03();
+}
+
 /// [reference](https://en.cppreference.com/w/cpp/language/reference)
 int& a_ref(int &a) { return a; }
 
@@ -252,7 +265,7 @@ int main(void)
 
 	init_03();
 	container_03();
-	sort_03();
+	algo_03();
 	types_03();
 	assert(min(1,2) == 1);
 	assert(max(1,2) == 2);
