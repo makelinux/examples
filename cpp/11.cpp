@@ -480,11 +480,16 @@ void container_11()
 
 /// [algorithm](https://en.cppreference.com/w/cpp/algorithm)
 
-void algorithm_11()
+void algo_11()
 {
 	vector<int> v = {1, 2, 3};
 	assert(find(begin(v), end(v), 0) == end(v));
 	assert(find(begin(v), end(v), 1) != end(v));
+
+	vector<int> r(sizeof v / sizeof v[0]);
+	reverse_copy(begin(v), end(v), r.begin());
+	assert(r[0] > r[1]);
+
 }
 
 /// Compare with @ref sort_03
@@ -740,7 +745,7 @@ int main(void)
 	lambda_complex();
 	func_11();
 	container_11();
-	algorithm_11();
+	algo_11();
 	sort_11();
 	dynamic_memory_11();
 	static_assert(constexpr_factorial(4), "");
