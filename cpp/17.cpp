@@ -479,8 +479,7 @@ void map_demo()
 	set<int> src {1, 3, 5};
 	set<int> dst {2, 4, 5};
 	dst.merge(src);
-	// src == { 5 }
-	// dst == { 1, 2, 3, 4, 5 }
+	assert(size(dst) == 5);
 }
 
 /**
