@@ -349,6 +349,10 @@ void ranges_20()
 	assert(min == 1);
 	assert(max == 3);
 	assert(!in_range<std::size_t>(-1));
+
+	vector<int> rev(ssize(data));
+	ranges::reverse_copy(data, begin(rev));
+	assert(rev[0] > rev[1]);
 }
 
 #else
