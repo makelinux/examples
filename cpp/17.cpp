@@ -440,6 +440,22 @@ floating_literal:
 	assert(invoke(inc, 2) == 3);
 }
 
+/// [language](https://en.cppreference.com/w/cpp/language)
+
+void lang_17()
+{
+	references_17();
+	folding_demo();
+	structured_bindings();
+	conditional_with_init();
+	types_17();
+
+	/// https://en.cppreference.com/w/cpp/language/range-for
+	map<int, int> mymap;
+	for (auto&& [first, second] : mymap) {
+		// use first and second
+	}
+}
 
 /**
  @} lang17
@@ -566,9 +582,8 @@ inline int inline_var;
 
 int main()
 {
-	references_17();
 	deduction_guides_17();
-	folding_demo();
+	lang_17();
 	lambda_17();
 	threads_17();
 	map_demo();
@@ -576,13 +591,6 @@ int main()
 	clamp_demo();
 	dynamic_memory_17();
 	string_view_demo();
-	// for (auto&& [first,second] : mymap) { }
-	types_17();
-	/// https://en.cppreference.com/w/cpp/language/range-for
-	map<int, int> mymap;
-	for (auto&& [first, second] : mymap) {
-		// use first and second
-	}
 }
 
 /**
