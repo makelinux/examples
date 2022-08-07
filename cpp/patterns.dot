@@ -30,7 +30,7 @@ digraph G {
 	Controller [label=<<b>Controller</b>>]
 	View -> Observer
 
-	Visitor [label=<<b>Visitor</b>>]
+	Visitor [label=<<b>Abstract Visitor</b>>]
 	//Component [rank=min]
 	Sample_visitor -> Visitor
 	Sample_component -> Component
