@@ -370,7 +370,6 @@ struct Bridge
     Bridge(Standalone& s)
         : standalone(s)
     {
-        //		trace(typeid(*this).name());
     }
     int method() override
     {
@@ -415,7 +414,6 @@ struct Composite
     : public Interface {
     int method() override
     {
-        // trace();
         for (Interface& i : children)
             i.method();
         return 0;
