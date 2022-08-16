@@ -494,9 +494,19 @@ void algo_11()
     assert(find(begin(v), end(v), 0) == end(v));
     assert(find(begin(v), end(v), 1) != end(v));
 
+    // https://en.cppreference.com/w/cpp/container/vector/erase
+    // https://en.cppreference.com/w/cpp/algorithm/remove
+    v.erase(remove_if(v.begin(), v.end(), [](unsigned char x) { return x == 2; }), v.end());
+    assert(v.size() == 2);
+
     vector<int> r(v.size());
     reverse_copy(begin(v), end(v), r.begin());
     assert(r[0] > r[1]);
+
+    // https://en.cppreference.com/w/cpp/string/basic_string/erase
+    string s = "1 2  3";
+    s.erase(remove_if(s.begin(), s.end(), [](unsigned char x) { return isspace(x); }), s.end());
+    assert(s == "123");
 }
 
 /// Compare with @ref sort_03
