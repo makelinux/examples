@@ -494,7 +494,7 @@ void algo_11()
     assert(find(begin(v), end(v), 0) == end(v));
     assert(find(begin(v), end(v), 1) != end(v));
 
-    vector<int> r(sizeof v / sizeof v[0]);
+    vector<int> r(v.size());
     reverse_copy(begin(v), end(v), r.begin());
     assert(r[0] > r[1]);
 }
