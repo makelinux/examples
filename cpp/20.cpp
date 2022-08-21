@@ -363,13 +363,13 @@ void sort_20()
 
 void ranges_20()
 {
-    auto data = { 0, 1, 2, 3 };
+    list data { 0, 1, 2, 3 };
     /// [reverse_view](https://en.cppreference.com/w/cpp/ranges/reverse_view)
-#if __clang_major__ != 10
-    ranges::reverse_view rv { data };
+#if !__clang_major__
     auto r = data | views::reverse;
     // r is kind of transform_view
     vector result(r.begin(), r.end());
+    ranges::reverse_view rv { data };
     assert(vector(rv.begin(), rv.end()) == result);
     assert((result == vector { 3, 2, 1, 0 }));
 #endif
