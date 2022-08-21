@@ -7,3 +7,4 @@
 
 References
 * [Language Standards Supported by GCC](https://gcc.gnu.org/onlinedocs/gcc/Standards.html)
+* [Incompatibilities of GCC](https://gcc.gnu.org/onlinedocs/gcc/Incompatibilities.html)

@@ -2,7 +2,10 @@
   @file
   @brief "Traditional" C, before books of K&R
 
-  https://gcc.gnu.org/onlinedocs/gcc-7.5.0/cpp/Traditional-warnings.html
+  https://gcc.gnu.org/onlinedocs/cpp/Traditional-warnings.html
+
+  See also:
+  * [K&R_C](https://en.wikipedia.org/wiki/K%26R_C)
 
  */
 
@@ -15,7 +18,6 @@ int a, b;
 {
 	return a > b ? a : b;
 }
-
 
 int main()
 {

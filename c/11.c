@@ -1,7 +1,12 @@
 _Static_assert(__STDC_VERSION__ > 201100, "");
 
 /**
-  https://gcc.gnu.org/wiki/C11Status
+ @file
+ @brief C11
+
+ [C11 @ wikipedia](https://en.wikipedia.org/wiki/C11_(C_standard_revision))
+
+ [C11 gcc status](https://gcc.gnu.org/wiki/C11Status)
 
   */
 #include <stdnoreturn.h>

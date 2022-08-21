@@ -1,8 +1,13 @@
-/*
+/**
+ @file
+ @brief ANSI C
+
+ [ANSI C @ wikipedia](https://en.wikipedia.org/wiki/ANSI_C)
 
  http://ee.hawaii.edu/~tep/EE160/Book/chapapx/node7.html
 
  https://developerinsider.co/difference-between-c-and-ansi-c/
+
  */
 
 #include <assert.h>
