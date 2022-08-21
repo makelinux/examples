@@ -340,6 +340,7 @@ T constexpr adder(T first, Args... args)
 }
 
 static_assert(adder(1, 2, 3) == 6, "");
+static_assert(adder<int>(1, 2, 3) == 6, "");
 
 struct Base11 {
     virtual void method1();
