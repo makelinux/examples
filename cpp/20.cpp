@@ -79,7 +79,7 @@ void init_20()
 void types_20()
 {
 #if __cpp_lib_bit_cast
-    cout << typeid(bit_cast<double>(0));
+    assert(typeid(bit_cast<double>(0)).name() == string { "d" });
 #endif
 }
 
