@@ -85,6 +85,7 @@ void types_20()
 
 void dynamic_memory_20()
 {
+#if !__GNUG__
     /// Shared array
     /// [make_shared](https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared)
     auto a = make_shared<int[10]>();
@@ -100,6 +101,7 @@ void dynamic_memory_20()
     vector<int> v = { 11, 12, 13 };
     assert(erase_if(v, [](int a) { return a >= 13; }) == 1);
     assert(v.size() == 2);
+#endif
 #endif
 }
 
