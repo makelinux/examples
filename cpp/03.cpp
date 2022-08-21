@@ -100,17 +100,22 @@ void test_generic_container(C& c)
     assert(c.size() == 1);
     c.push_back(1);
     c.push_back(2);
-    assert(c.size() == 3);
+    c.push_back(3);
+    assert(c.size() == 4);
     for (typename C::iterator i = c.begin(); i != c.end();) {
         if (*i == 1) {
             i = c.erase(i);
+            continue;
+        }
+        if (*i == 2) {
+            c.erase(i++);
             continue;
         }
         ++i;
     }
     assert(c.size() == 2);
     assert(c.front() == 0);
-    assert(c.back() == 2);
+    assert(c.back() == 3);
     c.assign(4, 1);
     assert(c.size() == 4);
     c.clear();
