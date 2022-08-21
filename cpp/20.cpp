@@ -373,10 +373,12 @@ void ranges_20()
     assert(vector(rv.begin(), rv.end()) == result);
     assert((result == vector { 3, 2, 1, 0 }));
 #endif
-    auto [min, max] = ranges::minmax({ 3, 2, 1 });
-    auto a = ranges::minmax({ 3, 2, 1 });
-    assert(min == 1);
+    auto [min, max] = ranges::minmax(data);
+    assert(min == 0);
     assert(max == 3);
+    auto a = ranges::minmax(list { 3, 2, 1, 0 });
+    assert(a.min == 0);
+    assert(a.max == 3);
     assert(!in_range<std::size_t>(-1));
 
     vector<int> rev(ssize(data));
