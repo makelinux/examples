@@ -830,33 +830,36 @@ void architectural_patterns_demo()
   @{
   */
 
-template <typename T, class Container = std::queue<T>>
+template <typename T, class Container = queue<T>>
 class Synchronized_queue
     : Container {
     mutex mtx;
+    bool stoped = false;
 
 public:
     condition_variable cv;
-    bool stop = false;
     void push(T&& v)
     {
         scoped_lock<mutex> { mtx }, Container::push(v);
         cv.notify_one();
     };
 
-    optional<reference_wrapper<T>> pull()
+    T& pull()
     {
         unique_lock<mutex> lk(mtx);
-        cv.wait(lk, [&] { return !this->empty() || stop; });
-        optional<reference_wrapper<T>> ret;
-        if (stop) {
-            ret = nullopt;
-        } else {
-            ret = make_optional(ref(Container::front()));
-            this->pop();
-        }
+        cv.wait(lk, [&] { return !this->empty() || stoped; });
+        if (stoped)
+            throw "stopped";
+        auto ret = ref(Container::front());
+        this->pop();
         return ret;
     };
+
+    void stop()
+    {
+        stoped = true;
+        cv.notify_one();
+    }
 };
 
 struct Active_object
@@ -872,18 +875,16 @@ struct Active_object
         : subject(s)
     {
         th = thread([this] {
-            while (true) {
-                auto cmd = cmd_q.pull();
-                if (!cmd.has_value())
-                    break;
-                cmd.value()();
+            try {
+                while (true)
+                    cmd_q.pull()(); // call Command
+            } catch (...) {
             }
         });
     }
     ~Active_object()
     {
-        cmd_q.stop = true;
-        cmd_q.cv.notify_one();
+        cmd_q.stop();
         th.join();
     }
 
@@ -892,6 +893,9 @@ struct Active_object
         promise<int> p;
         future f = p.get_future();
         cmd_q.push([&p, this] { p.set_value(subject.method()); });
+        auto status = f.wait_for(1s);
+        if (status != future_status::ready)
+            throw status;
         return f.get();
     }
 
