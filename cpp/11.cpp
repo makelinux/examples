@@ -591,7 +591,6 @@ void sort_11()
         { "b", 1 },
         { "c", 0 },
     };
-    cout << t.begin()->first << "\n";
     assert(t.begin()->first == "c");
 }
 
