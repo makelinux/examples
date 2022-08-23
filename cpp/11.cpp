@@ -464,6 +464,27 @@ static void lambda_capture(void)
     assert(inc_global() == 2);
 }
 
+/// [utility](https://en.cppreference.com/w/cpp/utility)
+
+void utils_11()
+{
+    pair<int, int> bounds = minmax({3, 2, 1});
+    assert(bounds.first == 1);
+    assert(bounds.second == 3);
+    int min, max;
+    tie(min, max) = bounds;
+    assert(min == 1);
+    int n = 1;
+    auto t = make_tuple(0, "one", 3.14, ref(n), n);
+    n = 2;
+    cerr << "typeid " << typeid(get<2>(t)).name() << '\n';
+    //cerr << func_type(get<2>(t)) << '\n';
+    assert(is_arithmetic<decltype(1)>::value);
+    //assert(is_arithmetic<decltype(get<0>(t))>::value);
+    assert(get<3>(t) == 2);
+    assert(get<4>(t) == 1);
+}
+
 /// [container](https://en.cppreference.com/w/cpp/container)
 
 template <class L>
@@ -800,6 +821,7 @@ int main(void)
     lambda_basics();
     lambda_capture();
     lambda_complex();
+    utils_11();
     container_11();
     algo_11();
     sort_11();
