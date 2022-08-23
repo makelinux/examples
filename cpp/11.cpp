@@ -515,6 +515,10 @@ void container_11()
     deque<int> d;
     test_list_container(d);
     d.emplace_back(0);
+
+    stack<int> s, s2;
+    s.emplace(1);
+    s.swap(s2);
 }
 
 /// [algorithm](https://en.cppreference.com/w/cpp/algorithm)
