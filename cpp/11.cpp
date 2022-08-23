@@ -352,7 +352,18 @@ struct Derived11 : Base11 {
     void method2() final; ///< [final](https://en.cppreference.com/w/cpp/language/final)
 };
 
-/// @}
+void language_11()
+{
+    types_11();
+    references_11();
+    init_11();
+    auto r = trailing_return_type(1);
+    (void) r;
+    dynamic_memory_11();
+    func_11();
+}
+
+/// @} lang11
 
 /**
  @defgroup lambda11 Lambda
@@ -763,21 +774,15 @@ int main(void)
 {
     signal(SIGALRM, sig);
     alarm(1);
-    references_11();
-    init_11();
-    auto r = trailing_return_type(1);
-    (void)r;
+    language_11();
     lambda_basics();
     lambda_capture();
     lambda_complex();
-    func_11();
     container_11();
     algo_11();
     sort_11();
-    dynamic_memory_11();
     static_assert(constexpr_factorial(4), "");
 
-    types_11();
     threads_11();
     mutex_11();
 
