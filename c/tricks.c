@@ -108,6 +108,11 @@ int main()
 	assert(dynamic);
 	assert(! strcmp(dynamic, "dynamic"));
 	// no need to call free(dynamic);
+
+	assert((i = 2) == 2); // assign and use
+
+	int x = 3;
+	while( x --> 0 ); // 2 1 0
 }
 
 /**
