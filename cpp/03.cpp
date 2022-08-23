@@ -51,6 +51,8 @@ void init_03()
     assert(const_struct_with_mutable.m == 2);
     int y = 0;
     int& reference = y;
+    reference = 1;
+    assert(y == 1);
 }
 
 /**
