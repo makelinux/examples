@@ -382,7 +382,7 @@ void conditional_with_init()
  */
 
 // Will warn if return of foo() is ignored
-[[nodiscard]] int foo() { return 0; }
+[[nodiscard]] int foo() { return 1; }
 void test_attr()
 {
     int a { 1 };
@@ -462,6 +462,7 @@ void lang_17()
     folding_demo();
     structured_bindings();
     conditional_with_init();
+    test_attr();
     types_17();
 
     /// https://en.cppreference.com/w/cpp/language/range-for
