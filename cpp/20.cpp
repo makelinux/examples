@@ -71,7 +71,7 @@ void init_20()
 #endif
     line l1 = {};
     assert(!l1.a.x);
-    line l3 = { 1, 2, 3, 4 };
+    line l3 = { 1, 2, 3, 4 }; // missing-braces
     assert(l3.b.x == 3);
     assert(l3.b.y == 4);
 }
@@ -323,6 +323,7 @@ void coroutine_demo()
     jthread out;
     resuming_on_new_thread(out);
 }
+
 #else
 void coroutine_demo()
 {
