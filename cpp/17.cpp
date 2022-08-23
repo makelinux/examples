@@ -537,6 +537,15 @@ void variant_demo()
     assert(visit(inc, (variant<int>)1) == 2);
 }
 
+void optional_demo()
+{
+    optional<int> i = make_optional(1);
+    assert(i.has_value());
+    assert(i.value() == 1);
+    i = nullopt;
+    assert(i.value_or(2) == 2);
+}
+
 void clamp_demo()
 {
     static_assert(__cpp_lib_clamp);
@@ -601,6 +610,7 @@ int main()
     threads_17();
     map_demo();
     variant_demo();
+    optional_demo();
     clamp_demo();
     dynamic_memory_17();
     string_view_demo();
