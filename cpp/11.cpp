@@ -466,6 +466,19 @@ static void lambda_capture(void)
 
 /// [container](https://en.cppreference.com/w/cpp/container)
 
+template <class L>
+void test_list_container(L& l)
+{
+    l.push_front(0);
+    assert(l.front() == 0);
+    l.emplace_front(1);
+    assert(l.front() == 1);
+    l.pop_front();
+    L l2;
+    swap(l, l2);
+    l.swap(l2);
+}
+
 void container_11()
 {
     // [list_initialization](https://en.cppreference.com/w/cpp/language/list_initialization)
@@ -485,17 +498,23 @@ void container_11()
 
     /// [forward_list](https://en.cppreference.com/w/cpp/container/forward_list)
     forward_list<int> fl;
-
-    fl.push_front(1);
-    assert(fl.front() == 1);
-    fl.emplace_front(2);
-    assert(fl.front() == 2);
+    test_list_container(fl);
     fl.insert_after(fl.cbegin(), 3);
-    assert(fl.front() + 1 == 3);
-    assert(fl.front() == 2);
+    assert(*(next(fl.begin())) == 3);
     fl.erase_after(fl.cbefore_begin()); // like fl.pop_front();
     assert(fl.front() == 3);
     fl.pop_front();
+
+    list<int> l;
+    test_list_container(l);
+    l.emplace_back(0);
+    l.emplace(l.begin(), 2);
+    assert(l.front() == 2);
+    l.sort();
+
+    deque<int> d;
+    test_list_container(d);
+    d.emplace_back(0);
 }
 
 /// [algorithm](https://en.cppreference.com/w/cpp/algorithm)
