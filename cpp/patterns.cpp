@@ -750,8 +750,6 @@ void behavioral_patterns_demo()
   @defgroup AP Architectural
   @brief [Architectural patterns](https://en.wikipedia.org/wiki/Architectural_pattern)
 
-  https://refactoring.guru/design-patterns/behavioral-patterns
-
   @{
   */
 
@@ -842,6 +840,7 @@ class Synchronized_queue
       - [Boost synchronized queues](https://www.boost.org/doc/libs/release/doc/html/thread/sds.html#thread.sds.synchronized_queues)
       - [boost/thread/concurrent_queues/sync_queue.hpp](https://github.com/boostorg/thread/blob/HEAD/include/boost/thread/concurrent_queues/sync_queue.hpp)
       - [boost/thread/concurrent_queues/detail/sync_queue_base.hpp](https://github.com/boostorg/thread/blob/HEAD/include/boost/thread/concurrent_queues/detail/sync_queue_base.hpp)
+      - [Messaging pattern](https://en.wikipedia.org/wiki/Messaging_pattern)
 
       Warning: unbounded synchronized queues can cause [OOM](https://en.wikipedia.org/wiki/Out_of_memory)
       */
