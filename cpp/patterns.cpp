@@ -130,6 +130,10 @@ class Synchronized_encapsulated_value
              class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
 
       Classes by default are private. This class doesn't contain public members.
+
+      See also:
+      - [Boost synchronized values](https://www.boost.org/doc/libs/release/doc/html/thread/sds.html#thread.sds.synchronized_valuesxxx)
+      - [boost/thread/synchronized_value.hpp](https://github.com/boostorg/thread/blob/HEAD/include/boost/thread/synchronized_value.hpp)
       */
     : public Setter_interface<ValueType>,
       public Getter_interface<ValueType>,
