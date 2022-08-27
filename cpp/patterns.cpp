@@ -126,7 +126,8 @@ struct Change_interface
 template <typename ValueType>
 class Synchronized_encapsulated_value
     /**
-      @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
+      @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
+             class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
 
       Classes by default are private. This class doesn't contain public members.
       */
@@ -832,6 +833,14 @@ void architectural_patterns_demo()
 
 template <typename T, class Container = queue<T>>
 class Synchronized_queue
+    /**
+      See also
+      - [Boost synchronized queues](https://www.boost.org/doc/libs/release/doc/html/thread/sds.html#thread.sds.synchronized_queues)
+      - [boost/thread/concurrent_queues/sync_queue.hpp](https://github.com/boostorg/thread/blob/HEAD/include/boost/thread/concurrent_queues/sync_queue.hpp)
+      - [boost/thread/concurrent_queues/detail/sync_queue_base.hpp](https://github.com/boostorg/thread/blob/HEAD/include/boost/thread/concurrent_queues/detail/sync_queue_base.hpp)
+
+      Warning: unbounded synchronized queues can cause [OOM](https://en.wikipedia.org/wiki/Out_of_memory)
+      */
     : Container {
     mutex mtx;
     bool stoped = false;
@@ -900,7 +909,7 @@ struct Active_object
     }
 
 protected:
-    Synchronized_queue<Command> cmd_q;
+    Synchronized_queue<Command> cmd_q; // BTW, Circular buffer is more durable because it doesn't cause OOM
     thread th;
 };
 
