@@ -100,7 +100,7 @@ void associations_demo()
     p.ptr = nullptr;
 }
 
-/// @brief is a sample of setter abstract interface for Synchronised_encapsulated_value
+/// @brief is a sample of setter abstract interface for Synchronized_encapsulated_value
 template <typename ValueType>
 struct Setter_interface {
     virtual void set(ValueType i) = 0;
@@ -109,7 +109,7 @@ struct Setter_interface {
 
 template <typename ValueType>
 struct Getter_interface
-/// @brief is a sample of getter abstract interface for Synchronised_encapsulated_value
+/// @brief is a sample of getter abstract interface for Synchronized_encapsulated_value
 {
     virtual ValueType get() const = 0;
     virtual ~Getter_interface() = default;
@@ -117,14 +117,14 @@ struct Getter_interface
 
 template <typename ValueType>
 struct Change_interface
-/// @brief is a sample of changer abstract interface for Synchronised_encapsulated_value
+/// @brief is a sample of changer abstract interface for Synchronized_encapsulated_value
 {
     virtual void change(ValueType c) = 0;
     virtual ~Change_interface() = default;
 };
 
 template <typename ValueType>
-class Synchronised_encapsulated_value
+class Synchronized_encapsulated_value
     /**
       @brief [encapsulating](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) class with only public accessor and [mutator](https://en.wikipedia.org/wiki/Mutator_method) intrfaces
 
@@ -155,10 +155,10 @@ class Synchronised_encapsulated_value
     ValueType value;
 };
 
-void synchronised_encapsulated_value()
+void synchronized_encapsulated_value()
 /**
   Lambda expression 'client' demonstrates [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle) -
-  it doesn't depends from implementation Synchronised_encapsulated_value but depends only from interfaces.
+  it doesn't depends from implementation Synchronized_encapsulated_value but depends only from interfaces.
   */
 
 {
@@ -166,7 +166,7 @@ void synchronised_encapsulated_value()
         s.set(1);
         assert(g.get() == 1);
     };
-    Synchronised_encapsulated_value<int> v;
+    Synchronized_encapsulated_value<int> v;
     Setter_interface<int>& s = v;
     Getter_interface<int>& g = v;
     client(s, g);
@@ -175,7 +175,7 @@ void synchronised_encapsulated_value()
         s.set("abc");
         assert(g.get() == "abc");
     };
-    Synchronised_encapsulated_value<string> v2;
+    Synchronized_encapsulated_value<string> v2;
     Setter_interface<string>& s2(v2);
     Getter_interface<string>& g2(v2);
     Change_interface<string>& c2(v2);
@@ -187,7 +187,7 @@ void synchronised_encapsulated_value()
 void oop_demo()
 {
     associations_demo();
-    synchronised_encapsulated_value();
+    synchronized_encapsulated_value();
 }
 
 /// @}
