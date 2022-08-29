@@ -477,7 +477,6 @@ void utils_11()
     int n = 1;
     auto t = make_tuple(0, "one", 3.14, ref(n), n);
     n = 2;
-    cerr << "typeid " << typeid(get<2>(t)).name() << '\n';
     //cerr << func_type(get<2>(t)) << '\n';
     assert(is_arithmetic<decltype(1)>::value);
     //assert(is_arithmetic<decltype(get<0>(t))>::value);
