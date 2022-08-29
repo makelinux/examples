@@ -689,6 +689,34 @@ void visitor_demo()
     }
 }
 
+// std::visit demo:
+
+static stringstream output;
+
+struct Visitor_op {
+    void operator()(int arg) { output << "int "; };
+    void operator()(long arg) { output << "long "; };
+    void operator()(double arg) { output << "double "; };
+    void operator()(string arg) { output << "string "; };
+};
+
+void visitor_std_demo()
+/// Demonstration of standard template [visit](https://en.cppreference.com/w/cpp/utility/variant/visit)
+{
+    // trivial visit call
+    visit([](auto&& arg) {}, variant<int> { 1 });
+
+    // practical visit usage
+    using Components = variant<int, long, double, string>;
+    vector<Components> comps = { 10, 15l, 1.5, "hello" };
+    Visitor_op visitors;
+
+    for (auto& c : comps)
+        visit(visitors, c);
+
+    assert(output.str() == "int long double string ");
+}
+
 /// @} visitor
 
 struct Handler
@@ -744,6 +772,8 @@ void behavioral_patterns_demo()
     chain.handle(cmnd);
 
     visitor_demo();
+
+    visitor_std_demo();
 }
 
 /// @} BP
