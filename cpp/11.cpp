@@ -794,10 +794,6 @@ void mutex_11()
   TODO:
      function<int(void)> get_a = a;
 
-  https://en.cppreference.com/w/cpp/language/move_constructor
-
-  https://en.cppreference.com/w/cpp/language/move_assignment
-
   https://en.cppreference.com/w/cpp/language/attributes
 
   https://en.cppreference.com/w/cpp/language/string_literal
@@ -807,8 +803,6 @@ void mutex_11()
   https://en.cppreference.com/w/cpp/language/user_literal
 
   https://en.cppreference.com/w/cpp/language/initializer_list
-
-  https://en.cppreference.com/w/cpp/language/range-for
 
   https://en.cppreference.com/w/cpp/utility/declval
 
