@@ -684,24 +684,32 @@ int lento(int a = 0)
 /// @endcond
 
 /**
-  https://en.cppreference.com/w/cpp/thread/condition_variable
+  [condition_variable](https://en.cppreference.com/w/cpp/thread/condition_variable)
+  [notify_one](https://en.cppreference.com/w/cpp/thread/condition_variable/notify_one)
   */
 
 void condition_variable_11()
 {
     mutex m;
-    bool ready;
+    int stage = 0;
     condition_variable cv;
-    thread initiator([&m, &ready, &cv] {
+    thread th(
+        [&m, &stage, &cv] {
+            unique_lock<mutex> lk(m);
+            cv.wait(lk, [&stage] { return stage == 1; });
+            stage = 2;
+            lk.unlock();
+            cv.notify_one();
+        });
+    // locking block
+    {
         unique_lock<mutex> lk(m);
-        lento();
-        lk.unlock();
-        ready = true;
-        cv.notify_one();
-    });
+        stage = 1;
+    }
+    cv.notify_one();
     unique_lock<mutex> lk(m);
-    cv.wait(lk, [&ready] { return ready; });
-    initiator.join();
+    cv.wait(lk, [&stage] { return stage == 2; });
+    th.join();
 }
 
 void threads_11()
