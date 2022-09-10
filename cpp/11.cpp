@@ -704,6 +704,12 @@ void condition_variable_11()
     // locking block
     {
         unique_lock<mutex> lk(m);
+        // https://en.cppreference.com/w/cpp/thread/condition_variable/wait_for
+        assert(cv.wait_for(lk, chrono::milliseconds(0)) == cv_status::timeout);
+        assert(!cv.wait_for(lk, chrono::milliseconds(0),[]{return false;}));
+    }
+    {
+        unique_lock<mutex> lk(m);
         stage = 1;
     }
     cv.notify_one();
