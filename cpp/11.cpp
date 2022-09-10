@@ -678,7 +678,7 @@ static void lambda_complex(void)
 int lento(int a = 0)
 {
     this_thread::yield();
-    this_thread::sleep_for(chrono::milliseconds(20));
+    this_thread::sleep_for(chrono::milliseconds(50));
     return a;
 }
 /// @endcond
