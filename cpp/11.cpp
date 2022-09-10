@@ -721,7 +721,7 @@ void condition_variable_11()
 void threads_11()
 {
     this_thread::yield();
-    this_thread::get_id();
+    assert(hash<thread::id>()(this_thread::get_id()));
     this_thread::sleep_for(chrono::nanoseconds(1));
     promise<int> p;
     future<int> f = p.get_future();
