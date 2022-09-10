@@ -754,6 +754,7 @@ void threads_11()
             v = 4;
         });
         t3.detach();
+        std::thread { []() { assert(1); } }.detach();
     }
     lento();
     assert(v == 4);
