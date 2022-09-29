@@ -104,7 +104,7 @@ void associations_demo()
 template <typename ValueType>
 struct Setter_interface {
     virtual void set(ValueType i) = 0;
-    virtual ~Setter_interface() = default;
+    virtual ~Setter_interface() noexcept = default;
 };
 
 template <typename ValueType>
@@ -112,7 +112,7 @@ struct Getter_interface
 /// @brief is a sample of getter abstract interface for Synchronized_encapsulated_value
 {
     virtual ValueType get() const = 0;
-    virtual ~Getter_interface() = default;
+    virtual ~Getter_interface() noexcept = default;
 };
 
 template <typename ValueType>
@@ -120,7 +120,7 @@ struct Change_interface
 /// @brief is a sample of changer abstract interface for Synchronized_encapsulated_value
 {
     virtual void change(ValueType c) = 0;
-    virtual ~Change_interface() = default;
+    virtual ~Change_interface() noexcept = default;
 };
 
 template <typename ValueType>
@@ -222,7 +222,7 @@ struct Interface
 /// @brief is a common pure virtual interface
 {
     virtual int method() = 0;
-    virtual ~Interface() = default;
+    virtual ~Interface() noexcept = default;
 };
 
 /**
@@ -467,7 +467,7 @@ struct Observer
     virtual void notify() {};
     /// @brief with the only Subject argument
     virtual void update(Subject& subject) {};
-    virtual ~Observer() = default;
+    virtual ~Observer() noexcept = default;
 };
 
 struct Subject
@@ -615,7 +615,7 @@ struct Abstract_visitor
 {
     /// overloaded function for each component subtype
     virtual string visit(const Sample_component&) const = 0;
-    virtual ~Abstract_visitor() = default;
+    virtual ~Abstract_visitor() noexcept = default;
 };
 
 struct Sample_component
@@ -724,7 +724,7 @@ struct Handler
 {
     /// Specific handler can process a command and return non-negative
     virtual int handle(Command& cmnd) { return cmnd.execute(); };
-    virtual ~Handler() = default;
+    virtual ~Handler() noexcept = default;
 };
 
 struct Chain_of_responsibility
@@ -926,7 +926,8 @@ struct Active_object
             }
         });
     }
-    ~Active_object()
+
+    ~Active_object() noexcept
     {
         cmd_q.stop();
         th.join();
