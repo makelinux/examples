@@ -884,7 +884,7 @@ public:
     condition_variable cv;
     void push(T&& v)
     {
-        scoped_lock<mutex> { mtx }, Container::push(v);
+        lock_guard<mutex> { mtx }, Container::push(v);
         cv.notify_one();
     };
 
