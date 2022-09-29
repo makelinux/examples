@@ -894,7 +894,7 @@ public:
         cv.wait(lk, [&] { return !this->empty() || stoped; });
         if (stoped)
             throw "stopped";
-        auto ret = ref(Container::front());
+        T& ret = Container::front();
         this->pop();
         return ret;
     };
