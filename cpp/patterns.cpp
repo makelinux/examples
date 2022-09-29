@@ -902,7 +902,7 @@ public:
     void stop()
     {
         stoped = true;
-        cv.notify_one();
+        cv.notify_all();
     }
 };
 
