@@ -240,6 +240,22 @@ fn raw_pointers() {
 }
 
 #[test]
+fn scope() {
+    let mut a = String::from("a");
+    fn delete(_arg: String) {
+        // argument is moved end deleted by destructor
+    }
+    if false {
+        delete(a); // the value is moved here even under the "if false"
+    }
+    // value of a is unusable here
+    a = "1".to_string();
+    let c = a;
+    // value of a is unusable here
+    assert_eq!(c, "1")
+}
+
+#[test]
 fn mutable_function_argument() {
     let mut a = String::from("a");
     fn append(arg: &mut String, s: &str) {
