@@ -259,11 +259,15 @@ fn scope() {
     if false {
         delete(a); // the value is moved here even under the "if false"
     }
-    // value of a is unusable here
-    a = "1".to_string();
+    // value of a is undefined here
+    a = "1".to_string(); // reusing a
     let c = a;
     // value of a is unusable here
-    assert_eq!(c, "1")
+    assert_eq!(c, "1");
+    a = c;
+    // c is unusable because is unmutable
+    //c = a; // error: cannot assign twice to immutable variable
+    assert_eq!(a, "1");
 }
 
 #[test]
