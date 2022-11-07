@@ -1,5 +1,14 @@
 // system packages: rust-all rust-src
 
+fn main() {
+    // to stdout:
+    print!("output");
+    println!(" + new line");
+    // to stderr:
+    eprint!("error");
+    eprintln!(" + new line");
+}
+
 #[test]
 fn constants() {
     fn func(arg: i32) -> i32 {
@@ -274,9 +283,3 @@ fn failing_test() {
     assert!(false)
 }
 
-fn main() {
-    print!("output");
-    println!(" + new line");
-    eprint!("error");
-    eprintln!(" + new line");
-}
