@@ -276,12 +276,17 @@ fn mutable_function_argument() {
     let mut a = String::from("a");
     fn append(arg: &mut String, s: &str) {
         arg.push_str(s);
-        // immutable: arg += 1;
-        //arg + 1 // last value is return value
     }
     append(&mut a, "b");
     append(&mut a, "c");
     assert_eq!(a, "abc");
+    let b = a;
+    // a is undefined
+    let c = b + "d"; // content of b is moved here
+                     // b is unusable here
+    assert_eq!(c, "abcd");
+    a = c; // reusing a, because it is mutconstantsable
+    assert_eq!(a, "abcd");
 }
 
 #[test]
