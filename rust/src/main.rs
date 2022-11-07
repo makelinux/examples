@@ -60,12 +60,13 @@ fn types_test() {
     assert_eq!(my_str, "1");
 
     let mut my_string = String::from(my_str);
+    assert_eq!(my_string, "1");
 
     my_string = my_str.into();
     my_string += "2";
     assert_eq!(my_string, "12");
 
-    let s2 = my_string;
+    let s2 = my_string.clone();
     assert_eq!(s2, "12");
     assert_eq!(my_string, "12");
 
