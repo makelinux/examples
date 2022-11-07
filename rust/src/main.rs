@@ -290,6 +290,19 @@ fn mutable_function_argument() {
 }
 
 #[test]
+fn macro_test() {
+    macro_rules! sample_macro {
+        // `()` indicates that the macro takes no argument.
+        () => { 0 };
+        ($a:expr) => { $a };
+        ($a:expr, $b:expr) => { $a + $b }
+     }
+     assert_eq!(sample_macro!(), 0);
+     assert_eq!(sample_macro!(1), 1);
+     assert_eq!(sample_macro!(1, 2), 3);
+}
+
+#[test]
 #[ignore]
 fn failing_test() {
     assert!(false)
