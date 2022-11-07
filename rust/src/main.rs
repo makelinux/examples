@@ -26,7 +26,7 @@ fn constants() {
 }
 
 #[test]
-fn sample_test() {
+fn mutable_test() {
     assert_eq!(format!("{}", 0xf), "15");
 
     let mut variable = 1; // mutable means variable
@@ -57,15 +57,17 @@ fn types_test() {
 
     let my_str;
     my_str = "1"; // like char* in C
+    assert_eq!(my_str, "1");
 
-    #[allow(unused_assignments)]
     let mut my_string = String::from(my_str);
 
     my_string = my_str.into();
-    assert_eq!(my_string, "1");
+    my_string += "2";
+    assert_eq!(my_string, "12");
 
-    let s2 = my_string.clone();
-    assert_eq!(s2, "1");
+    let s2 = my_string;
+    assert_eq!(s2, "12");
+    assert_eq!(my_string, "12");
 
     my_string = "aaa".to_string();
     assert!(!my_string.is_empty());
