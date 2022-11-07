@@ -8,7 +8,8 @@ clean:
 	cargo clean
 
 check:
-	cargo run
+	cargo test
+
 doc:
 	cargo doc
 	xdg-open target/doc/rust_basics/index.html
