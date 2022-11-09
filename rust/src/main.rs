@@ -151,10 +151,10 @@ fn references() {
 
 #[test]
 fn data_structures() {
-    // classsic struct
+    // classic struct
 
     #[allow(dead_code)]
-    #[derive(Debug)] // requried for `format!("{:?}", p)`
+    #[derive(Debug)] // required for `format!("{:?}", p)`
     struct Person {
         name: String,
         age: u8,
@@ -181,7 +181,7 @@ fn tuples() {
     let Pair(integer, decimal) = pair;
     assert_eq!(integer, 1);
     assert_eq!(decimal, 0.1);
-    static GLOBAL: i32 = 1; // statics need to be upppercase
+    static GLOBAL: i32 = 1; // statics need to be uppercase
     assert_eq!(GLOBAL, 1);
 
     // generics are like template in C++
@@ -193,13 +193,13 @@ fn tuples() {
 
 #[test]
 fn traits() {
-    // a trait is like an intrafce, can contain virtual functions
+    // a trait is like an interface, can contain virtual functions
     trait Zero {
         const ZERO: Self;
         fn is_zero(&self) -> bool;
     }
 
-    // implemenataions must implement their interface
+    // implementations must implement their interface
     impl Zero for i32 {
         const ZERO: Self = 0;
 
@@ -267,7 +267,7 @@ fn scope() {
     // value of a is unusable here
     assert_eq!(c, "1");
     a = c;
-    // c is unusable because is unmutable
+    // c is unusable because is immutable
     //c = a; // error: cannot assign twice to immutable variable
     assert_eq!(a, "1");
 }
@@ -286,7 +286,7 @@ fn mutable_function_argument() {
     let c = b + "d"; // content of b is moved here
                      // b is unusable here
     assert_eq!(c, "abcd");
-    a = c; // reusing a, because it is mutconstantsable
+    a = c; // reusing a, because it is mutable
     assert_eq!(a, "abcd");
 }
 
@@ -294,13 +294,19 @@ fn mutable_function_argument() {
 fn macro_test() {
     macro_rules! sample_macro {
         // `()` indicates that the macro takes no argument.
-        () => { 0 };
-        ($a:expr) => { $a };
-        ($a:expr, $b:expr) => { $a + $b }
-     }
-     assert_eq!(sample_macro!(), 0);
-     assert_eq!(sample_macro!(1), 1);
-     assert_eq!(sample_macro!(1, 2), 3);
+        () => {
+            0
+        };
+        ($a:expr) => {
+            $a
+        };
+        ($a:expr, $b:expr) => {
+            $a + $b
+        };
+    }
+    assert_eq!(sample_macro!(), 0);
+    assert_eq!(sample_macro!(1), 1);
+    assert_eq!(sample_macro!(1, 2), 3);
 }
 
 #[test]
@@ -308,4 +314,3 @@ fn macro_test() {
 fn failing_test() {
     assert!(false)
 }
-
