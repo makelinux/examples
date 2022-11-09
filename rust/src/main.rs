@@ -310,6 +310,25 @@ fn macro_test() {
 }
 
 #[test]
+fn closue() {
+    // Closures are like lambda expressions in C++
+
+    // Closures can capture external objects (constants, variables)
+    let one = 1;
+
+    // Closure which is bound to reference (name)
+    let closure_annotated = |arg: i32| -> i32 { arg + one };
+    assert_eq!(closure_annotated(1), 2);
+
+    // Annotation and block are optional
+    let closure_inferred = |arg| arg + one;
+    assert_eq!(closure_inferred(1), 2);
+
+    // anonymous closure
+    assert_eq!((|arg| arg + one)(1), 2);
+}
+
+#[test]
 #[ignore]
 fn failing_test() {
     assert!(false)
