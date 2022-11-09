@@ -7,16 +7,17 @@ fn main() {
     // to stderr:
     eprint!("error");
     eprintln!(" + new line");
+
+    assert_eq!(func(1), 2);
+
+    fn func(arg: i32) -> i32 {
+        // immutable: arg += 1;
+        arg + 1 // the last value is return value
+    }
 }
 
 #[test]
 fn constants() {
-    fn func(arg: i32) -> i32 {
-        // immutable: arg += 1;
-        arg + 1 // last value is return value
-    }
-
-    assert_eq!(func(1), 2);
     let logical: bool;
     logical = true;
     assert!(logical);
