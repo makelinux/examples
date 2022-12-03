@@ -330,6 +330,15 @@ fn closue() {
 
     // anonymous closure
     assert_eq!((|arg| arg + one)(1), 2);
+
+    let mut var = 1;
+    assert_eq!(
+        (|arg| {
+            var += arg;
+            var
+        })(1),
+        2
+    );
 }
 
 #[test]
