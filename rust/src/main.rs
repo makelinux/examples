@@ -193,7 +193,7 @@ fn tuples() {
 
 #[test]
 fn traits() {
-    // a trait is like an interface, can contain virtual functions
+    // a trait is like an interface, can contain methods
     trait Zero {
         const ZERO: Self;
         fn is_zero(&self) -> bool;
@@ -254,20 +254,24 @@ fn raw_pointers() {
 
 #[test]
 fn scope() {
+    //static S:String = String::from("a");
     let mut a = String::from("a");
     fn delete(_arg: String) {
         // argument is moved end deleted by destructor
     }
+    delete(a.clone());
+    assert_eq!(a, "a");
     if false {
-        delete(a); // the value is moved here even under the "if false"
+        delete(a); // the value is moved here even it is assert_eq!(a, "a");under the "if false"
     }
     // value of a is undefined here
+    //assert_eq!(a, "a"); // error: value borrowed here after move
     a = "1".to_string(); // reusing a
     let c = a;
-    // value of a is unusable here
+    // value of a is undefined here
     assert_eq!(c, "1");
     a = c;
-    // c is unusable because is immutable
+    // c is unusable because it is immutable
     //c = a; // error: cannot assign twice to immutable variable
     assert_eq!(a, "1");
 }
