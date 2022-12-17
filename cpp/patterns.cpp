@@ -344,7 +344,7 @@ void creational_patterns_demo()
 
     Interface& p = (Builder().add(1).add(2) << 3 << 4).create();
     assert(p.method() == 10);
-    // strstream looks like string builder
+    // stringstream looks like string builder
     delete &p;
 }
 
