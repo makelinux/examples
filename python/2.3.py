@@ -45,23 +45,6 @@ assert 'a' not in comprehension
 assert 'b' in comprehension
 
 
-# https://docs.python.org/3.10/whatsnew/2.1.html
-
-
-def function():
-    def closure():
-        pass
-    closure()
-
-
-# https://docs.python.org/3.10/whatsnew/2.2.html
-
-
-class C(object):
-    def __init__(self):
-        pass
-
-
 assert C.__name__ == 'C'
 
 
@@ -96,5 +79,11 @@ assert list(enumerate(['a', 'b', 'c'])) == [(0, 'a'), (1, 'b'), (2, 'c')]
 assert bool(1) is True
 assert bool([]) is False
 assert range(5)[::2] == [0, 2, 4]
+
+# older
+
+assert([0, 1].pop() == 1)
+l = list().append(2)
+assert(l.pop() == 1)
 
 passed()
