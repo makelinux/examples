@@ -19,6 +19,6 @@
 * Improvements and new features are welcome
 
 ## References
-* [What’s New in Python](https://docs.python.org/3.10/whatsnew/index.html)
+* [What’s New in Python](https://docs.python.org/dev/whatsnew/index.html)
 * [Minimal working example](https://en.wikipedia.org/wiki/Minimal_working_example)
 * [Minimal, Complete, and Verifiable Example](https://stackoverflow.com/help/mcve)
