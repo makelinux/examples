@@ -25,5 +25,12 @@ class Meta(type):
 class Foo(metaclass=Meta):
     pass
 
+try:
+    raise Exception("Ex")
+except Exception as inst:
+    assert str(type(inst)) == "<class 'Exception'>"
+    print(inst.args)
+    print(inst)
+
 
 passed()
