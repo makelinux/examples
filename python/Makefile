@@ -1,4 +1,5 @@
 all:
+	./tricks.py
 	-./2.3.py
 	-./2.4.py
 	-./2.5.py
