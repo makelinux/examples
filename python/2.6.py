@@ -9,4 +9,11 @@ lock = Lock()
 with lock:
     pass
 
+
+try:
+    raise Exception("Ex")
+except Exception as inst:
+    assert(str(inst) == "Ex")
+
+
 passed()
