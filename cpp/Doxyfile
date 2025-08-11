@@ -15,10 +15,14 @@ DOT_IMAGE_FORMAT       = svg
 DOT_TRANSPARENT        = yes
 DOT_MULTI_TARGETS      = yes
 DOT_CLEANUP            = NO
-DOT_FONTNAME           = Ubuntu
 #CASE_SENSE_NAMES       = YES
 SOURCE_BROWSER         = YES
 INLINE_SOURCES         = YES
 QUIET = YES
 ENABLE_PREPROCESSING   = YES
 EXCLUDE_SYMBOLS       = assert requires double _*
+DOT_COMMON_ATTR = fontname=\"Helvetica,Arial,sans-serif\"
+DOT_NODE_ATTR          = fontsize=12 shape=plain
+DOT_NODE_ATTR          = fontsize=12 shape=plaintext
+DOT_EDGE_ATTR          = labelfontsize=10 arrowhead=onormal arrowtail=onormal arrowsize=1
+DOT_EDGE_ATTR          = labelfontsize=10 arrowhead=open arrowtail=open arrowsize=0.5
