@@ -3,19 +3,20 @@
 print("initializing")
 
 import os
+os.environ["WANDB_DISABLED"] = "true"
+os.environ["DS_ACCELERATOR"] = "cpu"
+os.environ["HF_DATASETS_DISABLE_CACHING"] = "1"
+
 from datasets import DatasetDict, disable_progress_bar
 from datasets.arrow_dataset import Dataset
 from transformers.utils import logging
 from transformers import GPT2Config, GPT2LMHeadModel
 from transformers import AutoTokenizer
-# https://huggingface.co/docs/transformers/en/main_classes/data_collator
 from transformers import DataCollatorForLanguageModeling, Trainer, TrainingArguments
 from transformers import pipeline
 from difflib import SequenceMatcher
 import torch
 
-os.environ["WANDB_DISABLED"] = "true"
-os.environ["DS_ACCELERATOR"] = "cpu"
 logging.set_verbosity(logging.ERROR)
 
 length = 4
@@ -24,13 +25,16 @@ print("input:", input)
 input_list = input.split()
 
 disable_progress_bar()
-ds = DatasetDict({ "train": Dataset.from_list([{"text":input}]),
-                        #Dataset.from_generator(gen),
-                   "valid": Dataset.from_list([{"text":input}])
-                   })
+import pyarrow as pa
+train_data = pa.Table.from_pydict({"text": [input]})
+valid_data = pa.Table.from_pydict({"text": [input]})
+ds = DatasetDict({
+    "train": Dataset(train_data, fingerprint="train"),
+    "valid": Dataset(valid_data, fingerprint="valid")
+})
 
 tokenizer= AutoTokenizer.from_pretrained("gpt2")
-    
+
 tokenizer.pad_token = tokenizer.eos_token
 
 # Tokenize the ds
@@ -52,10 +56,11 @@ dc = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 # https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments
 training_args = TrainingArguments(
     run_name="test",
-    num_train_epochs=4,
+    num_train_epochs=20,
     output_dir="./results",
     overwrite_output_dir=True,
     eval_strategy="steps",
+    use_cpu=True,
 )
 
 trainer = Trainer(
@@ -71,7 +76,7 @@ print(t)
 
 print("inference")
 gen = pipeline("text-generation", model=model, tokenizer=tokenizer)
-output = gen(input_list[0], max_length=length, num_return_sequences=1)[0]['generated_text']
+output = gen(input_list[0], max_new_tokens=length - 1, num_return_sequences=1)[0]['generated_text']
 print(SequenceMatcher(None, input, output).ratio(), output)
 tokenizer.save_pretrained('trained_model')
 
