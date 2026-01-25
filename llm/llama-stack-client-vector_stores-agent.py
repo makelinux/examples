@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import os
 from llama_stack_client import Agent, AgentEventLogger, LlamaStackClient
 import requests
 from io import BytesIO
@@ -16,7 +17,7 @@ c.vector_stores.files.create(vector_store_id=vs.id, file_id=file.id)
 
 agent = Agent(
     c,
-    model="vertexai/google/gemini-2.5-flash",
+    model=os.getenv("INFERENCE_MODEL", "vertexai/google/gemini-2.5-flash"),
     instructions="You are a helpful assistant",
     tools=[
         { "type": "file_search", "vector_store_ids": [vs.id], }
