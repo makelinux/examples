@@ -7,13 +7,16 @@ Run this script after starting a Llama Stack server:
     llama stack run starter
 """
 
+# Prerequisite:
+# export OPENAI_BASE_URL=$LLAMA_STACK_CLIENT_BASE_URL/v1
+
 import io
 import os
 
 import requests
 from openai import OpenAI
 
-c = OpenAI(base_url="http://localhost:8321/v1/", api_key="none")
+c = OpenAI()
 
 vs = c.vector_stores.create()
 buf = io.BytesIO(str("abc is green").encode('utf-8'))

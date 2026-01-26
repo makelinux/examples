@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 
+# Prerequisite:
+# export OPENAI_BASE_URL=$LLAMA_STACK_CLIENT_BASE_URL/v1
+
 # ./llama-stack/docs/docs/getting_started/demo_script.py
 
 import io, os, requests
 from openai import OpenAI
 
-c = OpenAI(base_url="http://localhost:8321/v1/", api_key="none")
+c = OpenAI()
 
 vs = c.vector_stores.create()
 buf = io.BytesIO(str("abc is green").encode('utf-8'))
