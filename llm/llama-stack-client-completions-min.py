@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 
-# export INFERENCE_MODEL=llama3.2:1b-instruct-fp16
-## start ollama:
+# export INFERENCE_MODEL=ollama/llama3.2:3b
 # ollama run $INFERENCE_MODEL
-## start llama-stack:
-# uv run --with llama-stack llama stack build --template ollama --image-type venv --image-name ~/my-ollama-llama-stack --run
+# llama stack run starter
 
 import os
 from llama_stack_client import LlamaStackClient
@@ -12,7 +10,7 @@ from llama_stack_client import LlamaStackClient
 c = LlamaStackClient(base_url="http://localhost:8321")
 
 r = c.chat.completions.create(
-    model=os.getenv("INFERENCE_MODEL", "gemini/models/gemini-2.5-pro"),
+    model=os.getenv("INFERENCE_MODEL", "ollama/llama3.2:3b"),
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Write a haiku about coding"},
