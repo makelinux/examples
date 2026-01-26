@@ -14,7 +14,7 @@ fid = c.files.create(file=("aa.txt", buf), purpose="assistants").id
 c.vector_stores.files.create(vs.id, file_id=fid)
 
 resp = c.responses.create(
-    model=os.getenv("INFERENCE_MODEL", "vertexai/google/gemini-2.5-flash"),
+    model=os.getenv("INFERENCE_MODEL", "ollama/llama3.2:3b"),
     input="What is the color of abc?",
     tools=[{"type": "file_search", "vector_store_ids": [vs.id]}],
 #    include=["file_search_call.results"],
